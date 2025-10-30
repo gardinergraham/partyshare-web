@@ -21,66 +21,86 @@ export default function GuestLoginPage() {
     )}&pin_code=${encodeURIComponent(pinCode)}`
     );
 
-      if (!res.ok) throw new Error("Event not found");
-      const events = await res.json();
+  const event = await res.json();
 
-      // Filter to match case-insensitively
-      const match = events.find(
-        (e: any) =>
-          e.name?.trim().toLowerCase() === partyName.trim().toLowerCase() &&
-          e.pin_code?.trim() === pinCode.trim()
-      );
-      return match;
+    // Just check if it matches (since it’s a single object)
+    if (
+    event &&
+    event.name?.trim().toLowerCase() === partyName.trim().toLowerCase() &&
+    event.pin_code?.trim() === pinCode.trim()
+    ) {
+    return event;
+    }
+
+    return null;
+
     } catch (err) {
       console.error("Event lookup failed:", err);
       return null;
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setStatus(null);
 
     try {
-      const event = await fetchEventByNameAndPin();
-      if (!event) {
+        // 1️⃣ Lookup the event first (GET still valid)
+        const resLookup = await fetch(
+        `${API_BASE_URL}/api/spaces/lookup?name=${encodeURIComponent(
+            partyName
+        )}&pin_code=${encodeURIComponent(pinCode)}`
+        );
+
+        if (!resLookup.ok) {
         setStatus("❌ Event not found — please check name and PIN.");
         setLoading(false);
         return;
-      }
-
-      // ✅ Now that we have the real event, submit guest join
-      const res = await fetch(`${API_BASE_URL}/api/spaces/join`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-            name: partyName,
-            pin_code: pinCode,
-            guest_name: guestName,
-        }),
-        });
-
-      if (res.ok) {
-        const data = await res.json();
-        const spaceId = data.space.id;
-        const guest = data.guest.name;
-
-        setStatus("✅ You’ve joined the event! Redirecting...");
-        setTimeout(() => {
-            router.push(`/guest-gallery?space_id=${spaceId}&guest_name=${encodeURIComponent(guest)}`);
-        }, 1200);
-        } else {
-        setStatus("❌ Could not join. Check details and try again.");
         }
 
+        const event = await resLookup.json();
+
+        // 2️⃣ Create FormData for join-by-pin
+        const formData = new FormData();
+        formData.append("pin", pinCode);
+        formData.append("party_name", partyName);
+        formData.append("guest_name", guestName);
+
+        // 3️⃣ POST to correct endpoint
+        const resJoin = await fetch(`${API_BASE_URL}/api/spaces/join-by-pin`, {
+        method: "POST",
+        body: formData,
+        });
+
+        if (!resJoin.ok) {
+        const errText = await resJoin.text();
+        console.error("Join error:", errText);
+        setStatus("❌ Could not join. Check details and try again.");
+        setLoading(false);
+        return;
+        }
+
+        const data = await resJoin.json();
+        const spaceId = data.space?.id;
+        const guest = guestName;
+
+        // 4️⃣ Redirect
+        setStatus("✅ You’ve joined the event! Redirecting...");
+        setTimeout(() => {
+        router.push(
+            `/guest-gallery?space_id=${spaceId}&guest_name=${encodeURIComponent(guest)}&pin=${encodeURIComponent(pinCode)}&party_name=${encodeURIComponent(partyName)}`
+        );
+        }, 1200);
+
     } catch (err) {
-      console.error("Join error:", err);
-      setStatus("❌ Something went wrong — please try again.");
+        console.error("Join error:", err);
+        setStatus("❌ Something went wrong — please try again.");
     } finally {
-      setLoading(false);
+        setLoading(false);
     }
-  };
+    };
+
 
   return (
     <div className="min-h-screen bg-[#0d1b2a] text-white flex flex-col items-center justify-center px-6 py-10">
