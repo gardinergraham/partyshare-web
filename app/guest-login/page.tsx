@@ -178,18 +178,14 @@ export default function GuestLoginPage() {
 
       {/* --- Footer --- */}
       <footer className="mt-8 text-sm text-white text-center flex flex-wrap justify-center gap-6">
-        <a
-          href="/terms"
-          className="hover:text-[#e94560] transition-colors underline underline-offset-4"
-        >
-          Terms & Conditions
-        </a>
-        <a
-          href="/forgot-password"
-          className="hover:text-[#e94560] transition-colors underline underline-offset-4"
-        >
-          Forgot Password?
-        </a>
+         <div className="mt-6 flex justify-center gap-6 text-sm">
+            <a href="/terms" className="text-white hover:text-[#e94560]">
+                Terms & Conditions
+            </a>
+            <a href="/forgot-password" className="text-white hover:text-[#e94560]">
+                Forgot Password?
+            </a>
+          </div>
       </footer>
     </div>
   );
