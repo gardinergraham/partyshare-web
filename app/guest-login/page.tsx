@@ -38,16 +38,17 @@ export default function GuestLoginPage() {
 
       const resJoin = await fetch(`${API_BASE_URL}/api/spaces/join-by-pin`, {
         method: "POST",
-        body: formData,
-      });
+        body: formData, // don't set Content-Type manually with FormData
+        });
 
-      if (!resJoin.ok) {
-        const errText = await resJoin.text();
-        console.error("Join error:", errText);
-        setStatus("❌ Could not join. Check details and try again.");
+        if (!resJoin.ok) {
+        const txt = await resJoin.text().catch(() => "");
+        console.error("Join POST failed:", resJoin.status, txt);
+        setStatus("❌ Could not join. Please try again.");
         setLoading(false);
         return;
-      }
+        }
+
 
       const data = await resJoin.json();
       const spaceId = data.space?.id;
@@ -72,7 +73,7 @@ export default function GuestLoginPage() {
 
   return (
     <div className="min-h-screen bg-[#0f0f23] text-white flex flex-col items-center justify-center px-2 py-10">
-      <div className="w-full max-w-md bg-[#1b263b] rounded-2xl p-8 shadow-2xl">
+     <div className="w-full bg-[#1b263b] p-6 sm:p-8">
         <h1 className="text-3xl font-bold text-center text-[#e94560] mb-3">
           Join Your Event
         </h1>
