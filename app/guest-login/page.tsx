@@ -2,7 +2,8 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { apiPost, API_BASE_URL } from "@/lib/api";
+import { API_BASE_URL } from "@/lib/api";
+import { User, Lock, Calendar } from "lucide-react";
 
 export default function GuestLoginPage() {
   const [partyName, setPartyName] = useState("");
@@ -12,169 +13,184 @@ export default function GuestLoginPage() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  // 🧩 Lookup event by name + pin
-    const fetchEventByNameAndPin = async () => {
-        try {
-        const res = await fetch(
-    `${API_BASE_URL}/api/spaces/lookup?name=${encodeURIComponent(
-        partyName
-    )}&pin_code=${encodeURIComponent(pinCode)}`
-    );
-
-  const event = await res.json();
-
-    // Just check if it matches (since it’s a single object)
-    if (
-    event &&
-    event.name?.trim().toLowerCase() === partyName.trim().toLowerCase() &&
-    event.pin_code?.trim() === pinCode.trim()
-    ) {
-    return event;
-    }
-
-    return null;
-
-    } catch (err) {
-      console.error("Event lookup failed:", err);
-      return null;
-    }
-  };
-
-    const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setStatus(null);
 
     try {
-        // 1️⃣ Lookup the event first (GET still valid)
-        const resLookup = await fetch(
+      const resLookup = await fetch(
         `${API_BASE_URL}/api/spaces/lookup?name=${encodeURIComponent(
-            partyName
+          partyName
         )}&pin_code=${encodeURIComponent(pinCode)}`
-        );
+      );
 
-        if (!resLookup.ok) {
+      if (!resLookup.ok) {
         setStatus("❌ Event not found — please check name and PIN.");
         setLoading(false);
         return;
-        }
+      }
 
-        const event = await resLookup.json();
+      const formData = new FormData();
+      formData.append("pin", pinCode);
+      formData.append("party_name", partyName);
+      formData.append("guest_name", guestName);
 
-        // 2️⃣ Create FormData for join-by-pin
-        const formData = new FormData();
-        formData.append("pin", pinCode);
-        formData.append("party_name", partyName);
-        formData.append("guest_name", guestName);
-
-        // 3️⃣ POST to correct endpoint
-        const resJoin = await fetch(`${API_BASE_URL}/api/spaces/join-by-pin`, {
+      const resJoin = await fetch(`${API_BASE_URL}/api/spaces/join-by-pin`, {
         method: "POST",
         body: formData,
-        });
+      });
 
-        if (!resJoin.ok) {
+      if (!resJoin.ok) {
         const errText = await resJoin.text();
         console.error("Join error:", errText);
         setStatus("❌ Could not join. Check details and try again.");
         setLoading(false);
         return;
-        }
+      }
 
-        const data = await resJoin.json();
-        const spaceId = data.space?.id;
-        const guest = guestName;
+      const data = await resJoin.json();
+      const spaceId = data.space?.id;
 
-        // 4️⃣ Redirect
-        setStatus("✅ You’ve joined the event! Redirecting...");
-        setTimeout(() => {
+      setStatus("✅ You’ve joined the event! Redirecting...");
+      setTimeout(() => {
         router.push(
-            `/guest-gallery?space_id=${spaceId}&guest_name=${encodeURIComponent(guest)}&pin=${encodeURIComponent(pinCode)}&party_name=${encodeURIComponent(partyName)}`
+          `/guest-gallery?space_id=${spaceId}&guest_name=${encodeURIComponent(
+            guestName
+          )}&pin=${encodeURIComponent(pinCode)}&party_name=${encodeURIComponent(
+            partyName
+          )}`
         );
-        }, 1200);
-
+      }, 1200);
     } catch (err) {
-        console.error("Join error:", err);
-        setStatus("❌ Something went wrong — please try again.");
+      console.error("Join error:", err);
+      setStatus("❌ Something went wrong — please try again.");
     } finally {
-        setLoading(false);
+      setLoading(false);
     }
-    };
-
+  };
 
   return (
-    <div className="min-h-screen bg-[#0d1b2a] text-white flex flex-col items-center justify-center px-6 py-10">
-      <div className="max-w-md w-full bg-[#1b263b] rounded-2xl p-6 shadow-lg border border-white/10">
-        <h1 className="text-2xl font-bold text-center mb-4 text-[#e94560]">
+    <div className="min-h-screen bg-[#0f0f23] text-white flex flex-col items-center justify-center px-2 py-10">
+      <div className="w-full max-w-md bg-[#1b263b] rounded-2xl p-8 shadow-2xl">
+        <h1 className="text-3xl font-bold text-center text-[#e94560] mb-3">
           Join Your Event
         </h1>
-        <p className="text-center text-gray-300 mb-6">
+        <p className="text-center text-gray-300 mb-8">
           Enter the event name, PIN, and your name to join.
         </p>
 
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-          <input
-            type="text"
-            placeholder="Event name"
-            value={partyName}
-            onChange={(e) => setPartyName(e.target.value)}
-            required
-            className="rounded-lg p-3 bg-[#0f172a] border border-gray-700 text-white placeholder-gray-400"
-          />
-          <input
-            type="text"
-            placeholder="PIN (e.g. 613399)"
-            value={pinCode}
-            onChange={(e) => setPinCode(e.target.value)}
-            required
-            className="rounded-lg p-3 bg-[#0f172a] border border-gray-700 text-white placeholder-gray-400"
-          />
-          <input
-            type="text"
-            placeholder="Your name"
-            value={guestName}
-            onChange={(e) => setGuestName(e.target.value)}
-            required
-            className="rounded-lg p-3 bg-[#0f172a] border border-gray-700 text-white placeholder-gray-400"
-          />
+        {/* --- Form --- */}
+        <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+          {/* Event name */}
+           <div className="flex items-center bg-[#1a1a2e]/90 border border-[#555] rounded-3xl px-8 py-9 shadow-lg transition-all duration-300 focus-within:ring-2 focus-within:ring-[#e94560] focus-within:shadow-[#e94560]/40">
+            <Calendar size={22} className="text-gray-400" />
+            <input
+              type="text"
+              placeholder="Event name"
+              value={partyName}
+              onChange={(e) => setPartyName(e.target.value)}
+              required
+              className="flex-1 bg-transparent text-white placeholder-gray-400 text-lg pl-2 focus:outline-none"
+            />
+          </div>
 
-          <button
-            type="submit"
-            disabled={loading}
-            className="bg-[#e94560] hover:bg-[#ff5b74] transition rounded-lg py-3 font-semibold mt-2"
-          >
-            {loading ? "Joining..." : "Join Event"}
-          </button>
+         {/* PIN */}
+            <div className="flex items-center bg-[#1a1a2e]/90 border border-[#555] rounded-3xl px-8 py-9 shadow-lg transition-all duration-300 focus-within:ring-2 focus-within:ring-[#e94560] focus-within:shadow-[#e94560]/40">
+            <Lock size={26} className="text-gray-300" />
+            <input
+                type="text"
+                placeholder="Enter PIN (e.g. 613399)"
+                value={pinCode}
+                onChange={(e) => setPinCode(e.target.value)}
+                required
+                className="flex-1 bg-transparent text-white placeholder-gray-400 text-xl pl-4 focus:outline-none tracking-widest"
+            />
+            </div>
+
+          {/* Guest name */}
+          <div className="flex items-center bg-[#1a1a2e]/90 border border-[#555] rounded-3xl px-8 py-9 shadow-lg transition-all duration-300 focus-within:ring-2 focus-within:ring-[#e94560] focus-within:shadow-[#e94560]/40">
+            <User size={22} className="text-gray-400" />
+            <input
+              type="text"
+              placeholder="Your name"
+              value={guestName}
+              onChange={(e) => setGuestName(e.target.value)}
+              required
+              className="flex-1 bg-transparent text-white placeholder-gray-400 text-lg pl-3 focus:outline-none"
+            />
+          </div>
+
+          {/* Join Button */}
+          <div className="flex justify-center">
+            <button
+              type="submit"
+              disabled={loading}
+              className={`w-3/4 rounded-2xl py-5 text-lg font-semibold transition ${
+                loading
+                  ? "bg-[#e94560]/60 cursor-not-allowed"
+                  : "bg-[#e94560] hover:bg-[#ff5b74]"
+              }`}
+            >
+              {loading ? "Joining..." : "Join Event"}
+            </button>
+          </div>
         </form>
 
         {status && (
           <p className="text-center text-sm mt-4 text-gray-300">{status}</p>
         )}
 
-        {/* App promo */}
-        <section className="mt-8 rounded-2xl border border-white/10 bg-[#0f0f23] p-6 text-center">
-          <h3 className="text-xl font-bold mb-2">Love PartyShare?</h3>
+        {/* --- App Promo --- */}
+        <section className="mt-10 bg-[#0f0f23] rounded-2xl p-6 text-center">
+          <h3 className="text-lg font-bold mb-2">Love Party Share?</h3>
           <p className="text-gray-300 mb-4">
             Get the full experience on our mobile app.
           </p>
-          <div className="flex items-center justify-center gap-3">
+
+        <div className="flex items-center justify-center gap-4">
             <a
-              href="https://apps.apple.com"
-              target="_blank"
-              className="rounded-lg border border-white/10 px-4 py-2 hover:bg-white/5"
+                href="https://apps.apple.com"
+                target="_blank"
+                rel="noopener noreferrer"
             >
-              App Store
+                <img
+                src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
+                alt="Download on the App Store"
+                className="h-12 w-[165px] object-contain"
+                />
             </a>
             <a
-              href="https://play.google.com"
-              target="_blank"
-              className="rounded-lg border border-white/10 px-4 py-2 hover:bg-white/5"
+                href="https://play.google.com"
+                target="_blank"
+                rel="noopener noreferrer"
             >
-              Google Play
+                <img
+                src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
+                alt="Get it on Google Play"
+                className="h-12 w-[180px] object-contain"
+                />
             </a>
-          </div>
+            </div>
+
         </section>
       </div>
+
+      {/* --- Footer --- */}
+      <footer className="mt-8 text-sm text-white text-center flex flex-wrap justify-center gap-6">
+        <a
+          href="/terms"
+          className="hover:text-[#e94560] transition-colors underline underline-offset-4"
+        >
+          Terms & Conditions
+        </a>
+        <a
+          href="/forgot-password"
+          className="hover:text-[#e94560] transition-colors underline underline-offset-4"
+        >
+          Forgot Password?
+        </a>
+      </footer>
     </div>
   );
 }

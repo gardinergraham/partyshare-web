@@ -70,26 +70,39 @@ export default function GuestGalleryPage() {
 
   // ✅ Upload media
   async function handleUpload(e: React.ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    setUploading(true);
+  const file = e.target.files?.[0];
+  if (!file) return;
+  setUploading(true);
 
-    const form = new FormData();
-    form.append("space_id", spaceId!);
-    form.append("guest_pin", pin!);
-    form.append("party_name", partyName!);
-    form.append("guest_name", guestName!);
-    form.append("file_type", file.type);
-    form.append("file", file);
+  const form = new FormData();
+  form.append("space_id", spaceId!);
+  form.append("guest_pin", pin!);
+  form.append("party_name", partyName!);
+  form.append("guest_name", guestName!);
+  form.append("file_type", file.type);
+  form.append("file", file);
 
-    await fetch(`${API_BASE_URL}/api/media/guest/upload`, {
-      method: "POST",
-      body: form,
-    });
+  const res = await fetch(`${API_BASE_URL}/api/media/guest/upload`, {
+    method: "POST",
+    body: form,
+  });
 
-    await fetchMedia();
+  if (!res.ok) {
+    const data = await res.json().catch(() => ({}));
+    const message =
+      res.status === 403
+        ? data.detail || "Upload window closed for this event."
+        : data.detail || "Upload failed. Please try again.";
+    alert(`❌ ${message}`);
     setUploading(false);
+    return;
   }
+
+  await fetchMedia();
+  setUploading(false);
+  alert("✅ Upload successful!");
+}
+
 
   // ✅ Post or save guestbook message
   async function handleMessageSave() {
@@ -253,17 +266,21 @@ export default function GuestGalleryPage() {
             ))}
             </div>
 
-          <div className="mt-8 text-center">
-            <label className="cursor-pointer bg-[#e94560] hover:bg-[#ff5b74] px-4 py-2 rounded-lg">
-              {uploading ? "Uploading..." : "Upload Media"}
-              <input
+         <div className="mt-10 text-center">
+            <label className="cursor-pointer inline-block bg-[#e94560] hover:bg-[#ff5b74] px-8 py-4 rounded-xl text-lg font-semibold transition">
+                {uploading ? "Uploading..." : "Upload Media"}
+                <input
                 type="file"
                 onChange={handleUpload}
                 accept="image/*,video/*"
                 hidden
-              />
+                />
             </label>
-          </div>
+            <p className="text-gray-400 text-sm mt-2">
+                Supported formats: JPG, PNG, MP4 (max 100MB)
+            </p>
+            </div>
+
         </>
       )}
 
