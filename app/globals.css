@@ -20,6 +20,7 @@ body {
   padding: 0;
 }
 
+/* 🔹 Buttons */
 button {
   background-color: var(--ps-accent);
   color: white;
@@ -31,4 +32,34 @@ button {
 
 button:hover {
   background-color: #ff5b75;
+}
+
+/* 🔹 Inputs — ensure readable white text */
+input,
+textarea {
+  color: white !important;
+  background-color: #1a1a2e !important;
+  border: 1px solid #666 !important;
+  border-radius: 12px !important;
+  padding: 14px 16px !important;
+  font-size: 16px !important;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #888 !important;
+}
+
+/* 🔹 Links — ensure white + spacing */
+a {
+  color: white !important;
+  text-decoration: underline;
+}
+
+a:hover {
+  color: var(--ps-accent) !important;
+}
+
+a + a {
+  margin-left: 16px;
 }
