@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
-import { useRouter } from "next/navigation";
+import React, { useState, useEffect } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
 import { API_BASE_URL } from "@/lib/api";
 import { User, Lock, Calendar } from "lucide-react";
 
@@ -11,8 +11,41 @@ export default function GuestLoginPage() {
   const [guestName, setGuestName] = useState("");
   const [status, setStatus] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+
+  const searchParams = useSearchParams();
   const router = useRouter();
 
+  // ✅ Auto-fill from QR params
+  useEffect(() => {
+    const spaceId = searchParams.get("space_id");
+    const pin = searchParams.get("pin");
+
+    if (spaceId && pin) {
+      setPinCode(pin);
+
+      const fetchEvent = async () => {
+        try {
+          const res = await fetch(
+            `${API_BASE_URL}/api/spaces/lookup?pin_code=${pin}`
+          );
+          if (res.ok) {
+            const data = await res.json();
+            setPartyName(data.name || "");
+            setStatus("🎉 Event detected — just enter your name to join!");
+          } else {
+            setStatus("⚠️ Could not find event details.");
+          }
+        } catch (err) {
+          console.error(err);
+          setStatus("❌ Error fetching event details.");
+        }
+      };
+
+      fetchEvent();
+    }
+  }, [searchParams]);
+
+  // ✅ Join event
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -38,17 +71,16 @@ export default function GuestLoginPage() {
 
       const resJoin = await fetch(`${API_BASE_URL}/api/spaces/join-by-pin`, {
         method: "POST",
-        body: formData, // don't set Content-Type manually with FormData
-        });
+        body: formData,
+      });
 
-        if (!resJoin.ok) {
+      if (!resJoin.ok) {
         const txt = await resJoin.text().catch(() => "");
         console.error("Join POST failed:", resJoin.status, txt);
         setStatus("❌ Could not join. Please try again.");
         setLoading(false);
         return;
-        }
-
+      }
 
       const data = await resJoin.json();
       const spaceId = data.space?.id;
@@ -73,7 +105,7 @@ export default function GuestLoginPage() {
 
   return (
     <div className="min-h-screen bg-[#0f0f23] text-white flex flex-col items-center justify-center px-2 py-10">
-     <div className="w-full bg-[#1b263b] p-6 sm:p-8">
+      <div className="w-full bg-[#1b263b] p-6 sm:p-8 rounded-2xl shadow-2xl border border-white/10">
         <h1 className="text-3xl font-bold text-center text-[#e94560] mb-3">
           Join Your Event
         </h1>
@@ -84,7 +116,7 @@ export default function GuestLoginPage() {
         {/* --- Form --- */}
         <form onSubmit={handleSubmit} className="flex flex-col gap-5">
           {/* Event name */}
-           <div className="flex items-center bg-[#1a1a2e]/90 border border-[#555] rounded-3xl px-8 py-9 shadow-lg transition-all duration-300 focus-within:ring-2 focus-within:ring-[#e94560] focus-within:shadow-[#e94560]/40">
+          <div className="flex items-center bg-[#1a1a2e]/90 border border-[#555] rounded-3xl px-8 py-9 shadow-lg transition-all duration-300 focus-within:ring-2 focus-within:ring-[#e94560] focus-within:shadow-[#e94560]/40">
             <Calendar size={22} className="text-gray-400" />
             <input
               type="text"
@@ -92,22 +124,24 @@ export default function GuestLoginPage() {
               value={partyName}
               onChange={(e) => setPartyName(e.target.value)}
               required
+              readOnly={searchParams.get("space_id") !== null}
               className="flex-1 bg-transparent text-white placeholder-gray-400 text-lg pl-2 focus:outline-none"
             />
           </div>
 
-         {/* PIN */}
-            <div className="flex items-center bg-[#1a1a2e]/90 border border-[#555] rounded-3xl px-8 py-9 shadow-lg transition-all duration-300 focus-within:ring-2 focus-within:ring-[#e94560] focus-within:shadow-[#e94560]/40">
+          {/* PIN */}
+          <div className="flex items-center bg-[#1a1a2e]/90 border border-[#555] rounded-3xl px-8 py-9 shadow-lg transition-all duration-300 focus-within:ring-2 focus-within:ring-[#e94560] focus-within:shadow-[#e94560]/40">
             <Lock size={26} className="text-gray-300" />
             <input
-                type="text"
-                placeholder="Enter PIN (e.g. 613399)"
-                value={pinCode}
-                onChange={(e) => setPinCode(e.target.value)}
-                required
-                className="flex-1 bg-transparent text-white placeholder-gray-400 text-xl pl-4 focus:outline-none tracking-widest"
+              type="text"
+              placeholder="Enter PIN (e.g. 613399)"
+              value={pinCode}
+              onChange={(e) => setPinCode(e.target.value)}
+              required
+              readOnly={searchParams.get("space_id") !== null}
+              className="flex-1 bg-transparent text-white placeholder-gray-400 text-xl pl-4 focus:outline-none tracking-widest"
             />
-            </div>
+          </div>
 
           {/* Guest name */}
           <div className="flex items-center bg-[#1a1a2e]/90 border border-[#555] rounded-3xl px-8 py-9 shadow-lg transition-all duration-300 focus-within:ring-2 focus-within:ring-[#e94560] focus-within:shadow-[#e94560]/40">
@@ -149,44 +183,41 @@ export default function GuestLoginPage() {
             Get the full experience on our mobile app.
           </p>
 
-        <div className="flex items-center justify-center gap-4">
+          <div className="flex items-center justify-center gap-4">
             <a
-                href="https://apps.apple.com"
-                target="_blank"
-                rel="noopener noreferrer"
+              href="https://apps.apple.com"
+              target="_blank"
+              rel="noopener noreferrer"
             >
-                <img
+              <img
                 src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
                 alt="Download on the App Store"
                 className="h-12 w-[165px] object-contain"
-                />
+              />
             </a>
             <a
-                href="https://play.google.com"
-                target="_blank"
-                rel="noopener noreferrer"
+              href="https://play.google.com"
+              target="_blank"
+              rel="noopener noreferrer"
             >
-                <img
+              <img
                 src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
                 alt="Get it on Google Play"
                 className="h-12 w-[180px] object-contain"
-                />
+              />
             </a>
-            </div>
-
+          </div>
         </section>
       </div>
 
       {/* --- Footer --- */}
       <footer className="mt-8 text-sm text-white text-center flex flex-wrap justify-center gap-6">
-         <div className="mt-6 flex justify-center gap-6 text-sm">
-            <a href="/terms" className="text-white hover:text-[#e94560]">
-                Terms & Conditions
-            </a>
-            <a href="/forgot-password" className="text-white hover:text-[#e94560]">
-                Forgot Password?
-            </a>
-          </div>
+        <a href="/terms" className="text-white hover:text-[#e94560]">
+          Terms & Conditions
+        </a>
+        <a href="/forgot-password" className="text-white hover:text-[#e94560]">
+          Forgot Password?
+        </a>
       </footer>
     </div>
   );
