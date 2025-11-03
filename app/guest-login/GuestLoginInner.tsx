@@ -17,28 +17,31 @@ export default function GuestLoginPage() {
   const router = useRouter();
 
   useEffect(() => {
-  const spaceId = searchParams.get("space_id");
+  const name = searchParams.get("name"); // ✅ Get event name instead of space_id
   const pin = searchParams.get("pin");
   const redirectUrl = searchParams.get("redirect");
 
   // 🔹 Attempt to open the app — non-blocking
+  let timeout: NodeJS.Timeout | null = null;
   if (redirectUrl) {
     setStatus("📱 Opening in PartyShare app...");
-    const timeout = setTimeout(() => {
+    timeout = setTimeout(() => {
       window.location.href = redirectUrl;
     }, 1200);
-    // Clean up on unmount
-    const cleanup = () => clearTimeout(timeout);
-    // Continue below to still load event info
   }
 
   // 🔹 Auto-fill event info
-  if (spaceId && pin) {
+  if (name && pin) {
     setPinCode(pin);
 
     const fetchEvent = async () => {
       try {
-        const res = await fetch(`${API_BASE_URL}/spaces/lookup?pin_code=${pin}`);
+        const res = await fetch(
+          `${API_BASE_URL}/spaces/lookup?name=${encodeURIComponent(
+            name
+          )}&pin_code=${encodeURIComponent(pin)}`
+        );
+
         if (res.ok) {
           const data = await res.json();
           setPartyName(data.name || "");
@@ -54,7 +57,13 @@ export default function GuestLoginPage() {
 
     fetchEvent();
   }
+
+  // ✅ Proper cleanup for redirect timeout
+  return () => {
+    if (timeout) clearTimeout(timeout);
+  };
 }, [searchParams]);
+
 
   // ✅ Join event
   const handleSubmit = async (e: React.FormEvent) => {

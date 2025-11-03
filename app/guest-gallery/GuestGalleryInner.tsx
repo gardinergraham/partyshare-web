@@ -17,6 +17,7 @@ export default function GuestGalleryPage() {
   const pin = params.get("pin");
   const partyName = params.get("party_name");
 
+
   const [media, setMedia] = useState<any[]>([]);
   const [messages, setMessages] = useState<any[]>([]);
   const [tab, setTab] = useState<"gallery" | "guestbook">("gallery");
@@ -26,32 +27,39 @@ export default function GuestGalleryPage() {
   const [loadingMessages, setLoadingMessages] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
-  // ✅ Fetch media
-  async function fetchMedia() {
-    try {
-      const res = await fetch(`${API_BASE_URL}/media/guest-space/${spaceId}?guest_pin=${pin}`);
-      const data = await res.json();
-      setMedia(Array.isArray(data) ? data : []);
-    } catch (err) {
-      console.error("Failed to load media:", err);
-    }
+ // ✅ Fetch media
+async function fetchMedia() {
+  try {
+    const res = await fetch(
+      `${API_BASE_URL}/media/guest-space?guest_pin=${encodeURIComponent(
+        pin || ""
+      )}&party_name=${encodeURIComponent(partyName || "")}`
+    );
+    const data = await res.json();
+    setMedia(Array.isArray(data) ? data : []);
+  } catch (err) {
+    console.error("Failed to load media:", err);
   }
+}
 
-  // ✅ Fetch guestbook
-  async function fetchGuestbook() {
-    try {
-      setLoadingMessages(true);
-      const res = await fetch(
-        `${API_BASE_URL}/guestbook/${spaceId}?guest_pin=${pin}&party_name=${partyName}&guest_name=${guestName}`
-      );
-      const data = await res.json();
-      setMessages(Array.isArray(data) ? data : []);
-    } catch (err) {
-      console.error("Failed to load guestbook:", err);
-    } finally {
-      setLoadingMessages(false);
-    }
+// ✅ Fetch guestbook
+async function fetchGuestbook() {
+  try {
+    setLoadingMessages(true);
+    const res = await fetch(
+      `${API_BASE_URL}/guestbook?guest_pin=${encodeURIComponent(
+        pin || ""
+      )}&party_name=${encodeURIComponent(partyName || "")}`
+    );
+    const data = await res.json();
+    setMessages(Array.isArray(data) ? data : []);
+  } catch (err) {
+    console.error("Failed to load guestbook:", err);
+  } finally {
+    setLoadingMessages(false);
   }
+}
+
 
   // ⏳ Load on mount
   useEffect(() => {
