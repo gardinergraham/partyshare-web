@@ -16,35 +16,45 @@ export default function GuestLoginPage() {
   const searchParams = useSearchParams();
   const router = useRouter();
 
-  // ✅ Auto-fill from QR params
   useEffect(() => {
-    const spaceId = searchParams.get("space_id");
-    const pin = searchParams.get("pin");
+  const spaceId = searchParams.get("space_id");
+  const pin = searchParams.get("pin");
+  const redirectUrl = searchParams.get("redirect");
 
-    if (spaceId && pin) {
-      setPinCode(pin);
+  // 🔹 Attempt to open the app — non-blocking
+  if (redirectUrl) {
+    setStatus("📱 Opening in PartyShare app...");
+    const timeout = setTimeout(() => {
+      window.location.href = redirectUrl;
+    }, 1200);
+    // Clean up on unmount
+    const cleanup = () => clearTimeout(timeout);
+    // Continue below to still load event info
+  }
 
-      const fetchEvent = async () => {
-        try {
-          const res = await fetch(
-            `${API_BASE_URL}/api/spaces/lookup?pin_code=${pin}`
-          );
-          if (res.ok) {
-            const data = await res.json();
-            setPartyName(data.name || "");
-            setStatus("🎉 Event detected — just enter your name to join!");
-          } else {
-            setStatus("⚠️ Could not find event details.");
-          }
-        } catch (err) {
-          console.error(err);
-          setStatus("❌ Error fetching event details.");
+  // 🔹 Auto-fill event info
+  if (spaceId && pin) {
+    setPinCode(pin);
+
+    const fetchEvent = async () => {
+      try {
+        const res = await fetch(`${API_BASE_URL}/spaces/lookup?pin_code=${pin}`);
+        if (res.ok) {
+          const data = await res.json();
+          setPartyName(data.name || "");
+          setStatus("🎉 Event detected — just enter your name to join!");
+        } else {
+          setStatus("⚠️ Could not find event details.");
         }
-      };
+      } catch (err) {
+        console.error(err);
+        setStatus("❌ Error fetching event details.");
+      }
+    };
 
-      fetchEvent();
-    }
-  }, [searchParams]);
+    fetchEvent();
+  }
+}, [searchParams]);
 
   // ✅ Join event
   const handleSubmit = async (e: React.FormEvent) => {
@@ -54,7 +64,7 @@ export default function GuestLoginPage() {
 
     try {
       const resLookup = await fetch(
-        `${API_BASE_URL}/api/spaces/lookup?name=${encodeURIComponent(
+        `${API_BASE_URL}/spaces/lookup?name=${encodeURIComponent(
           partyName
         )}&pin_code=${encodeURIComponent(pinCode)}`
       );
@@ -70,7 +80,7 @@ export default function GuestLoginPage() {
       formData.append("party_name", partyName);
       formData.append("guest_name", guestName);
 
-      const resJoin = await fetch(`${API_BASE_URL}/api/spaces/join-by-pin`, {
+      const resJoin = await fetch(`${API_BASE_URL}/spaces/join-by-pin`, {
         method: "POST",
         body: formData,
       });
