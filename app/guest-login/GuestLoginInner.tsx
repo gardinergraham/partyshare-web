@@ -16,29 +16,30 @@ export default function GuestLoginPage() {
   const searchParams = useSearchParams();
   const router = useRouter();
 
-  useEffect(() => {
-  const name = searchParams.get("name"); // ✅ Get event name instead of space_id
+ useEffect(() => {
+  const eventName = searchParams.get("name"); // ✅ renamed from space_id
   const pin = searchParams.get("pin");
   const redirectUrl = searchParams.get("redirect");
 
-  // 🔹 Attempt to open the app — non-blocking
-  let timeout: NodeJS.Timeout | null = null;
+  // 🔹 Attempt to open the app (non-blocking)
   if (redirectUrl) {
     setStatus("📱 Opening in PartyShare app...");
-    timeout = setTimeout(() => {
+    const timeout = setTimeout(() => {
       window.location.href = redirectUrl;
     }, 1200);
+    return () => clearTimeout(timeout);
   }
 
   // 🔹 Auto-fill event info
-  if (name && pin) {
+  if (eventName && pin) {
     setPinCode(pin);
+    setPartyName(decodeURIComponent(eventName));
 
     const fetchEvent = async () => {
       try {
         const res = await fetch(
           `${API_BASE_URL}/spaces/lookup?name=${encodeURIComponent(
-            name
+            eventName
           )}&pin_code=${encodeURIComponent(pin)}`
         );
 
@@ -47,7 +48,7 @@ export default function GuestLoginPage() {
           setPartyName(data.name || "");
           setStatus("🎉 Event detected — just enter your name to join!");
         } else {
-          setStatus("⚠️ Could not find event details.");
+          setStatus("⚠️ Could not find event details. Please confirm event name.");
         }
       } catch (err) {
         console.error(err);
@@ -57,13 +58,7 @@ export default function GuestLoginPage() {
 
     fetchEvent();
   }
-
-  // ✅ Proper cleanup for redirect timeout
-  return () => {
-    if (timeout) clearTimeout(timeout);
-  };
 }, [searchParams]);
-
 
   // ✅ Join event
   const handleSubmit = async (e: React.FormEvent) => {
@@ -144,7 +139,7 @@ export default function GuestLoginPage() {
               value={partyName}
               onChange={(e) => setPartyName(e.target.value)}
               required
-              readOnly={searchParams.get("space_id") !== null}
+              readOnly={!!searchParams.get("name")}
               className="flex-1 bg-transparent text-white placeholder-gray-400 text-lg pl-2 focus:outline-none"
             />
           </div>
