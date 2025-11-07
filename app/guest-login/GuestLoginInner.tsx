@@ -139,7 +139,7 @@ export default function GuestLoginPage() {
               value={partyName}
               onChange={(e) => setPartyName(e.target.value)}
               required
-              readOnly={!!searchParams.get("name")}
+             readOnly={false}
               className="flex-1 bg-transparent text-white placeholder-gray-400 text-lg pl-2 focus:outline-none"
             />
           </div>
@@ -153,7 +153,7 @@ export default function GuestLoginPage() {
               value={pinCode}
               onChange={(e) => setPinCode(e.target.value)}
               required
-              readOnly={searchParams.get("space_id") !== null}
+             readOnly={false}
               className="flex-1 bg-transparent text-white placeholder-gray-400 text-xl pl-4 focus:outline-none tracking-widest"
             />
           </div>
