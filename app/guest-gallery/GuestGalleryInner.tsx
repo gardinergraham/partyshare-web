@@ -223,7 +223,7 @@ const enterFullscreen = () => {
            {item.file_type?.startsWith("video") ? (
                 <div className="relative w-full aspect-[4/3] bg-black">
                     <ReactPlayer
-                    url={item.file_url}
+                    src={item.file_url}
                     width="100%"
                     height="100%"
                     controls={false}       // ✅ No controls in thumbnail
@@ -369,25 +369,25 @@ const enterFullscreen = () => {
           >
             {media[selectedIndex].file_type?.startsWith("video") ? (
           <div className="relative w-full h-full flex items-center justify-center">
-            <ReactPlayer
-                ref={viewerVideoRef}
-                url={media[selectedIndex].file_url}
-                width="100%"
-                height="100%"
-                controls={true}
-                playing={true}
-                playsinline
-                style={{ maxHeight: "82vh", maxWidth: "100%", borderRadius: "0.75rem" }}
-                config={{
-                    file: {
-                    attributes: {
-                        controlsList: "nodownload",
-                        playsInline: true,
-                        webkitPlaysinline: "true"
-                    }
-                    }
-                }}
-                />
+          <ReactPlayer
+            ref={viewerVideoRef}
+            src={media[selectedIndex].file_url}
+            width="100%"
+            height="100%"
+            controls={true}
+            playing={true}
+            playsinline
+            style={{ maxHeight: "82vh", maxWidth: "100%", borderRadius: "0.75rem" }}
+            config={{
+                file: {
+                attributes: {
+                    controlsList: "nodownload",
+                    playsInline: true,
+                    webkitPlaysinline: "true"
+                }
+                }
+            }}
+            />
 
             
             {/* Fullscreen + Open in new tab actions */}
