@@ -31,9 +31,8 @@ export default function GuestGalleryPage() {
 async function fetchMedia() {
   try {
     const res = await fetch(
-      `${API_BASE_URL}/media/guest-space?pin_code=${encodeURIComponent(
-    pin || ""
-   )}&name=${encodeURIComponent(partyName || "")}`
+   `${API_BASE_URL}/media/guest-space?pin_code=${encodeURIComponent(pin || "")}&party_name=${encodeURIComponent(partyName || "")}`
+
 
     );
     const data = await res.json();
@@ -48,9 +47,8 @@ async function fetchGuestbook() {
   try {
     setLoadingMessages(true);
     const res = await fetch(
-      `${API_BASE_URL}/guestbook?pin_code=${encodeURIComponent(
-     pin || ""
-    )}&name=${encodeURIComponent(partyName || "")}`
+    `${API_BASE_URL}/guestbook?pin_code=${encodeURIComponent(pin || "")}&party_name=${encodeURIComponent(partyName || "")}`
+
 
     );
     const data = await res.json();
@@ -85,7 +83,7 @@ async function fetchGuestbook() {
     const form = new FormData();
     form.append("space_id", spaceId!);
     form.append("pin_code", pin!);
-    form.append("name", partyName!);
+    form.append("party_name", partyName!);
     form.append("guest_name", guestName!);
     form.append("file_type", file.type);
     form.append("file", file);
@@ -116,7 +114,7 @@ async function fetchGuestbook() {
 
     if (editing) {
     await fetch(
-        `${API_BASE_URL}/guestbook/${editing.id}?pin_code=${pin}&name=${partyName}&guest_name=${guestName}`,
+        `${API_BASE_URL}/guestbook/${editing.id}?pin_code=${pin}&party_name=${partyName}&guest_name=${guestName}`,
         { method: "PUT", body: formData }
     );
     setEditing(null);
@@ -140,7 +138,7 @@ async function fetchGuestbook() {
       const res = await fetch(
         `${API_BASE_URL}/media/guest/${id}?pin_code=${encodeURIComponent(
           pin || ""
-        )}&name=${encodeURIComponent(partyName || "")}&guest_name=${encodeURIComponent(guestName || "")}`,
+        )}&party_name=${encodeURIComponent(partyName || "")}&guest_name=${encodeURIComponent(guestName || "")}`,
         { method: "DELETE" }
       );
       if (!res.ok) {
@@ -159,7 +157,7 @@ async function fetchGuestbook() {
   async function handleDeleteMessage(id: string) {
     if (!confirm("Delete this message?")) return;
     await fetch(
-      `${API_BASE_URL}/guestbook/${id}?pin_code=${pin}&name=${partyName}&guest_name=${guestName}`,
+      `${API_BASE_URL}/guestbook/${id}?pin_code=${pin}&party_name=${partyName}&guest_name=${guestName}`,
       { method: "DELETE" }
     );
     fetchGuestbook();
