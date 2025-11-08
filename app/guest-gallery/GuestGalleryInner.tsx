@@ -75,7 +75,8 @@ async function fetchGuestbook() {
   }, [spaceId]);
 
   // ✅ Upload media
-async function handleUpload(e) {
+// ✅ Upload media
+async function handleUpload(e: React.ChangeEvent<HTMLInputElement>) {
   const file = e.target.files?.[0];
   if (!file) return;
   setUploading(true);
@@ -88,7 +89,7 @@ async function handleUpload(e) {
   form.append("file_type", file.type);
   form.append("file", file);
 
-  const res = await fetch(`${API_BASE_URL}/api/media/guest/upload`, {
+  const res = await fetch(`${API_BASE_URL}/media/guest/upload`, {
     method: "POST",
     body: form,
   });
