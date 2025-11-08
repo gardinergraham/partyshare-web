@@ -174,9 +174,13 @@ const enterFullscreen = () => {
   const el = viewerVideoRef.current;
   if (!el) return;
 
-  if (el.requestFullscreen) return el.requestFullscreen();
+  // Desktop / Android
+  if (el.requestFullscreen) {
+    el.requestFullscreen();
+    return;
+  }
 
-  // iPhone / iPad Safari fallback:
+  // Safari iOS fallback
   // @ts-ignore
   if (typeof el.webkitEnterFullscreen === "function") {
     // @ts-ignore
@@ -184,10 +188,9 @@ const enterFullscreen = () => {
     return;
   }
 
-  // Last fallback: open video in new tab
+  // Open as last fallback
   window.open(el.currentSrc || el.src, "_blank");
 };
-
 
 
 
@@ -352,42 +355,41 @@ const enterFullscreen = () => {
             exit={{ x: -40, opacity: 0 }}
           >
             {media[selectedIndex].file_type?.startsWith("video") ? (
-              <div className="relative w-full h-full flex items-center justify-center">
-               <video
+          <div className="relative w-full h-full flex items-center justify-center">
+            <video
                 ref={viewerVideoRef}
-                key={media[selectedIndex].id} // forces Safari to repaint correctly
+                key={media[selectedIndex].id}
                 src={media[selectedIndex].file_url}
                 controls
                 playsInline
                 controlsList="nodownload"
                 className="max-h-[82vh] max-w-full rounded-lg bg-black"
-                onLoadedMetadata={(e) => {
-                    // ✅ Do NOT seek here — we want real playback
-                    try { e.currentTarget.currentTime = 0; } catch {}
+            />
+            
+            {/* Fullscreen + Open in new tab actions */}
+            <div className="absolute bottom-3 right-3 flex gap-2">
+                <button
+                onClick={(e) => {
+                    e.stopPropagation();
+                    enterFullscreen();
                 }}
-                />
+                className="bg-white/20 hover:bg-white/30 text-white text-sm px-3 py-1 rounded-lg"
+                >
+                Fullscreen
+                </button>
 
-                {/* Fullscreen + Open in new tab actions */}
-                <div className="absolute bottom-3 right-3 flex gap-2">
-                  <button
-                    onClick={enterFullscreen}
-                    className="bg-white/15 hover:bg-white/25 text-white text-sm px-3 py-1 rounded-lg"
-                    title="Fullscreen"
-                  >
-                    Fullscreen
-                  </button>
-                  <a
-                    href={media[selectedIndex].file_url}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="bg-white/15 hover:bg-white/25 text-white text-sm px-3 py-1 rounded-lg"
-                    title="Open in new tab"
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    Open
-                  </a>
-                </div>
-              </div>
+                <a
+                href={media[selectedIndex].file_url}
+                target="_blank"
+                rel="noreferrer"
+                onClick={(e) => e.stopPropagation()}
+                className="bg-white/20 hover:bg-white/30 text-white text-sm px-3 py-1 rounded-lg"
+                >
+                Open
+                </a>
+            </div>
+            </div>
+
             ) : (
               <img
                 src={media[selectedIndex].file_url}
