@@ -161,24 +161,26 @@ const closeViewer = () => {
 
 // ✅ Navigation
 const nextItem = () => {
-  setSelectedIndex((i) => i !== null ? (i + 1) % media.length : 0);
+  setSelectedIndex((i) => (i !== null ? (i + 1) % media.length : 0));
 };
+
 const prevItem = () => {
-  setSelectedIndex((i) => i !== null ? (i - 1 + media.length) % media.length : 0);
+  setSelectedIndex((i) => (i !== null ? (i - 1 + media.length) % media.length : 0));
 };
+
 
 // ✅ Proper fullscreen handling (with real iOS fallback)
 const enterFullscreen = () => {
   const el = viewerVideoRef.current;
   if (!el) return;
 
-  // Try real Fullscreen API
+  // Standard Fullscreen API
   if (el.requestFullscreen) {
     el.requestFullscreen();
     return;
   }
 
-  // Safari iOS fallback → it **must** use webkitEnterFullscreen()
+  // Safari iOS fallback
   // @ts-ignore
   if (typeof el.webkitEnterFullscreen === "function") {
     // @ts-ignore
@@ -186,7 +188,7 @@ const enterFullscreen = () => {
     return;
   }
 
-  // Final fallback → open video in new tab (iOS/WhatsApp Viewer mode)
+  // Last fallback
   window.open(el.currentSrc || el.src, "_blank");
 };
 
@@ -220,16 +222,17 @@ const enterFullscreen = () => {
         >
           {/* ✅ Video thumbnail: load only metadata; show first frame when possible */}
           {item.file_type?.startsWith("video") ? (
-          <video
-                src={item.file_url}
-                muted
-                playsInline
-                preload="metadata"
-                className="w-full h-full object-cover aspect-[4/3] bg-black"
-                onLoadedData={(e) => {
-                    try { e.currentTarget.currentTime = 0.001; } catch {}
-                }}
-                />
+        <video
+            src={item.file_url}
+            muted
+            playsInline
+            preload="metadata"
+            className="w-full h-full object-cover aspect-[4/3] bg-black"
+            onLoadedData={(e) => {
+                try { e.currentTarget.currentTime = 0.001; } catch {}
+            }}
+            />
+
 
           ) : (
             <img
