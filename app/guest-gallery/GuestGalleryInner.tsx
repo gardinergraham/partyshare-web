@@ -235,7 +235,7 @@ const enterFullscreen = () => {
                     controls={true}       // ✅ No controls in thumbnail
                     light={true}           // ✅ Show video preview thumbnail
                     playIcon={null}        // ✅ No big play icon
-                    playing={true}
+                    playing={false}
                     muted={true}
                     playsinline
                     style={{ objectFit: "cover" }}
@@ -380,8 +380,8 @@ const enterFullscreen = () => {
             src={media[selectedIndex].file_url}
             width="100%"
             height="100%"
-            controls={true}
-            playing={true}
+            controls={false}
+            playing={false}
             playsinline
             style={{ maxHeight: "82vh", maxWidth: "100%", borderRadius: "0.75rem" }}
             config={{
