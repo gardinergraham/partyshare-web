@@ -35,7 +35,10 @@ export default function GuestLoginPage() {
 
   // If both present → try lookup
   if (eventName && pin) {
-    fetch(`${API_BASE_URL}/spaces/lookup?name=${encodeURIComponent(eventName)}&pin_code=${encodeURIComponent(pin)}`)
+    fetch(`${API_BASE_URL}/api/spaces/lookup?name=${encodeURIComponent(
+  partyName
+  )}&pin_code=${encodeURIComponent(pinCode)}`
+  )
       .then((res) => res.json().catch(() => null))
       .then((data) => {
         if (data && data.name) {
@@ -60,9 +63,10 @@ export default function GuestLoginPage() {
 
     try {
       const resLookup = await fetch(
-        `${API_BASE_URL}/spaces/lookup?name=${encodeURIComponent(
-          partyName
-        )}&pin_code=${encodeURIComponent(pinCode)}`
+        `${API_BASE_URL}/api/spaces/lookup?name=${encodeURIComponent(
+    partyName
+    )}&pin_code=${encodeURIComponent(pinCode)}`
+
       );
 
       if (!resLookup.ok) {
@@ -76,7 +80,7 @@ export default function GuestLoginPage() {
       formData.append("party_name", partyName);
       formData.append("guest_name", guestName);
 
-      const resJoin = await fetch(`${API_BASE_URL}/spaces/join-by-pin`, {
+      const resJoin = await fetch(`${API_BASE_URL}/api/spaces/join-by-pin`, {
         method: "POST",
         body: formData,
       });
