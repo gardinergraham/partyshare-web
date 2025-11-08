@@ -18,7 +18,7 @@ export default function GuestLoginPage() {
 
  useEffect(() => {
   const eventName = searchParams.get("name"); // ✅ renamed from space_id
-  const pin = searchParams.get("pin");
+  const pin = searchParams.get("pin_code") || searchParams.get("pin");
   const redirectUrl = searchParams.get("redirect");
 
   // 🔹 Attempt to open the app (non-blocking)
