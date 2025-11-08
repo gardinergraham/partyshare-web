@@ -221,16 +221,19 @@ const enterFullscreen = () => {
         >
           {/* ✅ Video thumbnail: load only metadata; show first frame when possible */}
        {item.file_type?.startsWith("video") ? (
-            <video
-                src={item.file_url}
-                muted
-                playsInline
-                preload="metadata"
-                className="w-full h-full object-cover aspect-[4/3] bg-black"
-                onLoadedMetadata={(e) => {
-                // Force preview frame ONLY for thumbnail
-                try { e.currentTarget.currentTime = 0.001; } catch {}
-                }}
+            <ReactPlayer
+               url={item.file_url}
+                width="100%"
+                height="100%"
+                controls={true}       // ✅ No controls in thumbnail
+                light={true}           // ✅ Show video preview thumbnail
+                playIcon={true}        // ✅ No big play icon
+                playing={false}
+                muted={true}
+                playsinline
+                style={{ objectFit: "cover" }}
+                onClick={() => openViewer(index)}
+              
             />
             ) : (
             <img
