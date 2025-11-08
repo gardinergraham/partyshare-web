@@ -17,48 +17,40 @@ export default function GuestLoginPage() {
   const router = useRouter();
 
  useEffect(() => {
-  const eventName = searchParams.get("name"); // ✅ renamed from space_id
-  const pin = searchParams.get("pin_code") || searchParams.get("pin");
+  const spaceId = searchParams.get("space_id");
+  const eventName = searchParams.get("name");
+  const pin = searchParams.get("pin");
   const redirectUrl = searchParams.get("redirect");
 
-  // 🔹 Attempt to open the app (non-blocking)
+  // Attempt app open if redirect present
   if (redirectUrl) {
-    setStatus("📱 Opening in PartyShare app...");
-    const timeout = setTimeout(() => {
+    setTimeout(() => {
       window.location.href = redirectUrl;
-    }, 1200);
-    return () => clearTimeout(timeout);
+    }, 800);
   }
 
-  // 🔹 Auto-fill event info
+  // Autofill
+  if (eventName) setPartyName(decodeURIComponent(eventName));
+  if (pin) setPinCode(pin);
+
+  // If both present → try lookup
   if (eventName && pin) {
-    setPinCode(pin);
-    setPartyName(decodeURIComponent(eventName));
-
-    const fetchEvent = async () => {
-      try {
-        const res = await fetch(
-          `${API_BASE_URL}/spaces/lookup?name=${encodeURIComponent(
-            eventName
-          )}&pin_code=${encodeURIComponent(pin)}`
-        );
-
-        if (res.ok) {
-          const data = await res.json();
-          setPartyName(data.name || "");
-          setStatus("🎉 Event detected — just enter your name to join!");
+    fetch(`${API_BASE_URL}/spaces/lookup?name=${encodeURIComponent(eventName)}&pin_code=${encodeURIComponent(pin)}`)
+      .then((res) => res.json().catch(() => null))
+      .then((data) => {
+        if (data && data.name) {
+          setPartyName(data.name);
+          setStatus("🎉 Event found — enter your name to join!");
         } else {
-          setStatus("⚠️ Could not find event details. Please confirm event name.");
+          setStatus("⚠️ Event not found — please check details.");
         }
-      } catch (err) {
-        console.error(err);
-        setStatus("❌ Error fetching event details.");
-      }
-    };
-
-    fetchEvent();
+      })
+      .catch(() => {
+        setStatus("❌ Error connecting to server.");
+      });
   }
 }, [searchParams]);
+
 
   // ✅ Join event
   const handleSubmit = async (e: React.FormEvent) => {
