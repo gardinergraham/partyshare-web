@@ -30,14 +30,11 @@ export default function GuestGalleryPage() {
  // ✅ Fetch media
 async function fetchMedia() {
   try {
-    const form = new FormData();
-    form.append("name", partyName || "");
-    form.append("pin_code", pin || "");
-
-    const res = await fetch(`${API_BASE_URL}/api/media/guest-space`, {
-      method: "POST",
-      body: form,
-    });
+    const res = await fetch(
+      `${API_BASE_URL}/media/guest-space?pin_code=${encodeURIComponent(
+        pin || ""
+      )}&name=${encodeURIComponent(partyName || "")}`
+    );
 
     if (!res.ok) {
       console.error("Media fetch failed:", await res.text());
@@ -52,19 +49,15 @@ async function fetchMedia() {
   }
 }
 
-
 async function fetchGuestbook() {
   try {
     setLoadingMessages(true);
 
-    const form = new FormData();
-    form.append("name", partyName || "");
-    form.append("pin_code", pin || "");
-
-    const res = await fetch(`${API_BASE_URL}/api/guestbook/list`, {
-      method: "POST",
-      body: form,
-    });
+    const res = await fetch(
+      `${API_BASE_URL}/guestbook?pin_code=${encodeURIComponent(
+        pin || ""
+      )}&name=${encodeURIComponent(partyName || "")}`
+    );
 
     if (!res.ok) {
       console.error("Guestbook fetch failed:", await res.text());
@@ -80,6 +73,7 @@ async function fetchGuestbook() {
     setLoadingMessages(false);
   }
 }
+
 
 
   // ⏳ Load on mount
