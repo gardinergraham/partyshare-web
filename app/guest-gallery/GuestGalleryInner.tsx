@@ -220,22 +220,32 @@ const enterFullscreen = () => {
           whileHover={{ scale: 1.01 }}
         >
           {/* ✅ Video thumbnail: load only metadata; show first frame when possible */}
-       {item.file_type?.startsWith("video") ? (
-            <ReactPlayer
-               url={item.file_url}
-                width="100%"
-                height="100%"
-                controls={true}       // ✅ No controls in thumbnail
-                light={true}           // ✅ Show video preview thumbnail
-                playIcon={true}        // ✅ No big play icon
-                playing={false}
-                muted={true}
-                playsinline
-                style={{ objectFit: "cover" }}
-                onClick={() => openViewer(index)}
-              
-            />
-            ) : (
+           {item.file_type?.startsWith("video") ? (
+                <div className="relative w-full aspect-[4/3] bg-black">
+                    <ReactPlayer
+                    url={item.file_url}
+                    width="100%"
+                    height="100%"
+                    controls={false}       // ✅ No controls in thumbnail
+                    light={true}           // ✅ Show video preview thumbnail
+                    playIcon={null}        // ✅ No big play icon
+                    playing={false}
+                    muted={true}
+                    playsinline
+                    style={{ objectFit: "cover" }}
+                    onClick={() => openViewer(index)}
+                    config={{
+                        file: {
+                        attributes: {
+                            playsInline: true,
+                            webkitPlaysinline: "true",
+                        }
+                        }
+                    }}
+                    />
+                </div>
+                ) : (
+
             <img
                 src={item.file_url || "/placeholder.jpg"}
                 alt="Event media"
@@ -359,15 +369,26 @@ const enterFullscreen = () => {
           >
             {media[selectedIndex].file_type?.startsWith("video") ? (
           <div className="relative w-full h-full flex items-center justify-center">
-            <video
+            <ReactPlayer
                 ref={viewerVideoRef}
-                key={media[selectedIndex].id}
-                src={media[selectedIndex].file_url}
-                controls
-                playsInline
-                controlsList="nodownload"
-                className="max-h-[82vh] max-w-full rounded-lg bg-black"
-            />
+                url={media[selectedIndex].file_url}
+                width="100%"
+                height="100%"
+                controls={true}
+                playing={true}
+                playsinline
+                style={{ maxHeight: "82vh", maxWidth: "100%", borderRadius: "0.75rem" }}
+                config={{
+                    file: {
+                    attributes: {
+                        controlsList: "nodownload",
+                        playsInline: true,
+                        webkitPlaysinline: "true"
+                    }
+                    }
+                }}
+                />
+
             
             {/* Fullscreen + Open in new tab actions */}
             <div className="absolute bottom-3 right-3 flex gap-2">
