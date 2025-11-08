@@ -30,29 +30,49 @@ export default function GuestGalleryPage() {
  // ✅ Fetch media
 async function fetchMedia() {
   try {
-    const res = await fetch(
-      `${API_BASE_URL}/api/media/guest-space?pin_code=${encodeURIComponent(
-        pin || ""
-      )}&name=${encodeURIComponent(partyName || "")}`
-    );
+    const form = new FormData();
+    form.append("name", partyName || "");
+    form.append("pin_code", pin || "");
+
+    const res = await fetch(`${API_BASE_URL}/api/media/guest-space`, {
+      method: "POST",
+      body: form,
+    });
+
+    if (!res.ok) {
+      console.error("Media fetch failed:", await res.text());
+      return;
+    }
 
     const data = await res.json();
+    console.log("📸 Loaded media:", data);
     setMedia(Array.isArray(data) ? data : []);
   } catch (err) {
     console.error("Failed to load media:", err);
   }
 }
 
+
 async function fetchGuestbook() {
   try {
     setLoadingMessages(true);
-    const res = await fetch(
-      `${API_BASE_URL}/api/guestbook?pin_code=${encodeURIComponent(
-        pin || ""
-      )}&name=${encodeURIComponent(partyName || "")}`
-    );
+
+    const form = new FormData();
+    form.append("name", partyName || "");
+    form.append("pin_code", pin || "");
+
+    const res = await fetch(`${API_BASE_URL}/api/guestbook/list`, {
+      method: "POST",
+      body: form,
+    });
+
+    if (!res.ok) {
+      console.error("Guestbook fetch failed:", await res.text());
+      return;
+    }
 
     const data = await res.json();
+    console.log("📖 Loaded guestbook:", data);
     setMessages(Array.isArray(data) ? data : []);
   } catch (err) {
     console.error("Failed to load guestbook:", err);
@@ -60,6 +80,7 @@ async function fetchGuestbook() {
     setLoadingMessages(false);
   }
 }
+
 
   // ⏳ Load on mount
   useEffect(() => {
@@ -136,12 +157,10 @@ async function handleUpload(e: React.ChangeEvent<HTMLInputElement>) {
   async function handleDeleteMedia(id: string) {
     if (!confirm("Are you sure you want to delete this media?")) return;
     try {
-      const res = await fetch(
-        `${API_BASE_URL}/media/guest/${id}?pin_code=${encodeURIComponent(
-          pin || ""
-        )}&party_name=${encodeURIComponent(partyName || "")}&guest_name=${encodeURIComponent(guestName || "")}`,
-        { method: "DELETE" }
-      );
+      const res = await fetch(`${API_BASE_URL}/api/media/guest/${id}`, {
+      method: "DELETE",
+      });
+
       if (!res.ok) {
         const err = await res.json();
         alert(`❌ Failed to delete: ${err.detail || res.statusText}`);
@@ -157,10 +176,10 @@ async function handleUpload(e: React.ChangeEvent<HTMLInputElement>) {
   // 🗑️ Delete message
   async function handleDeleteMessage(id: string) {
     if (!confirm("Delete this message?")) return;
-    await fetch(
-      `${API_BASE_URL}/guestbook/${id}?pin_code=${pin}&party_name=${partyName}&guest_name=${guestName}`,
-      { method: "DELETE" }
-    );
+   await fetch(`${API_BASE_URL}/api/media/guest/${id}`, {
+     method: "DELETE",
+     });
+
     fetchGuestbook();
   }
 
