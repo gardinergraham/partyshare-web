@@ -150,58 +150,111 @@ export default function GuestGalleryPage() {
       </div>
 
       {/* =======================  GALLERY VIEW  ======================= */}
-      {tab === "gallery" && (
-        <>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-           {media.map((item, index) => (
-    <motion.div
-        key={item.id}
-        className="relative group rounded-xl overflow-hidden border border-white/10 cursor-pointer"
-        onClick={() => setSelectedIndex(index)}
-    >
-        {/* ✅ Show Thumbnail for Videos, Full Image for Photos */}
-        {item.file_type?.startsWith("video") ? (
-        <div className="relative w-full aspect-[4/3] bg-black flex items-center justify-center text-sm text-gray-400">
-            🎥 Video
-        </div>
-        ) : (
-        <img
-            src={item.file_url || "/placeholder.jpg"}
-            alt="Event media"
-            className="w-full h-full object-cover"
-        />
-        )}
-
-        {/* ✅ Name Tag (unchanged) */}
-        <p className="absolute bottom-1 left-1 text-xs bg-black/60 px-2 py-1 rounded">
-        {item.uploader_name || item.guest_name || item.uploaded_by?.replace("guest_", "") || "Guest"}
-        </p>
-
-        {/* ✅ Delete Button (unchanged) */}
-        {item.uploader_name?.trim().toLowerCase() === guestName?.trim().toLowerCase() && (
-        <button
-            onClick={(e) => {
-            e.stopPropagation();
-            handleDeleteMedia(item.id);
-            }}
-            className="absolute top-1 right-1 pointer-events-auto bg-red-600 hover:bg-red-700 p-1 rounded-full opacity-100 md:opacity-0 md:group-hover:opacity-100 transition"
+ {tab === "gallery" && (
+  <>
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+      {media.map((item, index) => (
+        <motion.div
+          key={item.id}
+          className="relative group rounded-xl overflow-hidden border border-white/10 cursor-pointer"
+          onClick={() => setSelectedIndex(index)}
         >
-            <Trash2 size={14} className="text-white" />
-        </button>
-        )}
-    </motion.div>
-    ))}
+          {/* ✅ Improved Video Thumbnail */}
+          {item.file_type?.startsWith("video") ? (
+            <video
+              src={item.file_url}
+              playsInline
+              muted
+              preload="metadata"
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            <img
+              src={item.file_url || "/placeholder.jpg"}
+              alt="Event media"
+              className="w-full h-full object-cover"
+              loading="lazy"
+            />
+          )}
 
-          </div>
+          {/* Name Tag */}
+          <p className="absolute bottom-1 left-1 text-xs bg-black/60 px-2 py-1 rounded">
+            {item.uploader_name || item.guest_name || item.uploaded_by?.replace("guest_", "") || "Guest"}
+          </p>
 
-          <div className="mt-8 text-center">
-            <label className="cursor-pointer bg-[#e94560] hover:bg-[#ff5b74] px-6 py-3 rounded-lg inline-block">
-              {uploading ? "Uploading..." : "Upload Media"}
-              <input type="file" accept="image/*,video/*" onChange={handleUpload} hidden />
-            </label>
-          </div>
-        </>
+          {/* Delete Button */}
+          {item.uploader_name?.trim().toLowerCase() === guestName?.trim().toLowerCase() && (
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                handleDeleteMedia(item.id);
+              }}
+              className="absolute top-1 right-1 pointer-events-auto bg-red-600 hover:bg-red-700 p-1 rounded-full opacity-100 md:opacity-0 md:group-hover:opacity-100 transition"
+            >
+              <Trash2 size={14} className="text-white" />
+            </button>
+          )}
+        </motion.div>
+      ))}
+    </div>
+
+    {/* ✅ FULLSCREEN VIEWER */}
+    <AnimatePresence>
+      {selectedIndex !== null && media[selectedIndex] && (
+        <motion.div
+          className="fixed inset-0 bg-black/90 flex items-center justify-center z-50"
+          onClick={() => setSelectedIndex(null)}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+        >
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              setSelectedIndex(null);
+            }}
+            className="absolute top-5 right-5 text-white text-3xl font-bold"
+          >
+            ✕
+          </button>
+
+          <motion.div
+            key={media[selectedIndex]?.id}
+            className="max-w-5xl w-full h-[80vh] flex items-center justify-center"
+            drag="x"
+            dragConstraints={{ left: 0, right: 0 }}
+            onDragEnd={(e, info) => {
+              if (info.offset.x > 100) setSelectedIndex((i) => (i! - 1 + media.length) % media.length);
+              else if (info.offset.x < -100) setSelectedIndex((i) => (i! + 1) % media.length);
+            }}
+            onClick={(e) => e.stopPropagation()}
+            initial={{ x: 100, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: -100, opacity: 0 }}
+          >
+            {/* ✅ Videos now play properly */}
+            {media[selectedIndex]?.file_type?.startsWith("video") ? (
+              <video
+                src={media[selectedIndex].file_url}
+                controls
+                autoPlay
+                playsInline
+                className="max-h-full max-w-full rounded-lg"
+              />
+            ) : (
+              <img
+                src={media[selectedIndex].file_url}
+                alt="Full media"
+                className="max-h-full max-w-full rounded-lg select-none"
+              />
+            )}
+          </motion.div>
+        </motion.div>
       )}
+    </AnimatePresence>
+  </>
+)}
+
 
       {/* =======================  GUESTBOOK VIEW  ======================= */}
       {tab === "guestbook" && (
