@@ -23,7 +23,7 @@ export default function GuestGalleryPage() {
   const [messageText, setMessageText] = useState("");
   const [editing, setEditing] = useState<any | null>(null);
   const [loadingMessages, setLoadingMessages] = useState(false);
-  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+ // const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
   async function fetchMedia() {
     try {
@@ -136,6 +136,63 @@ export default function GuestGalleryPage() {
     fetchGuestbook();
   }
 
+
+
+// ✅ Viewer state
+const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+const [showViewer, setShowViewer] = useState(false);
+
+// Keep ref for fullscreen
+const viewerVideoRef = React.useRef<HTMLVideoElement | null>(null);
+
+// ✅ Open full viewer
+const openViewer = (i: number) => {
+  setSelectedIndex(i);
+  setShowViewer(true);
+  document.body.style.overflow = "hidden";
+};
+
+// ✅ Close viewer
+const closeViewer = () => {
+  setShowViewer(false);
+  setSelectedIndex(null);
+  document.body.style.overflow = "";
+};
+
+// ✅ Navigation
+const nextItem = () => {
+  setSelectedIndex((i) => i !== null ? (i + 1) % media.length : 0);
+};
+const prevItem = () => {
+  setSelectedIndex((i) => i !== null ? (i - 1 + media.length) % media.length : 0);
+};
+
+// ✅ Proper fullscreen handling (with real iOS fallback)
+const enterFullscreen = () => {
+  const el = viewerVideoRef.current;
+  if (!el) return;
+
+  // Try real Fullscreen API
+  if (el.requestFullscreen) {
+    el.requestFullscreen();
+    return;
+  }
+
+  // Safari iOS fallback → it **must** use webkitEnterFullscreen()
+  // @ts-ignore
+  if (typeof el.webkitEnterFullscreen === "function") {
+    // @ts-ignore
+    el.webkitEnterFullscreen();
+    return;
+  }
+
+  // Final fallback → open video in new tab (iOS/WhatsApp Viewer mode)
+  window.open(el.currentSrc || el.src, "_blank");
+};
+
+
+
+
   return (
     <div className="min-h-screen bg-[#0f0f23] text-white px-4 py-6">
       <h1 className="text-2xl font-bold text-center text-[#e94560] mb-6">{partyName}</h1>
@@ -152,45 +209,55 @@ export default function GuestGalleryPage() {
       {/* =======================  GALLERY VIEW  ======================= */}
  {tab === "gallery" && (
   <>
+    {/* GRID */}
     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
       {media.map((item, index) => (
         <motion.div
           key={item.id}
           className="relative group rounded-xl overflow-hidden border border-white/10 cursor-pointer"
-          onClick={() => setSelectedIndex(index)}
+          onClick={() => openViewer(index)}
+          whileHover={{ scale: 1.01 }}
         >
-          {/* ✅ Improved Video Thumbnail */}
-        {item.file_type?.startsWith("video") ? (
-            <video
+          {/* ✅ Video thumbnail: load only metadata; show first frame when possible */}
+          {item.file_type?.startsWith("video") ? (
+          <video
                 src={item.file_url}
-                playsInline
                 muted
+                playsInline
                 preload="metadata"
-                className="w-full h-full object-cover"
-            />
-            ) : (
-            <img
-                src={item.file_url || "/placeholder.jpg"}
-                alt="Event media"
-                className="w-full h-full object-cover"
-                loading="lazy"
-            />
-            )}
+                className="w-full h-full object-cover aspect-[4/3] bg-black"
+                onLoadedData={(e) => {
+                    try { e.currentTarget.currentTime = 0.001; } catch {}
+                }}
+                />
 
+          ) : (
+            <img
+              src={item.file_url || "/placeholder.jpg"}
+              alt="Event media"
+              className="w-full h-full object-cover"
+              loading="lazy"
+            />
+          )}
 
           {/* Name Tag */}
-          <p className="absolute bottom-1 left-1 text-xs bg-black/60 px-2 py-1 rounded">
-            {item.uploader_name || item.guest_name || item.uploaded_by?.replace("guest_", "") || "Guest"}
+          <p className="absolute bottom-1 left-1 text-[11px] bg-black/60 px-2 py-1 rounded">
+            {item.uploader_name ||
+              item.guest_name ||
+              item.uploaded_by?.replace("guest_", "") ||
+              "Guest"}
           </p>
 
-          {/* Delete Button */}
-          {item.uploader_name?.trim().toLowerCase() === guestName?.trim().toLowerCase() && (
+          {/* Delete (only for uploader) */}
+          {item.uploader_name?.trim().toLowerCase() ===
+            guestName?.trim().toLowerCase() && (
             <button
               onClick={(e) => {
                 e.stopPropagation();
                 handleDeleteMedia(item.id);
               }}
               className="absolute top-1 right-1 pointer-events-auto bg-red-600 hover:bg-red-700 p-1 rounded-full opacity-100 md:opacity-0 md:group-hover:opacity-100 transition"
+              title="Delete"
             >
               <Trash2 size={14} className="text-white" />
             </button>
@@ -198,122 +265,138 @@ export default function GuestGalleryPage() {
         </motion.div>
       ))}
     </div>
-{/* Upload buttons */}
-<div className="mt-10 text-center space-y-4">
-  <div className="flex flex-col sm:flex-row justify-center gap-4">
 
-    {/* Upload from gallery */}
-    <label className="cursor-pointer inline-block bg-[#e94560] hover:bg-[#ff5b74] px-10 py-5 rounded-2xl text-xl font-semibold transition">
-      {uploading ? "Uploading..." : "Upload Media"}
-      <input
-        type="file"
-        onChange={handleUpload}
-        accept="image/*,video/*"
-        hidden
-      />
-    </label>
+    {/* UPLOAD */}
+    <div className="mt-10 text-center space-y-4">
+      <div className="flex flex-col sm:flex-row justify-center gap-4">
+        <label className="cursor-pointer inline-block bg-[#e94560] hover:bg-[#ff5b74] px-10 py-5 rounded-2xl text-xl font-semibold transition">
+          {uploading ? "Uploading..." : "Upload Media"}
+          <input
+            type="file"
+            onChange={handleUpload}
+            accept="image/*,video/*"
+            hidden
+          />
+        </label>
 
-    {/* Take a new photo/video */}
-    <label className="cursor-pointer inline-block bg-[#1b263b] hover:bg-[#263b50] px-10 py-5 rounded-2xl text-xl font-semibold transition border border-[#e94560]/40">
-      Take a Picture
-      <input
-        type="file"
-        accept="image/*,video/*"
-        capture="environment"
-        onChange={handleUpload}
-        hidden
-      />
-    </label>
+        <label className="cursor-pointer inline-block bg-[#1b263b] hover:bg-[#263b50] px-10 py-5 rounded-2xl text-xl font-semibold transition border border-[#e94560]/40">
+          Take a Picture
+          <input
+            type="file"
+            accept="image/*,video/*"
+            capture="environment"
+            onChange={handleUpload}
+            hidden
+          />
+        </label>
+      </div>
+      <p className="text-gray-400 text-sm mt-2">
+        Supported: JPG, PNG, MP4 (max 100MB)
+      </p>
+    </div>
 
-  </div>
-
-  <p className="text-gray-400 text-sm mt-2">
-    Supported formats: JPG, PNG, MP4 (max 100MB)
-  </p>
-</div>
-
-    {/* ✅ FULLSCREEN VIEWER */}
+    {/* FULLSCREEN VIEWER (modal overlay) */}
     <AnimatePresence>
-      {selectedIndex !== null && media[selectedIndex] && (
-       <motion.div
-         className="fixed inset-0 bg-black flex items-center justify-center z-[9999]"
-
-          onClick={() => setSelectedIndex(null)}
+      {showViewer && selectedIndex !== null && media[selectedIndex] && (
+        <motion.div
+          className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
+          onClick={closeViewer}
         >
+          {/* Close button */}
           <button
             onClick={(e) => {
               e.stopPropagation();
-              setSelectedIndex(null);
+              closeViewer();
             }}
-            className="absolute top-5 right-5 text-white text-3xl font-bold"
+            className="absolute top-4 right-4 text-white text-3xl font-bold"
+            aria-label="Close"
           >
             ✕
           </button>
 
-          <motion.div
-            key={media[selectedIndex]?.id}
-            className="max-w-5xl w-full h-[80vh] flex items-center justify-center"
-            drag="x"
-            dragConstraints={{ left: 0, right: 0 }}
-            onDragEnd={(e, info) => {
-              if (info.offset.x > 100) setSelectedIndex((i) => (i! - 1 + media.length) % media.length);
-              else if (info.offset.x < -100) setSelectedIndex((i) => (i! + 1) % media.length);
-            }}
-            onClick={(e) => e.stopPropagation()}
-            initial={{ x: 100, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            exit={{ x: -100, opacity: 0 }}
-          >
-            {/* ✅ Videos now play properly */}
-          {media[selectedIndex]?.file_type?.startsWith("video") ? (
-            <video
-                src={media[selectedIndex].file_url}
-                controls
-                autoPlay
-                playsInline
-                webkit-playsinline="true"
-                preload="auto"
-                className="max-h-[80vh] max-w-[90vw] rounded-lg bg-black"
-                style={{ objectFit: "contain" }}
+          {/* Prev / Next */}
+          {media.length > 1 && (
+            <>
+              <button
                 onClick={(e) => {
-                // Prevent closing overlay when tapping video
-                e.stopPropagation();
+                  e.stopPropagation();
+                  prevItem();
                 }}
-                onDoubleClick={(e) => {
-                const video = e.currentTarget as HTMLVideoElement;
-
-                // ✅ Try standard fullscreen first
-                if (video.requestFullscreen) {
-                    video.requestFullscreen().catch(() => {});
-                    return;
-                }
-
-                // ✅ iOS Safari fallback (TS does not know this function)
-                const anyVideo = video as any;
-                if (anyVideo.webkitEnterFullscreen) {
-                    anyVideo.webkitEnterFullscreen();
-                }
+                className="absolute left-2 md:left-6 top-1/2 -translate-y-1/2 text-white/80 hover:text-white text-3xl"
+                aria-label="Previous"
+              >
+                ‹
+              </button>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  nextItem();
                 }}
-            />
+                className="absolute right-2 md:right-6 top-1/2 -translate-y-1/2 text-white/80 hover:text-white text-3xl"
+                aria-label="Next"
+              >
+                ›
+              </button>
+            </>
+          )}
+
+          {/* Media container */}
+          <motion.div
+            key={media[selectedIndex].id}
+            className="max-w-[92vw] max-h-[82vh] w-full flex items-center justify-center"
+            onClick={(e) => e.stopPropagation()}
+            initial={{ x: 40, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: -40, opacity: 0 }}
+          >
+            {media[selectedIndex].file_type?.startsWith("video") ? (
+              <div className="relative w-full h-full flex items-center justify-center">
+                <video
+                  ref={viewerVideoRef}
+                  src={media[selectedIndex].file_url}
+                  controls
+                  playsInline
+                  // NOTE: don't force muted/autoplay in viewer
+                  className="max-h-[82vh] max-w-full rounded-lg bg-black"
+                />
+                {/* Fullscreen + Open in new tab actions */}
+                <div className="absolute bottom-3 right-3 flex gap-2">
+                  <button
+                    onClick={enterFullscreen}
+                    className="bg-white/15 hover:bg-white/25 text-white text-sm px-3 py-1 rounded-lg"
+                    title="Fullscreen"
+                  >
+                    Fullscreen
+                  </button>
+                  <a
+                    href={media[selectedIndex].file_url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="bg-white/15 hover:bg-white/25 text-white text-sm px-3 py-1 rounded-lg"
+                    title="Open in new tab"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    Open
+                  </a>
+                </div>
+              </div>
             ) : (
-            <img
+              <img
                 src={media[selectedIndex].file_url}
                 alt="Full media"
-                className="max-h-[80vh] max-w-[90vw] rounded-lg select-none"
-                style={{ objectFit: "contain" }}
-            />
+                className="max-h-[82vh] max-w-full rounded-lg select-none"
+              />
             )}
-
-
           </motion.div>
         </motion.div>
       )}
     </AnimatePresence>
   </>
 )}
+
 
 
       {/* =======================  GUESTBOOK VIEW  ======================= */}
