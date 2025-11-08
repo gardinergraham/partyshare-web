@@ -6,6 +6,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import dynamic from "next/dynamic";
 import { API_BASE_URL } from "@/lib/api";
 import { Edit2, Trash2 } from "lucide-react";
+import screenfull from "screenfull";
+
 
 const ReactPlayer = dynamic(() => import("react-player"), { ssr: false }) as unknown as React.FC<any>;
 
@@ -172,24 +174,14 @@ const prevItem = () => {
 // ✅ Proper fullscreen handling (with real iOS fallback)
 const enterFullscreen = () => {
   const el = viewerVideoRef.current;
-  if (!el) return;
 
-  // Desktop / Android
-  if (el.requestFullscreen) {
-    el.requestFullscreen();
-    return;
+  if (screenfull.isEnabled && el) {
+    screenfull.request(el);
+  } else {
+    // Fallback for iOS Safari that doesn't expose fullscreen:
+    // Open video in default player
+    window.open(el?.currentSrc || el?.src, "_blank");
   }
-
-  // Safari iOS fallback
-  // @ts-ignore
-  if (typeof el.webkitEnterFullscreen === "function") {
-    // @ts-ignore
-    el.webkitEnterFullscreen();
-    return;
-  }
-
-  // Open as last fallback
-  window.open(el.currentSrc || el.src, "_blank");
 };
 
 
@@ -233,7 +225,7 @@ const enterFullscreen = () => {
                     muted={true}
                     playsinline
                     style={{ objectFit: "cover" }}
-                    onClick={() => openViewer(index)}
+                    onClick={() => enterFullscreen()}
                     config={{
                         file: {
                         attributes: {
@@ -392,15 +384,16 @@ const enterFullscreen = () => {
             
             {/* Fullscreen + Open in new tab actions */}
             <div className="absolute bottom-3 right-3 flex gap-2">
-                <button
-                onClick={(e) => {
-                    e.stopPropagation();
-                    enterFullscreen();
-                }}
-                className="bg-white/20 hover:bg-white/30 text-white text-sm px-3 py-1 rounded-lg"
-                >
-                Fullscreen
-                </button>
+               <button
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        enterFullscreen();
+                    }}
+                    className="bg-white/15 hover:bg-white/25 text-white text-sm px-3 py-1 rounded-lg"
+                    >
+                    Fullscreen
+                    </button>
+
 
                 <a
                 href={media[selectedIndex].file_url}
