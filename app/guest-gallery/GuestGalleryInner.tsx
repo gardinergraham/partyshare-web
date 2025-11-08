@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import dynamic from "next/dynamic";
 import { API_BASE_URL } from "@/lib/api";
 import { Edit2, Trash2 } from "lucide-react";
-import screenfull from "screenfull";
+
 
 
 const ReactPlayer = dynamic(() => import("react-player"), { ssr: false }) as unknown as React.FC<any>;
@@ -174,15 +174,29 @@ const prevItem = () => {
 // ✅ Proper fullscreen handling (with real iOS fallback)
 const enterFullscreen = () => {
   const el = viewerVideoRef.current;
+  if (!el) return;
 
-  if (screenfull.isEnabled && el) {
-    screenfull.request(el);
-  } else {
-    // Fallback for iOS Safari that doesn't expose fullscreen:
-    // Open video in default player
-    window.open(el?.currentSrc || el?.src, "_blank");
+  // Standard Fullscreen API
+  if (el.requestFullscreen) {
+    el.requestFullscreen().catch(() => {
+      // last fallback: open in new tab
+      window.open(el.currentSrc || el.src, "_blank");
+    });
+    return;
   }
+
+  // Older WebKit (some desktop Safari)
+  // @ts-ignore
+  if (typeof el.webkitRequestFullscreen === "function") {
+    // @ts-ignore
+    el.webkitRequestFullscreen();
+    return;
+  }
+
+  // iOS Safari has no Fullscreen API for elements; open in new tab instead
+  window.open(el.currentSrc || el.src, "_blank");
 };
+
 
 
 
