@@ -226,10 +226,10 @@ const enterFullscreen = () => {
                     src={item.file_url}
                     width="100%"
                     height="100%"
-                    controls={false}       // ✅ No controls in thumbnail
+                    controls={true}       // ✅ No controls in thumbnail
                     light={true}           // ✅ Show video preview thumbnail
                     playIcon={null}        // ✅ No big play icon
-                    playing={false}
+                    playing={true}
                     muted={true}
                     playsinline
                     style={{ objectFit: "cover" }}
