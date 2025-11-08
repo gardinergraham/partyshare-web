@@ -31,9 +31,9 @@ export default function GuestGalleryPage() {
 async function fetchMedia() {
   try {
     const res = await fetch(
-      `${API_BASE_URL}/media/guest-space?pin_code=${encodeURIComponent(
+      `${API_BASE_URL}/media/guest-space?guest_pin=${encodeURIComponent(
         pin || ""
-      )}&name=${encodeURIComponent(partyName || "")}`
+      )}&party_name=${encodeURIComponent(partyName || "")}`
     );
 
     if (!res.ok) {
@@ -54,9 +54,9 @@ async function fetchGuestbook() {
     setLoadingMessages(true);
 
     const res = await fetch(
-      `${API_BASE_URL}/guestbook?pin_code=${encodeURIComponent(
+      `${API_BASE_URL}/guestbook?guest_pin=${encodeURIComponent(
         pin || ""
-      )}&name=${encodeURIComponent(partyName || "")}`
+      )}&party_name=${encodeURIComponent(partyName || "")}`
     );
 
     if (!res.ok) {
@@ -98,8 +98,8 @@ async function handleUpload(e: React.ChangeEvent<HTMLInputElement>) {
 
   const form = new FormData();
   form.append("space_id", spaceId!);
-  form.append("pin_code", pin!);
-  form.append("name", partyName!);
+  form.append("guest_pin", pin!);
+  form.append("party_name", partyName!);
   form.append("guest_name", guestName!);
   form.append("file_type", file.type);
   form.append("file", file);
@@ -151,7 +151,8 @@ async function handleUpload(e: React.ChangeEvent<HTMLInputElement>) {
   async function handleDeleteMedia(id: string) {
     if (!confirm("Are you sure you want to delete this media?")) return;
     try {
-      const res = await fetch(`${API_BASE_URL}/api/media/guest/${id}`, {
+      const res = await fetch(`${API_BASE_URL}/media/guest/${id}?guest_pin=${encodeURIComponent(pin || "")}&party_name=${encodeURIComponent(partyName || "")}&guest_name=${encodeURIComponent(guestName || "")}`
+        , {
       method: "DELETE",
       });
 
@@ -170,7 +171,8 @@ async function handleUpload(e: React.ChangeEvent<HTMLInputElement>) {
   // 🗑️ Delete message
   async function handleDeleteMessage(id: string) {
     if (!confirm("Delete this message?")) return;
-   await fetch(`${API_BASE_URL}/api/media/guest/${id}`, {
+   await fetch(`${API_BASE_URL}/media/guest/${id}?guest_pin=${encodeURIComponent(pin || "")}&party_name=${encodeURIComponent(partyName || "")}&guest_name=${encodeURIComponent(guestName || "")}`
+    , {
      method: "DELETE",
      });
 
