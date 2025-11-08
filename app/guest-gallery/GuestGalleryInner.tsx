@@ -160,22 +160,23 @@ export default function GuestGalleryPage() {
           onClick={() => setSelectedIndex(index)}
         >
           {/* ✅ Improved Video Thumbnail */}
-          {item.file_type?.startsWith("video") ? (
+        {item.file_type?.startsWith("video") ? (
             <video
-              src={item.file_url}
-              playsInline
-              muted
-              preload="metadata"
-              className="w-full h-full object-cover"
+                src={item.file_url}
+                playsInline
+                muted
+                preload="metadata"
+                className="w-full h-full object-cover"
             />
-          ) : (
+            ) : (
             <img
-              src={item.file_url || "/placeholder.jpg"}
-              alt="Event media"
-              className="w-full h-full object-cover"
-              loading="lazy"
+                src={item.file_url || "/placeholder.jpg"}
+                alt="Event media"
+                className="w-full h-full object-cover"
+                loading="lazy"
             />
-          )}
+            )}
+
 
           {/* Name Tag */}
           <p className="absolute bottom-1 left-1 text-xs bg-black/60 px-2 py-1 rounded">
@@ -197,6 +198,39 @@ export default function GuestGalleryPage() {
         </motion.div>
       ))}
     </div>
+{/* Upload buttons */}
+<div className="mt-10 text-center space-y-4">
+  <div className="flex flex-col sm:flex-row justify-center gap-4">
+
+    {/* Upload from gallery */}
+    <label className="cursor-pointer inline-block bg-[#e94560] hover:bg-[#ff5b74] px-10 py-5 rounded-2xl text-xl font-semibold transition">
+      {uploading ? "Uploading..." : "Upload Media"}
+      <input
+        type="file"
+        onChange={handleUpload}
+        accept="image/*,video/*"
+        hidden
+      />
+    </label>
+
+    {/* Take a new photo/video */}
+    <label className="cursor-pointer inline-block bg-[#1b263b] hover:bg-[#263b50] px-10 py-5 rounded-2xl text-xl font-semibold transition border border-[#e94560]/40">
+      Take a Picture
+      <input
+        type="file"
+        accept="image/*,video/*"
+        capture="environment"
+        onChange={handleUpload}
+        hidden
+      />
+    </label>
+
+  </div>
+
+  <p className="text-gray-400 text-sm mt-2">
+    Supported formats: JPG, PNG, MP4 (max 100MB)
+  </p>
+</div>
 
     {/* ✅ FULLSCREEN VIEWER */}
     <AnimatePresence>
@@ -233,21 +267,25 @@ export default function GuestGalleryPage() {
             exit={{ x: -100, opacity: 0 }}
           >
             {/* ✅ Videos now play properly */}
-            {media[selectedIndex]?.file_type?.startsWith("video") ? (
-              <video
+           {media[selectedIndex]?.file_type?.startsWith("video") ? (
+            <video
                 src={media[selectedIndex].file_url}
                 controls
                 autoPlay
                 playsInline
-                className="max-h-full max-w-full rounded-lg"
-              />
+                controlsList="nodownload"
+                className="max-h-[80vh] max-w-[90vw] rounded-lg"
+                style={{ objectFit: "contain", backgroundColor: "black" }}
+            />
             ) : (
-              <img
+            <img
                 src={media[selectedIndex].file_url}
                 alt="Full media"
-                className="max-h-full max-w-full rounded-lg select-none"
-              />
+                className="max-h-[80vh] max-w-[90vw] rounded-lg select-none"
+                style={{ objectFit: "contain" }}
+            />
             )}
+
           </motion.div>
         </motion.div>
       )}
