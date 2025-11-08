@@ -235,8 +235,9 @@ export default function GuestGalleryPage() {
     {/* ✅ FULLSCREEN VIEWER */}
     <AnimatePresence>
       {selectedIndex !== null && media[selectedIndex] && (
-        <motion.div
-          className="fixed inset-0 bg-black/90 flex items-center justify-center z-50"
+       <motion.div
+         className="fixed inset-0 bg-black flex items-center justify-center z-[9999]"
+
           onClick={() => setSelectedIndex(null)}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -267,15 +268,35 @@ export default function GuestGalleryPage() {
             exit={{ x: -100, opacity: 0 }}
           >
             {/* ✅ Videos now play properly */}
-           {media[selectedIndex]?.file_type?.startsWith("video") ? (
+          {media[selectedIndex]?.file_type?.startsWith("video") ? (
             <video
                 src={media[selectedIndex].file_url}
                 controls
                 autoPlay
                 playsInline
-                controlsList="nodownload"
-                className="max-h-[80vh] max-w-[90vw] rounded-lg"
-                style={{ objectFit: "contain", backgroundColor: "black" }}
+                webkit-playsinline="true"
+                preload="auto"
+                className="max-h-[80vh] max-w-[90vw] rounded-lg bg-black"
+                style={{ objectFit: "contain" }}
+                onClick={(e) => {
+                // Prevent closing overlay when tapping video
+                e.stopPropagation();
+                }}
+                onDoubleClick={(e) => {
+                const video = e.currentTarget as HTMLVideoElement;
+
+                // ✅ Try standard fullscreen first
+                if (video.requestFullscreen) {
+                    video.requestFullscreen().catch(() => {});
+                    return;
+                }
+
+                // ✅ iOS Safari fallback (TS does not know this function)
+                const anyVideo = video as any;
+                if (anyVideo.webkitEnterFullscreen) {
+                    anyVideo.webkitEnterFullscreen();
+                }
+                }}
             />
             ) : (
             <img
@@ -285,6 +306,7 @@ export default function GuestGalleryPage() {
                 style={{ objectFit: "contain" }}
             />
             )}
+
 
           </motion.div>
         </motion.div>
