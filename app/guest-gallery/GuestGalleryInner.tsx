@@ -31,10 +31,11 @@ export default function GuestGalleryPage() {
 async function fetchMedia() {
   try {
     const res = await fetch(
-   `${API_BASE_URL}/media/guest-space?pin_code=${encodeURIComponent(pin || "")}&party_name=${encodeURIComponent(partyName || "")}`
-
-
+      `${API_BASE_URL}/api/media/guest-space?pin_code=${encodeURIComponent(
+        pin || ""
+      )}&name=${encodeURIComponent(partyName || "")}`
     );
+
     const data = await res.json();
     setMedia(Array.isArray(data) ? data : []);
   } catch (err) {
@@ -42,15 +43,15 @@ async function fetchMedia() {
   }
 }
 
-// ✅ Fetch guestbook
 async function fetchGuestbook() {
   try {
     setLoadingMessages(true);
     const res = await fetch(
-    `${API_BASE_URL}/guestbook?pin_code=${encodeURIComponent(pin || "")}&party_name=${encodeURIComponent(partyName || "")}`
-
-
+      `${API_BASE_URL}/api/guestbook?pin_code=${encodeURIComponent(
+        pin || ""
+      )}&name=${encodeURIComponent(partyName || "")}`
     );
+
     const data = await res.json();
     setMessages(Array.isArray(data) ? data : []);
   } catch (err) {
@@ -59,7 +60,6 @@ async function fetchGuestbook() {
     setLoadingMessages(false);
   }
 }
-
 
   // ⏳ Load on mount
   useEffect(() => {
@@ -75,35 +75,35 @@ async function fetchGuestbook() {
   }, [spaceId]);
 
   // ✅ Upload media
-  async function handleUpload(e: React.ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    setUploading(true);
+async function handleUpload(e) {
+  const file = e.target.files?.[0];
+  if (!file) return;
+  setUploading(true);
 
-    const form = new FormData();
-    form.append("space_id", spaceId!);
-    form.append("pin_code", pin!);
-    form.append("party_name", partyName!);
-    form.append("guest_name", guestName!);
-    form.append("file_type", file.type);
-    form.append("file", file);
+  const form = new FormData();
+  form.append("space_id", spaceId!);
+  form.append("pin_code", pin!);
+  form.append("name", partyName!);
+  form.append("guest_name", guestName!);
+  form.append("file_type", file.type);
+  form.append("file", file);
 
-    const res = await fetch(`${API_BASE_URL}/media/guest/upload`, {
-      method: "POST",
-      body: form,
-    });
+  const res = await fetch(`${API_BASE_URL}/api/media/guest/upload`, {
+    method: "POST",
+    body: form,
+  });
 
-    if (!res.ok) {
-      const data = await res.json().catch(() => ({}));
-      alert(`❌ ${data.detail || "Upload failed. Please try again."}`);
-      setUploading(false);
-      return;
-    }
-
-    await fetchMedia();
+  if (!res.ok) {
+    const data = await res.json().catch(() => ({}));
+    alert(`❌ ${data.detail || "Upload failed. Please try again."}`);
     setUploading(false);
-    alert("✅ Upload successful!");
+    return;
   }
+
+  await fetchMedia();
+  setUploading(false);
+  alert("✅ Upload successful!");
+}
 
   // ✅ Save or edit guestbook message
   async function handleMessageSave() {
