@@ -31,7 +31,7 @@ export default function GuestGalleryPage() {
 async function fetchMedia() {
   try {
     const res = await fetch(
-      `${API_BASE_URL}/media/guest-space?guest_pin=${encodeURIComponent(
+      `${API_BASE_URL}/api/media/guest-space?guest_pin=${encodeURIComponent(
         pin || ""
       )}&party_name=${encodeURIComponent(partyName || "")}`
     );
@@ -47,7 +47,7 @@ async function fetchGuestbook() {
   try {
     setLoadingMessages(true);
     const res = await fetch(
-      `${API_BASE_URL}/guestbook?guest_pin=${encodeURIComponent(
+      `${API_BASE_URL}/api/guestbook?guest_pin=${encodeURIComponent(
         pin || ""
       )}&party_name=${encodeURIComponent(partyName || "")}`
     );
@@ -88,7 +88,7 @@ async function fetchGuestbook() {
     form.append("file_type", file.type);
     form.append("file", file);
 
-    const res = await fetch(`${API_BASE_URL}/media/guest/upload`, {
+    const res = await fetch(`${API_BASE_URL}/api/media/guest/upload`, {
       method: "POST",
       body: form,
     });
@@ -114,7 +114,7 @@ async function fetchGuestbook() {
 
     if (editing) {
       await fetch(
-        `${API_BASE_URL}/guestbook/${editing.id}?guest_pin=${pin}&party_name=${partyName}&guest_name=${guestName}`,
+        `${API_BASE_URL}/api/guestbook/${editing.id}?guest_pin=${pin}&party_name=${partyName}&guest_name=${guestName}`,
         { method: "PUT", body: formData }
       );
       setEditing(null);
@@ -123,7 +123,7 @@ async function fetchGuestbook() {
       formData.append("guest_pin", pin || "");
       formData.append("party_name", partyName || "");
       formData.append("guest_name", guestName || "");
-      await fetch(`${API_BASE_URL}/guestbook`, { method: "POST", body: formData });
+      await fetch(`${API_BASE_URL}/api/guestbook`, { method: "POST", body: formData });
     }
 
     setMessageText("");
@@ -135,7 +135,7 @@ async function fetchGuestbook() {
     if (!confirm("Are you sure you want to delete this media?")) return;
     try {
       const res = await fetch(
-        `${API_BASE_URL}/media/guest/${id}?guest_pin=${encodeURIComponent(
+        `${API_BASE_URL}/api/media/guest/${id}?guest_pin=${encodeURIComponent(
           pin || ""
         )}&party_name=${encodeURIComponent(partyName || "")}&guest_name=${encodeURIComponent(guestName || "")}`,
         { method: "DELETE" }
@@ -156,7 +156,7 @@ async function fetchGuestbook() {
   async function handleDeleteMessage(id: string) {
     if (!confirm("Delete this message?")) return;
     await fetch(
-      `${API_BASE_URL}/guestbook/${id}?guest_pin=${pin}&party_name=${partyName}&guest_name=${guestName}`,
+      `${API_BASE_URL}/api/guestbook/${id}?guest_pin=${pin}&party_name=${partyName}&guest_name=${guestName}`,
       { method: "DELETE" }
     );
     fetchGuestbook();
