@@ -174,13 +174,9 @@ const enterFullscreen = () => {
   const el = viewerVideoRef.current;
   if (!el) return;
 
-  // Standard Fullscreen API
-  if (el.requestFullscreen) {
-    el.requestFullscreen();
-    return;
-  }
+  if (el.requestFullscreen) return el.requestFullscreen();
 
-  // Safari iOS fallback
+  // iPhone / iPad Safari fallback:
   // @ts-ignore
   if (typeof el.webkitEnterFullscreen === "function") {
     // @ts-ignore
@@ -188,7 +184,7 @@ const enterFullscreen = () => {
     return;
   }
 
-  // Last fallback
+  // Last fallback: open video in new tab
   window.open(el.currentSrc || el.src, "_blank");
 };
 
@@ -221,27 +217,27 @@ const enterFullscreen = () => {
           whileHover={{ scale: 1.01 }}
         >
           {/* ✅ Video thumbnail: load only metadata; show first frame when possible */}
-          {item.file_type?.startsWith("video") ? (
-        <video
-            src={item.file_url}
-            muted
-            playsInline
-            preload="metadata"
-            className="w-full h-full object-cover aspect-[4/3] bg-black"
-            onLoadedData={(e) => {
+       {item.file_type?.startsWith("video") ? (
+            <video
+                src={item.file_url}
+                muted
+                playsInline
+                preload="metadata"
+                className="w-full h-full object-cover aspect-[4/3] bg-black"
+                onLoadedMetadata={(e) => {
+                // Force preview frame ONLY for thumbnail
                 try { e.currentTarget.currentTime = 0.001; } catch {}
-            }}
+                }}
             />
-
-
-          ) : (
+            ) : (
             <img
-              src={item.file_url || "/placeholder.jpg"}
-              alt="Event media"
-              className="w-full h-full object-cover"
-              loading="lazy"
+                src={item.file_url || "/placeholder.jpg"}
+                alt="Event media"
+                className="w-full h-full object-cover"
+                loading="lazy"
             />
-          )}
+            )}
+
 
           {/* Name Tag */}
           <p className="absolute bottom-1 left-1 text-[11px] bg-black/60 px-2 py-1 rounded">
@@ -357,14 +353,20 @@ const enterFullscreen = () => {
           >
             {media[selectedIndex].file_type?.startsWith("video") ? (
               <div className="relative w-full h-full flex items-center justify-center">
-                <video
-                  ref={viewerVideoRef}
-                  src={media[selectedIndex].file_url}
-                  controls
-                  playsInline
-                  // NOTE: don't force muted/autoplay in viewer
-                  className="max-h-[82vh] max-w-full rounded-lg bg-black"
+               <video
+                ref={viewerVideoRef}
+                key={media[selectedIndex].id} // forces Safari to repaint correctly
+                src={media[selectedIndex].file_url}
+                controls
+                playsInline
+                controlsList="nodownload"
+                className="max-h-[82vh] max-w-full rounded-lg bg-black"
+                onLoadedMetadata={(e) => {
+                    // ✅ Do NOT seek here — we want real playback
+                    try { e.currentTarget.currentTime = 0; } catch {}
+                }}
                 />
+
                 {/* Fullscreen + Open in new tab actions */}
                 <div className="absolute bottom-3 right-3 flex gap-2">
                   <button
