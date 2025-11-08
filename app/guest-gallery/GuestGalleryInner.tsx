@@ -28,7 +28,7 @@ export default function GuestGalleryPage() {
   async function fetchMedia() {
     try {
       const res = await fetch(
-        `${API_BASE_URL}/media/guest-space/${spaceId}?guest_pin=${encodeURIComponent(pin)}`
+        `${API_BASE_URL}/api/media/guest-space/${spaceId}?guest_pin=${encodeURIComponent(pin)}`
       );
       if (!res.ok) return;
       const data = await res.json();
@@ -40,7 +40,7 @@ export default function GuestGalleryPage() {
     try {
       setLoadingMessages(true);
       const res = await fetch(
-        `${API_BASE_URL}/guestbook/${spaceId}?guest_pin=${encodeURIComponent(
+        `${API_BASE_URL}/api/guestbook/${spaceId}?guest_pin=${encodeURIComponent(
           pin
         )}&party_name=${encodeURIComponent(partyName)}&guest_name=${encodeURIComponent(guestName)}`
       );
@@ -76,7 +76,7 @@ export default function GuestGalleryPage() {
     form.append("file_type", file.type);
     form.append("file", file);
 
-    const res = await fetch(`${API_BASE_URL}/media/guest/upload`, { method: "POST", body: form });
+    const res = await fetch(`${API_BASE_URL}/api/media/guest/upload`, { method: "POST", body: form });
     setUploading(false);
 
     if (res.ok) {
@@ -97,7 +97,7 @@ export default function GuestGalleryPage() {
     form.append("guest_name", guestName);
     form.append("message", messageText.trim());
 
-    await fetch(`${API_BASE_URL}/guestbook`, { method: "POST", body: form });
+    await fetch(`${API_BASE_URL}/api/guestbook`, { method: "POST", body: form });
     setMessageText("");
     fetchGuestbook();
   }
@@ -109,7 +109,7 @@ export default function GuestGalleryPage() {
     form.append("message", messageText.trim());
 
     await fetch(
-      `${API_BASE_URL}/guestbook/${editing.id}?guest_pin=${pin}&guest_name=${guestName}`,
+      `${API_BASE_URL}/api/guestbook/${editing.id}?guest_pin=${pin}&guest_name=${guestName}`,
       { method: "PUT", body: form }
     );
 
@@ -121,7 +121,7 @@ export default function GuestGalleryPage() {
   async function handleDeleteMedia(id: string) {
     if (!confirm("Delete this upload?")) return;
     await fetch(
-      `${API_BASE_URL}/media/guest/${id}?guest_pin=${pin}&party_name=${partyName}&guest_name=${guestName}`,
+      `${API_BASE_URL}/api/media/guest/${id}?guest_pin=${pin}&party_name=${partyName}&guest_name=${guestName}`,
       { method: "DELETE" }
     );
     fetchMedia();
@@ -130,7 +130,7 @@ export default function GuestGalleryPage() {
   async function handleDeleteMessage(id: string) {
     if (!confirm("Delete message?")) return;
     await fetch(
-      `${API_BASE_URL}/guestbook/${id}?guest_pin=${pin}&party_name=${partyName}&guest_name=${guestName}`,
+      `${API_BASE_URL}/api/guestbook/${id}?guest_pin=${pin}&party_name=${partyName}&guest_name=${guestName}`,
       { method: "DELETE" }
     );
     fetchGuestbook();
