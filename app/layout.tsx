@@ -9,8 +9,10 @@ export const metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <body className="bg-psDark text-white min-h-screen flex flex-col items-center justify-center">
+      <body className="bg-psDark text-white min-h-screen">
         {children}
+        {/* ✅ Portal target for fullscreen viewer */}
+        <div id="portal-root"></div>
       </body>
     </html>
   );

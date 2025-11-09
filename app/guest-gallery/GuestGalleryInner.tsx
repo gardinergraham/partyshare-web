@@ -310,57 +310,61 @@ export default function GuestGalleryPage() {
   </>
       )}
           {/* FULLSCREEN VIEWER (modal overlay) */}
-  {mounted && portalRoot && showViewer && selectedIndex !== null &&
-  createPortal(
-    <div className="fixed inset-0 z-[99999] bg-black/90 flex items-center justify-center p-4 pointer-events-auto">
-      {/* Close */}
-      <button
-        onClick={closeViewer}
-        className="absolute top-4 right-4 text-white text-3xl font-bold"
-      >
-        ✕
-      </button>
+    {mounted && portalRoot && showViewer && selectedIndex !== null &&
+    createPortal(
+        <div
+        className="fixed inset-0 z-[99999] bg-black/90 flex items-center justify-center p-4"
+        role="dialog"
+        aria-modal="true"
+        >
+        {/* Close */}
+        <button
+            onClick={closeViewer}
+            className="absolute top-4 right-4 text-white text-3xl font-bold"
+        >
+            ✕
+        </button>
 
-      {/* Prev/Next */}
-      {media.length > 1 && (
-        <>
-          <button
-            onClick={prevItem}
-            className="absolute left-4 top-1/2 -translate-y-1/2 text-white text-4xl"
-          >
-            ‹
-          </button>
-          <button
-            onClick={nextItem}
-            className="absolute right-4 top-1/2 -translate-y-1/2 text-white text-4xl"
-          >
-            ›
-          </button>
-        </>
-      )}
+        {/* Prev / Next */}
+        {media.length > 1 && (
+            <>
+            <button
+                onClick={prevItem}
+                className="absolute left-6 top-1/2 -translate-y-1/2 text-white text-4xl"
+            >
+                ‹
+            </button>
+            <button
+                onClick={nextItem}
+                className="absolute right-6 top-1/2 -translate-y-1/2 text-white text-4xl"
+            >
+                ›
+            </button>
+            </>
+        )}
 
-      {/* Media */}
-      {media[selectedIndex].file_type?.startsWith("video") ? (
-        <video
-          ref={viewerVideoRef}
-          src={media[selectedIndex].file_url}
-          controls
-          playsInline
-          preload="auto"
-          className="max-h-[85vh] max-w-[90vw] rounded-lg bg-black"
-        />
-      ) : (
-        <img
-          ref={viewerImageRef}
-          src={media[selectedIndex].file_url}
-          className="max-h-[85vh] max-w-[90vw] rounded-lg select-none"
-          alt=""
-        />
-      )}
-    </div>,
-    portalRoot
-  )
-}
+        {/* MEDIA */}
+        {media[selectedIndex].file_type?.startsWith("video") ? (
+            <video
+            ref={viewerVideoRef}
+            src={media[selectedIndex].file_url}
+            controls
+            playsInline
+            className="max-h-[85vh] max-w-[90vw] rounded-lg bg-black"
+            />
+        ) : (
+            <img
+            src={media[selectedIndex].file_url}
+            className="max-h-[85vh] max-w-[90vw] rounded-lg select-none"
+            alt=""
+            draggable={false}
+            />
+        )}
+        </div>,
+        portalRoot
+    )
+    }
+
 
       {/* =======================  GUESTBOOK VIEW  ======================= */}
       {tab === "guestbook" && (
