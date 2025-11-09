@@ -1,14 +1,21 @@
 "use client";
+
+import React, { useState, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import { useEffect, useState, useRef } from "react";
 import { API_BASE_URL } from "@/lib/api";
 
-export default function ViewerPage() {
-  const router = useRouter();
+export const dynamic = "force-dynamic";
+
+
+
+export default function ViewMediaPage() {
   const params = useSearchParams();
-  const spaceId = params.get("space_id");
-  const pin = params.get("pin");
-  const index = Number(params.get("index") ?? 0);
+  const index = Number(params.get("index")) || 0;
+  const spaceId = params.get("space_id") ?? "";
+  const pin = params.get("pin") ?? "";
+  const router = useRouter();
+
+  
 
   const [media, setMedia] = useState<any[]>([]);
   const [current, setCurrent] = useState(index);
