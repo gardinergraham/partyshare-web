@@ -25,7 +25,7 @@ export default function GuestGalleryPage() {
   const [messageText, setMessageText] = useState("");
   const [editing, setEditing] = useState<any | null>(null);
   const [loadingMessages, setLoadingMessages] = useState(false);
- // const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+
 
   async function fetchMedia() {
     try {
@@ -375,25 +375,14 @@ const enterFullscreen = () => {
           >
             {media[selectedIndex].file_type?.startsWith("video") ? (
           <div className="relative w-full h-full flex items-center justify-center">
-          <ReactPlayer
-            ref={viewerVideoRef}
-            src={media[selectedIndex].file_url}
-            width="100%"
-            height="100%"
-            controls={false}
-            playing={false}
-            playsinline
-            style={{ maxHeight: "82vh", maxWidth: "100%", borderRadius: "0.75rem" }}
-            config={{
-                file: {
-                attributes: {
-                    controlsList: "nodownload",
-                    playsInline: true,
-                    webkitPlaysinline: "true"
-                }
-                }
-            }}
-            />
+          <video
+                ref={viewerVideoRef}
+                src={media[selectedIndex].file_url}
+                controls
+                playsInline
+                className="max-h-[82vh] max-w-full rounded-lg bg-black"
+                />
+
 
             
             {/* Fullscreen + Open in new tab actions */}
