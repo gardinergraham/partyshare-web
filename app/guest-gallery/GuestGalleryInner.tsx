@@ -254,13 +254,14 @@ export default function GuestGalleryPage() {
           {/* GRID */}
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
             {media.map((item, index) => (
-              <motion.button
-                type="button"
-                key={item.id}
-                className="relative group rounded-xl overflow-hidden border border-white/10 cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#e94560]"
-                onClick={() => openViewer(index)}
-                whileHover={{ scale: 1.01 }}
-              >
+             <motion.button
+                    type="button"
+                    key={item.id}
+                    className="relative group rounded-xl overflow-hidden border border-white/10 cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#e94560]"
+                    onClick={() => { console.log("CLICKED:", index); openViewer(index); }}
+                    whileHover={{ scale: 1.01 }}
+                    >
+
                 {/* Video or Image thumbnail; pointer-events-none so parent receives the click */}
                 {item.file_type?.startsWith("video") ? (
                   <div className="relative w-full aspect-[4/3] bg-black">
