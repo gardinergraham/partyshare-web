@@ -1,13 +1,12 @@
 "use client";
 
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { API_BASE_URL } from "@/lib/api";
 
-
 export const dynamic = "force-dynamic";
 
-export default function ViewMediaPage() {
+export default function ViewMediaPageInner() {
   const params = useSearchParams();
   const index = Number(params.get("index")) || 0;
   const spaceId = params.get("space_id") ?? "";
@@ -19,9 +18,9 @@ export default function ViewMediaPage() {
 
   useEffect(() => {
     async function load() {
-      const res = await fetch(`${API_BASE_URL}/api/media/guest-space/${spaceId}?guest_pin=${pin}`);
+      const res = await fetch(`${API_BASE_URL}/api/media/guest-space/${spaceId}?guest_pin=${pin}`, { cache: "no-store" });
       const data = await res.json();
-      setMedia(data);
+      setMedia(Array.isArray(data) ? data : []);
     }
     load();
   }, [spaceId, pin]);
@@ -31,79 +30,76 @@ export default function ViewMediaPage() {
 
   if (!media.length) return null;
   const item = media[current];
+
   const startX = useRef<number | null>(null);
 
-const onTouchStart = (e: React.TouchEvent) => {
-  startX.current = e.touches[0].clientX;
-};
+  const onTouchStart = (e: React.TouchEvent) => {
+    startX.current = e.touches[0].clientX;
+  };
 
-const onTouchEnd = (e: React.TouchEvent) => {
-  if (startX.current === null) return;
-  const dx = e.changedTouches[0].clientX - startX.current;
-  if (dx > 50) prev();     // swipe right → previous
-  if (dx < -50) next();    // swipe left → next
-  startX.current = null;
-};
+  const onTouchEnd = (e: React.TouchEvent) => {
+    if (startX.current === null) return;
+    const dx = e.changedTouches[0].clientX - startX.current;
+    if (dx > 50) prev();
+    if (dx < -50) next();
+    startX.current = null;
+  };
 
-
- return (
-  <div className="fixed inset-0 bg-black flex flex-col items-center justify-center p-4 text-white">
-
-    {/* Back */}
-    <button
-      onClick={() => router.back()}
-      className="absolute top-4 left-4 text-3xl bg-black/40 px-3 py-1 rounded"
+  return (
+    <div
+      className="fixed inset-0 bg-black flex flex-col items-center justify-center p-4 text-white"
+      onTouchStart={onTouchStart}
+      onTouchEnd={onTouchEnd}
     >
-      ←
-    </button>
+      {/* Back */}
+      <button
+        onClick={() => router.back()}
+        className="absolute top-4 left-4 text-3xl bg-black/40 px-3 py-1 rounded"
+      >
+        ←
+      </button>
 
-    {/* Media */}
-      <div
-      className="flex-1 flex items-center justify-center w-full"
-      onClick={(e) => e.stopPropagation()} // ✅ prevents parent overlay click close + hydration mismatch
-    >
-      {item.file_type?.startsWith("video") ? (
-        <video
-          key={item.file_url}     // ✅ ensures remount
-          src={item.file_url}
-          autoPlay               // ✅ auto advance works
-          controls
-          playsInline
-          onEnded={() => next()} // ✅ move to next slide after video ends
-          className="max-h-[85vh] max-w-[95vw] rounded"
-        />
-      ) : (
-        <img
-          key={item.file_url}     // ✅ ensures remount for images too
-          src={item.file_url}
-          className="max-h-[85vh] max-w-[95vw] rounded select-none"
-          alt=""
-          draggable={false}
-        />
+      {/* Media */}
+      <div className="flex-1 flex items-center justify-center w-full">
+        {item.file_type?.startsWith("video") ? (
+          <video
+            key={item.file_url}
+            src={item.file_url}
+            autoPlay
+            controls
+            playsInline
+            onEnded={next}
+            className="max-h-[85vh] max-w-[95vw] rounded"
+          />
+        ) : (
+          <img
+            key={item.file_url}
+            src={item.file_url}
+            className="max-h-[85vh] max-w-[95vw] rounded select-none"
+            alt=""
+            draggable={false}
+          />
+        )}
+      </div>
+
+      {/* Navigation */}
+      {media.length > 1 && (
+        <div className="w-full flex justify-center gap-12 py-4">
+          <button
+            onClick={prev}
+            className="text-3xl bg-white/10 hover:bg-white/20 px-4 py-2 rounded-lg"
+          >
+            ‹ Prev
+          </button>
+
+          <button
+            onClick={next}
+            className="text-3xl bg-white/10 hover:bg-white/20 px-4 py-2 rounded-lg"
+          >
+            Next ›
+          </button>
+        </div>
       )}
     </div>
-
-
-    {/* Navigation */}
-    {media.length > 1 && (
-      <div className="w-full flex justify-center gap-12 py-4">
-        <button
-          onClick={prev}
-          className="text-3xl bg-white/10 hover:bg-white/20 px-4 py-2 rounded-lg"
-        >
-          ‹ Prev
-        </button>
-
-        <button
-          onClick={next}
-          className="text-3xl bg-white/10 hover:bg-white/20 px-4 py-2 rounded-lg"
-        >
-          Next ›
-        </button>
-      </div>
-    )}
-
-  </div>
-);
-
+  );
 }
