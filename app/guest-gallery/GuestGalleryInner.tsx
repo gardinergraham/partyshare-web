@@ -25,6 +25,7 @@ export default function GuestGalleryPage() {
   const [messageText, setMessageText] = useState("");
   const [editing, setEditing] = useState<any | null>(null);
   const [loadingMessages, setLoadingMessages] = useState(false);
+  const viewerWrapperRef = React.useRef<HTMLDivElement | null>(null);
 
 
   async function fetchMedia() {
@@ -173,29 +174,38 @@ const prevItem = () => {
 
 // ✅ Proper fullscreen handling (with real iOS fallback)
 const enterFullscreen = () => {
-  const el = viewerVideoRef.current;
-  if (!el) return;
+  const wrapper = viewerWrapperRef.current;
+  if (!wrapper) return;
 
-  // Standard Fullscreen API
-  if (el.requestFullscreen) {
-    el.requestFullscreen().catch(() => {
-      // last fallback: open in new tab
-      window.open(el.currentSrc || el.src, "_blank");
-    });
+  // Desktop & Android first
+  if (wrapper.requestFullscreen) {
+    wrapper.requestFullscreen();
     return;
   }
 
-  // Older WebKit (some desktop Safari)
+  // Older Safari desktop
   // @ts-ignore
-  if (typeof el.webkitRequestFullscreen === "function") {
+  if (wrapper.webkitRequestFullscreen) {
     // @ts-ignore
-    el.webkitRequestFullscreen();
+    wrapper.webkitRequestFullscreen();
     return;
   }
 
-  // iOS Safari has no Fullscreen API for elements; open in new tab instead
-  window.open(el.currentSrc || el.src, "_blank");
+  // iOS Safari fallback (no true fullscreen API)
+  const el = viewerVideoRef.current;
+  if (el) window.open(el.currentSrc || el.src, "_blank");
 };
+
+useEffect(() => {
+  const handleFsExit = () => {
+    if (!document.fullscreenElement) {
+      // user pressed ESC or back
+      closeViewer();
+    }
+  };
+  document.addEventListener("fullscreenchange", handleFsExit);
+  return () => document.removeEventListener("fullscreenchange", handleFsExit);
+}, []);
 
 
 
@@ -232,11 +242,11 @@ const enterFullscreen = () => {
                     src={item.file_url}
                     width="100%"
                     height="100%"
-                    controls={true}       // ✅ No controls in thumbnail
+                    controls={false}       // ✅ No controls in thumbnail
                     light={true}           // ✅ Show video preview thumbnail
                     playIcon={null}        // ✅ No big play icon
                     playing={false}
-                    muted={true}
+                    muted={false}
                     playsinline
                     style={{ objectFit: "cover" }}
                     onClick={() => enterFullscreen()}
@@ -374,7 +384,11 @@ const enterFullscreen = () => {
             exit={{ x: -40, opacity: 0 }}
           >
             {media[selectedIndex].file_type?.startsWith("video") ? (
-          <div className="relative w-full h-full flex items-center justify-center">
+         <div
+            ref={viewerWrapperRef}
+            className="relative w-full h-full flex items-center justify-center"
+            >
+
           <video
                 ref={viewerVideoRef}
                 src={media[selectedIndex].file_url}
