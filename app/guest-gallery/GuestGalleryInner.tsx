@@ -308,35 +308,35 @@ export default function GuestGalleryPage() {
   </>
       )}
           {/* FULLSCREEN VIEWER (modal overlay) */}
-{mounted && showViewer && selectedIndex !== null && createPortal(
-  <div className="fixed inset-0 z-[999999] bg-black/90 flex items-center justify-center p-4 pointer-events-auto">
-    <button
-      onClick={closeViewer}
-      className="absolute top-4 right-4 text-white text-3xl font-bold"
-    >
-      ✕
-    </button>
+    {mounted && showViewer && selectedIndex !== null && createPortal(
+    <div className="fixed inset-0 z-[999999] bg-black/90 flex items-center justify-center p-4 pointer-events-auto">
+        <button
+        onClick={closeViewer}
+        className="absolute top-4 right-4 text-white text-3xl font-bold"
+        >
+        ✕
+        </button>
 
-    {media[selectedIndex].file_type?.startsWith("video") ? (
-      <video
-        ref={viewerVideoRef}
-        src={media[selectedIndex].file_url}
-        controls
-        playsInline
-        preload="auto"
-        className="max-h-[85vh] max-w-[90vw] rounded-lg bg-black"
-      />
-    ) : (
-      <img
-        ref={viewerImageRef}
-        src={media[selectedIndex].file_url}
-        className="max-h-[85vh] max-w-[90vw] rounded-lg select-none"
-        alt=""
-      />
+        {media[selectedIndex].file_type?.startsWith("video") ? (
+        <video
+            ref={viewerVideoRef}
+            src={media[selectedIndex].file_url}
+            controls
+            playsInline
+            preload="auto"
+            className="max-h-[85vh] max-w-[90vw] rounded-lg bg-black"
+        />
+        ) : (
+        <img
+            ref={viewerImageRef}
+            src={media[selectedIndex].file_url}
+            className="max-h-[85vh] max-w-[90vw] rounded-lg select-none"
+            alt=""
+        />
+        )}
+    </div>,
+    document.body
     )}
-  </div>,
-  document.body
-)}
 
 
       {/* =======================  GUESTBOOK VIEW  ======================= */}
