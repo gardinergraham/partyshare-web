@@ -313,7 +313,8 @@ export default function GuestGalleryPage() {
             </div>
             <p className="text-gray-400 text-sm mt-2">Supported: JPG, PNG, MP4 (max 100MB)</p>
           </div>
-
+  </>
+      )}
           {/* FULLSCREEN VIEWER (modal overlay) */}
       {showViewer && selectedIndex !== null && (
   <div
@@ -365,8 +366,7 @@ export default function GuestGalleryPage() {
   </div>
 )}
 
-        </>
-      )}
+      
 
       {/* =======================  GUESTBOOK VIEW  ======================= */}
       {tab === "guestbook" && (
