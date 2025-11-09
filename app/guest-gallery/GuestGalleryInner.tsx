@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { API_BASE_URL } from "@/lib/api";
 import { Edit2, Trash2 } from "lucide-react";
+import { createPortal } from "react-dom";
 
 export default function GuestGalleryPage() {
   const params = useSearchParams();
@@ -318,9 +319,9 @@ export default function GuestGalleryPage() {
   </>
       )}
           {/* FULLSCREEN VIEWER (modal overlay) */}
-      {showViewer && selectedIndex !== null && (
+ {showViewer && selectedIndex !== null && createPortal(
   <div
-    className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
+    className="fixed inset-0 z-[99999] bg-black/90 flex items-center justify-center p-4 pointer-events-auto"
     role="dialog"
     aria-modal="true"
   >
@@ -353,22 +354,25 @@ export default function GuestGalleryPage() {
     {/* MEDIA */}
     {media[selectedIndex].file_type?.startsWith("video") ? (
       <video
+        ref={viewerVideoRef}
         src={media[selectedIndex].file_url}
         controls
         playsInline
+        preload="auto"
         className="max-h-[85vh] max-w-[90vw] rounded-lg bg-black"
       />
     ) : (
       <img
+        ref={viewerWrapperRef}
         src={media[selectedIndex].file_url}
-        className="max-h-[85vh] max-w-[90vw] rounded-lg"
+        className="max-h-[85vh] max-w-[90vw] rounded-lg select-none"
         alt=""
       />
     )}
-  </div>
+  </div>,
+  document.body
 )}
 
-      
 
       {/* =======================  GUESTBOOK VIEW  ======================= */}
       {tab === "guestbook" && (
