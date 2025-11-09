@@ -289,20 +289,15 @@ export default function GuestGalleryPage() {
                 {/* Video thumbnail */}
                 {item.file_type?.startsWith("video") ? (
                   <div className="relative w-full aspect-[4/3] bg-black">
-                    <ReactPlayer
-                      url={item.file_url}
-                      width="100%"
-                      height="100%"
-                      controls={false}
-                      light={true}
-                      playIcon={null}
-                      playing={false}
-                      muted={true}
-                      playsinline
-                      style={{ objectFit: "cover" }}
-                      config={{ file: { attributes: { playsInline: true, webkitPlaysinline: "true" } } }}
+                  <video
+                    src={item.file_url}
+                    className="absolute inset-0 h-full w-full object-cover"
+                    muted
+                    playsInline
+                    preload="metadata"
                     />
                     <span className="absolute bottom-1 right-1 text-[10px] px-1.5 py-0.5 rounded bg-black/70 text-white">▶</span>
+
                   </div>
                 ) : (
                   <img
@@ -407,13 +402,16 @@ export default function GuestGalleryPage() {
                 >
                   {media[selectedIndex].file_type?.startsWith("video") ? (
                     <div className="relative w-full h-full flex items-center justify-center">
-                      <video
+                     <video
                         ref={viewerVideoRef}
                         src={media[selectedIndex].file_url}
                         controls
                         playsInline
+                        muted={false}
                         className="max-h-[82vh] max-w-full rounded-lg bg-black"
-                      />
+                        preload="auto"
+                        />
+
 
                       {/* Fullscreen + Open in new tab actions */}
                       <div className="absolute bottom-3 right-3 flex gap-2">
