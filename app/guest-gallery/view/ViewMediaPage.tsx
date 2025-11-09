@@ -64,24 +64,26 @@ const onTouchEnd = (e: React.TouchEvent) => {
         onTouchEnd={onTouchEnd}
     >
 
-      {item.file_type?.startsWith("video") ? (
-       <video
-        key={item.file_url}
-        src={item.file_url}
-        autoPlay
-        controls
-        playsInline
-        onEnded={next} // automatically go to next media
-        className="max-h-[85vh] max-w-[95vw] rounded"
+    {item.file_type?.startsWith("video") ? (
+        <video
+            key={item.file_url}   // ← This forces full unmount/remount when changing slides
+            src={item.file_url}
+            autoPlay
+            controls
+            playsInline
+            onEnded={next}
+            className="max-h-[85vh] max-w-[95vw] rounded"
         />
-
-      ) : (
+        ) : (
         <img
-          src={item.file_url}
-          className="max-h-[85vh] max-w-[95vw] rounded"
-          alt=""
+            key={item.file_url}   // ← Also here for images
+            src={item.file_url}
+            className="max-h-[85vh] max-w-[95vw] rounded select-none"
+            alt=""
+            draggable={false}
         />
-      )}
+    )}
+
     </div>
 
     {/* Navigation */}
