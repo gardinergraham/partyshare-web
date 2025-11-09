@@ -3,26 +3,8 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import dynamic from "next/dynamic";
 import { API_BASE_URL } from "@/lib/api";
 import { Edit2, Trash2 } from "lucide-react";
-
-// Keep SSR off for ReactPlayer thumbnails only
-const ReactPlayer = dynamic(() => import("react-player"), { ssr: false }) as unknown as React.FC<any>;
-
-/**
- * GuestGalleryPage (integrated with full-screen lightbox + swipe + keys)
- * ---------------------------------------------------------------------
- * 
- * ✅ What changed (without touching your fetching logic):
- * - Tap/click a grid item opens a full-screen viewer (modal)
- * - Swipe left/right to navigate (iOS/Android friendly via Pointer Events)
- * - Keyboard support: Esc closes, ←/→ navigate
- * - Body scroll is locked while viewer is open
- * - Video pauses automatically when navigating to the next/prev item
- * - Large invisible edge hotspots for easier prev/next taps on mobile
- * - Backdrop click closes (ignores while swiping)
- */
 
 export default function GuestGalleryPage() {
   const params = useSearchParams();
@@ -38,7 +20,6 @@ export default function GuestGalleryPage() {
   const [messageText, setMessageText] = useState("");
   const [editing, setEditing] = useState<any | null>(null);
   const [loadingMessages, setLoadingMessages] = useState(false);
-  const viewerWrapperRef = useRef<HTMLDivElement | null>(null);
 
   // ------------------ Fetching (unchanged) ------------------
   async function fetchMedia() {
@@ -153,17 +134,18 @@ export default function GuestGalleryPage() {
     fetchGuestbook();
   }
 
-  // ------------------ Viewer state (enhanced) ------------------
+  // ------------------ Viewer state (robust) ------------------
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [showViewer, setShowViewer] = useState(false);
 
+  const viewerWrapperRef = useRef<HTMLDivElement | null>(null);
   const viewerVideoRef = useRef<HTMLVideoElement | null>(null);
 
   const count = media.length;
   const clamp = (i: number) => (count === 0 ? 0 : Math.max(0, Math.min(count - 1, i)));
 
   const openViewer = (i: number) => {
-    if (count === 0) return;
+    if (!count) return;
     setSelectedIndex(clamp(i));
     setShowViewer(true);
     document.body.style.overflow = "hidden";
@@ -176,20 +158,14 @@ export default function GuestGalleryPage() {
   };
 
   const nextItem = useCallback(() => {
-    setSelectedIndex((i) => {
-      if (i == null) return 0;
-      return (i + 1) % Math.max(1, count);
-    });
+    setSelectedIndex((i) => (i == null ? 0 : (i + 1) % Math.max(1, count)));
   }, [count]);
 
   const prevItem = useCallback(() => {
-    setSelectedIndex((i) => {
-      if (i == null) return 0;
-      return (i - 1 + Math.max(1, count)) % Math.max(1, count);
-    });
+    setSelectedIndex((i) => (i == null ? 0 : (i - 1 + Math.max(1, count)) % Math.max(1, count)));
   }, [count]);
 
-  // Pause video when changing slide
+  // Pause video when slide changes
   useEffect(() => {
     const node = viewerVideoRef.current as HTMLVideoElement | null;
     try { node?.pause?.(); } catch {}
@@ -207,23 +183,23 @@ export default function GuestGalleryPage() {
     return () => window.removeEventListener("keydown", onKey);
   }, [showViewer, nextItem, prevItem]);
 
-  // Fullscreen handling (existing + minor tidy)
+  // Fullscreen handling (adds iOS webkitEnterFullscreen for video)
   const enterFullscreen = () => {
-    const wrapper = viewerWrapperRef.current;
-    if (!wrapper) return;
-    // Desktop & Android
-    if ((wrapper as any).requestFullscreen) {
-      (wrapper as any).requestFullscreen();
-      return;
+    const wrapper = viewerWrapperRef.current as any;
+    const videoEl = viewerVideoRef.current as any;
+
+    // iOS: use the native player fullscreen if available
+    if (videoEl && typeof videoEl.webkitEnterFullscreen === "function") {
+      try { videoEl.webkitEnterFullscreen(); return; } catch {}
     }
-    // Older Safari desktop
-    if ((wrapper as any).webkitRequestFullscreen) {
-      (wrapper as any).webkitRequestFullscreen();
-      return;
+
+    if (wrapper?.requestFullscreen) { wrapper.requestFullscreen(); return; }
+    if (wrapper?.webkitRequestFullscreen) { wrapper.webkitRequestFullscreen(); return; }
+
+    // Fallback: open the media in a new tab
+    if (videoEl?.currentSrc || videoEl?.src) {
+      window.open(videoEl.currentSrc || videoEl.src, "_blank");
     }
-    // iOS fallback: open video in a new tab if available
-    const el = viewerVideoRef.current;
-    if (el) window.open((el as any).currentSrc || (el as any).src, "_blank");
   };
 
   useEffect(() => {
@@ -234,7 +210,7 @@ export default function GuestGalleryPage() {
     return () => document.removeEventListener("fullscreenchange", handleFsExit);
   }, []);
 
-  // Swipe handling with Pointer Events
+  // Swipe handling (Pointer Events)
   const startX = useRef<number | null>(null);
   const hasMoved = useRef(false);
 
@@ -247,7 +223,7 @@ export default function GuestGalleryPage() {
   const onPointerMove = (e: React.PointerEvent) => {
     if (startX.current == null) return;
     const dx = e.clientX - startX.current;
-    if (Math.abs(dx) > 12) hasMoved.current = true; // small movement threshold to avoid accidental close
+    if (Math.abs(dx) > 12) hasMoved.current = true;
   };
 
   const onPointerUp = (e: React.PointerEvent) => {
@@ -255,12 +231,10 @@ export default function GuestGalleryPage() {
     const dx = e.clientX - startX.current;
     startX.current = null;
     if (Math.abs(dx) > 60) {
-      if (dx < 0) nextItem();
-      else prevItem();
+      if (dx < 0) nextItem(); else prevItem();
     }
   };
 
-  // ------------------ UI ------------------
   return (
     <div className="min-h-screen bg-[#0f0f23] text-white px-4 py-6">
       <h1 className="text-2xl font-bold text-center text-[#e94560] mb-6">{partyName}</h1>
@@ -280,31 +254,32 @@ export default function GuestGalleryPage() {
           {/* GRID */}
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
             {media.map((item, index) => (
-              <motion.div
+              <motion.button
+                type="button"
                 key={item.id}
-                className="relative group rounded-xl overflow-hidden border border-white/10 cursor-pointer"
+                className="relative group rounded-xl overflow-hidden border border-white/10 cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#e94560]"
                 onClick={() => openViewer(index)}
                 whileHover={{ scale: 1.01 }}
               >
-                {/* Video thumbnail */}
+                {/* Video or Image thumbnail; pointer-events-none so parent receives the click */}
                 {item.file_type?.startsWith("video") ? (
                   <div className="relative w-full aspect-[4/3] bg-black">
-                  <video
-                    src={item.file_url}
-                    className="absolute inset-0 h-full w-full object-cover"
-                    muted
-                    playsInline
-                    preload="metadata"
+                    <video
+                      src={item.file_url}
+                      className="absolute inset-0 h-full w-full object-cover pointer-events-none"
+                      muted
+                      playsInline
+                      preload="metadata"
                     />
                     <span className="absolute bottom-1 right-1 text-[10px] px-1.5 py-0.5 rounded bg-black/70 text-white">▶</span>
-
                   </div>
                 ) : (
                   <img
                     src={item.file_url || "/placeholder.jpg"}
                     alt="Event media"
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover pointer-events-none"
                     loading="lazy"
+                    draggable={false}
                   />
                 )}
 
@@ -316,17 +291,14 @@ export default function GuestGalleryPage() {
                 {/* Delete (only for uploader) */}
                 {item.uploader_name?.trim().toLowerCase() === guestName?.trim().toLowerCase() && (
                   <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleDeleteMedia(item.id);
-                    }}
+                    onClick={(e) => { e.stopPropagation(); handleDeleteMedia(item.id); }}
                     className="absolute top-1 right-1 pointer-events-auto bg-red-600 hover:bg-red-700 p-1 rounded-full opacity-100 md:opacity-0 md:group-hover:opacity-100 transition"
                     title="Delete"
                   >
                     <Trash2 size={14} className="text-white" />
                   </button>
                 )}
-              </motion.div>
+              </motion.button>
             ))}
           </div>
 
@@ -356,8 +328,14 @@ export default function GuestGalleryPage() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                onClick={() => { if (!hasMoved.current) closeViewer(); }}
               >
+                {/* Backdrop */}
+                <button
+                  className="absolute inset-0"
+                  aria-label="Close"
+                  onClick={() => { if (!hasMoved.current) closeViewer(); }}
+                />
+
                 {/* Close button */}
                 <button
                   onClick={(e) => { e.stopPropagation(); closeViewer(); }}
@@ -367,7 +345,7 @@ export default function GuestGalleryPage() {
                   ✕
                 </button>
 
-                {/* Prev / Next edge hotspots (easier taps) */}
+                {/* Prev / Next edge hotspots */}
                 {count > 1 && (
                   <>
                     <button
@@ -392,7 +370,6 @@ export default function GuestGalleryPage() {
                   key={media[selectedIndex].id}
                   ref={viewerWrapperRef}
                   className="max-w-[92vw] max-h-[82vh] w-full flex items-center justify-center"
-                  onClick={(e) => e.stopPropagation()}
                   onPointerDown={onPointerDown}
                   onPointerMove={onPointerMove}
                   onPointerUp={onPointerUp}
@@ -402,16 +379,13 @@ export default function GuestGalleryPage() {
                 >
                   {media[selectedIndex].file_type?.startsWith("video") ? (
                     <div className="relative w-full h-full flex items-center justify-center">
-                     <video
+                      <video
                         ref={viewerVideoRef}
                         src={media[selectedIndex].file_url}
                         controls
                         playsInline
-                        muted={false}
                         className="max-h-[82vh] max-w-full rounded-lg bg-black"
-                        preload="auto"
-                        />
-
+                      />
 
                       {/* Fullscreen + Open in new tab actions */}
                       <div className="absolute bottom-3 right-3 flex gap-2">
