@@ -187,23 +187,7 @@ const viewerImageRef = React.useRef<HTMLImageElement | null>(null);
   }, [showViewer, nextItem, prevItem]);
 
   // Fullscreen handling (adds iOS webkitEnterFullscreen for video)
-  const enterFullscreen = () => {
-    const wrapper = viewerWrapperRef.current as any;
-    const videoEl = viewerVideoRef.current as any;
-
-    // iOS: use the native player fullscreen if available
-    if (videoEl && typeof videoEl.webkitEnterFullscreen === "function") {
-      try { videoEl.webkitEnterFullscreen(); return; } catch {}
-    }
-
-    if (wrapper?.requestFullscreen) { wrapper.requestFullscreen(); return; }
-    if (wrapper?.webkitRequestFullscreen) { wrapper.webkitRequestFullscreen(); return; }
-
-    // Fallback: open the media in a new tab
-    if (videoEl?.currentSrc || videoEl?.src) {
-      window.open(videoEl.currentSrc || videoEl.src, "_blank");
-    }
-  };
+ 
 
   
 
