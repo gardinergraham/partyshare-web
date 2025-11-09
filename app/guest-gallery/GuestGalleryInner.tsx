@@ -22,6 +22,10 @@ export default function GuestGalleryPage() {
   const [editing, setEditing] = useState<any | null>(null);
   const [loadingMessages, setLoadingMessages] = useState(false);
 
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+
+
   // ------------------ Fetching (unchanged) ------------------
   async function fetchMedia() {
     try {
@@ -139,8 +143,8 @@ export default function GuestGalleryPage() {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [showViewer, setShowViewer] = useState(false);
 
-const viewerVideoRef = React.useRef<HTMLVideoElement | null>(null);
-const viewerImageRef = React.useRef<HTMLImageElement | null>(null);
+  const viewerVideoRef = React.useRef<HTMLVideoElement | null>(null);
+  const viewerImageRef = React.useRef<HTMLImageElement | null>(null);
 
 
   const count = media.length;
@@ -304,13 +308,8 @@ const viewerImageRef = React.useRef<HTMLImageElement | null>(null);
   </>
       )}
           {/* FULLSCREEN VIEWER (modal overlay) */}
- {showViewer && selectedIndex !== null && createPortal(
-  <div
-    className="fixed inset-0 z-[99999] bg-black/90 flex items-center justify-center p-4 pointer-events-auto"
-    role="dialog"
-    aria-modal="true"
-  >
-    {/* Close */}
+{mounted && showViewer && selectedIndex !== null && createPortal(
+  <div className="fixed inset-0 z-[999999] bg-black/90 flex items-center justify-center p-4 pointer-events-auto">
     <button
       onClick={closeViewer}
       className="absolute top-4 right-4 text-white text-3xl font-bold"
@@ -318,43 +317,22 @@ const viewerImageRef = React.useRef<HTMLImageElement | null>(null);
       ✕
     </button>
 
-    {/* Prev / Next */}
-    {media.length > 1 && (
-      <>
-        <button
-          onClick={prevItem}
-          className="absolute left-4 top-1/2 -translate-y-1/2 text-white text-4xl"
-        >
-          ‹
-        </button>
-        <button
-          onClick={nextItem}
-          className="absolute right-4 top-1/2 -translate-y-1/2 text-white text-4xl"
-        >
-          ›
-        </button>
-      </>
-    )}
-
-    {/* MEDIA */}
     {media[selectedIndex].file_type?.startsWith("video") ? (
-     <video
+      <video
         ref={viewerVideoRef}
         src={media[selectedIndex].file_url}
         controls
         playsInline
         preload="auto"
         className="max-h-[85vh] max-w-[90vw] rounded-lg bg-black"
-        />
-
+      />
     ) : (
-     <img
+      <img
         ref={viewerImageRef}
         src={media[selectedIndex].file_url}
         className="max-h-[85vh] max-w-[90vw] rounded-lg select-none"
         alt=""
-        />
-
+      />
     )}
   </div>,
   document.body
