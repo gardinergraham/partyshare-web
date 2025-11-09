@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { API_BASE_URL } from "@/lib/api";
+
 
 export const dynamic = "force-dynamic";
 
@@ -30,23 +31,79 @@ export default function ViewMediaPage() {
 
   if (!media.length) return null;
   const item = media[current];
+  const startX = useRef<number | null>(null);
 
-  return (
-    <div className="fixed inset-0 bg-black flex items-center justify-center p-4 text-white">
-      <button onClick={() => router.back()} className="absolute top-4 left-4 text-3xl">←</button>
+const onTouchStart = (e: React.TouchEvent) => {
+  startX.current = e.touches[0].clientX;
+};
 
-      {media.length > 1 && (
-        <>
-          <button onClick={prev} className="absolute left-4 top-1/2 text-4xl">‹</button>
-          <button onClick={next} className="absolute right-4 top-1/2 text-4xl">›</button>
-        </>
-      )}
+const onTouchEnd = (e: React.TouchEvent) => {
+  if (startX.current === null) return;
+  const dx = e.changedTouches[0].clientX - startX.current;
+  if (dx > 50) prev();     // swipe right → previous
+  if (dx < -50) next();    // swipe left → next
+  startX.current = null;
+};
+
+
+ return (
+  <div className="fixed inset-0 bg-black flex flex-col items-center justify-center p-4 text-white">
+
+    {/* Back */}
+    <button
+      onClick={() => router.back()}
+      className="absolute top-4 left-4 text-3xl bg-black/40 px-3 py-1 rounded"
+    >
+      ←
+    </button>
+
+    {/* Media */}
+   <div
+        className="flex-1 flex items-center justify-center w-full"
+        onTouchStart={onTouchStart}
+        onTouchEnd={onTouchEnd}
+    >
 
       {item.file_type?.startsWith("video") ? (
-        <video src={item.file_url} controls playsInline className="max-h-[90vh] max-w-[90vw] rounded" />
+       <video
+        key={item.file_url}
+        src={item.file_url}
+        autoPlay
+        controls
+        playsInline
+        onEnded={next} // automatically go to next media
+        className="max-h-[85vh] max-w-[95vw] rounded"
+        />
+
       ) : (
-        <img src={item.file_url} className="max-h-[90vh] max-w-[90vw] rounded" />
+        <img
+          src={item.file_url}
+          className="max-h-[85vh] max-w-[95vw] rounded"
+          alt=""
+        />
       )}
     </div>
-  );
+
+    {/* Navigation */}
+    {media.length > 1 && (
+      <div className="w-full flex justify-center gap-12 py-4">
+        <button
+          onClick={prev}
+          className="text-3xl bg-white/10 hover:bg-white/20 px-4 py-2 rounded-lg"
+        >
+          ‹ Prev
+        </button>
+
+        <button
+          onClick={next}
+          className="text-3xl bg-white/10 hover:bg-white/20 px-4 py-2 rounded-lg"
+        >
+          Next ›
+        </button>
+      </div>
+    )}
+
+  </div>
+);
+
 }
