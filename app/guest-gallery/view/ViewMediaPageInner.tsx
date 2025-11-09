@@ -58,33 +58,31 @@ const onTouchEnd = (e: React.TouchEvent) => {
     </button>
 
     {/* Media */}
-   <div
-        className="flex-1 flex items-center justify-center w-full"
-        onTouchStart={onTouchStart}
-        onTouchEnd={onTouchEnd}
+      <div
+      className="flex-1 flex items-center justify-center w-full"
+      onClick={(e) => e.stopPropagation()} // ✅ prevents parent overlay click close + hydration mismatch
     >
-
-    {item.file_type?.startsWith("video") ? (
+      {item.file_type?.startsWith("video") ? (
         <video
-            key={item.file_url}   // ← This forces full unmount/remount when changing slides
-            src={item.file_url}
-            autoPlay
-            controls
-            playsInline
-            onEnded={next}
-            className="max-h-[85vh] max-w-[95vw] rounded"
+          key={item.file_url}     // ✅ ensures remount
+          src={item.file_url}
+          autoPlay               // ✅ auto advance works
+          controls
+          playsInline
+          onEnded={() => next()} // ✅ move to next slide after video ends
+          className="max-h-[85vh] max-w-[95vw] rounded"
         />
-        ) : (
+      ) : (
         <img
-            key={item.file_url}   // ← Also here for images
-            src={item.file_url}
-            className="max-h-[85vh] max-w-[95vw] rounded select-none"
-            alt=""
-            draggable={false}
+          key={item.file_url}     // ✅ ensures remount for images too
+          src={item.file_url}
+          className="max-h-[85vh] max-w-[95vw] rounded select-none"
+          alt=""
+          draggable={false}
         />
-    )}
-
+      )}
     </div>
+
 
     {/* Navigation */}
     {media.length > 1 && (
