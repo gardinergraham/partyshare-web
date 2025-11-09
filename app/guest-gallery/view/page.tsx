@@ -1,58 +1,20 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
-import { API_BASE_URL } from "@/lib/api";
+import { Suspense } from "react";
+import ViewMediaPage from "./ViewMediaPage";
 
 export const dynamic = "force-dynamic";
 
-
-
-export default function ViewMediaPage() {
-  const params = useSearchParams();
-  const index = Number(params.get("index")) || 0;
-  const spaceId = params.get("space_id") ?? "";
-  const pin = params.get("pin") ?? "";
-  const router = useRouter();
-
-  
-
-  const [media, setMedia] = useState<any[]>([]);
-  const [current, setCurrent] = useState(index);
-
-  useEffect(() => {
-    async function load() {
-      const res = await fetch(`${API_BASE_URL}/api/media/guest-space/${spaceId}?guest_pin=${pin}`);
-      const data = await res.json();
-      setMedia(data);
-    }
-    load();
-  }, [spaceId, pin]);
-
-  const next = () => setCurrent((c) => (c + 1) % media.length);
-  const prev = () => setCurrent((c) => (c - 1 + media.length) % media.length);
-
-  if (!media.length) return null;
-  const item = media[current];
-
+export default function Page() {
   return (
-    <div className="fixed inset-0 bg-black flex items-center justify-center p-4 text-white">
-      {/* Back */}
-      <button onClick={() => router.back()} className="absolute top-4 left-4 text-3xl">←</button>
-
-      {/* Next / Previous */}
-      {media.length > 1 && (
-        <>
-          <button onClick={prev} className="absolute left-4 top-1/2 text-4xl">‹</button>
-          <button onClick={next} className="absolute right-4 top-1/2 text-4xl">›</button>
-        </>
-      )}
-
-      {item.file_type?.startsWith("video") ? (
-        <video src={item.file_url} controls playsInline className="max-h-[90vh] max-w-[90vw] rounded" />
-      ) : (
-        <img src={item.file_url} className="max-h-[90vh] max-w-[90vw] rounded" />
-      )}
-    </div>
+    <Suspense
+      fallback={
+        <div className="fixed inset-0 grid place-items-center bg-black text-white">
+          Loading…
+        </div>
+      }
+    >
+      <ViewMediaPage />
+    </Suspense>
   );
 }
