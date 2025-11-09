@@ -10,8 +10,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body className="bg-psDark text-white min-h-screen">
-        {children}
-        {/* ✅ Portal target for fullscreen viewer */}
+        {/* ✅ Page content now centered INSIDE main, not on body */}
+        <main className="flex flex-col items-center justify-center w-full min-h-screen">
+          {children}
+        </main>
+
+        {/* ✅ Portal target stays outside layout flow */}
         <div id="portal-root"></div>
       </body>
     </html>
