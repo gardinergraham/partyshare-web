@@ -311,12 +311,14 @@ export default function GuestGalleryPage() {
       )}
           {/* FULLSCREEN VIEWER (modal overlay) */}
     {mounted && portalRoot && showViewer && selectedIndex !== null &&
-    createPortal(
+  
+   createPortal(
         <div
-        className="fixed inset-0 z-[99999] bg-black/90 flex items-center justify-center p-4"
+        className="pointer-events-auto fixed inset-0 z-[999999] bg-black/90 flex items-center justify-center p-4"
         role="dialog"
         aria-modal="true"
         >
+
         {/* Close */}
         <button
             onClick={closeViewer}
