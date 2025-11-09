@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import dynamic from "next/dynamic";
 import { API_BASE_URL } from "@/lib/api";
 import { Edit2, Trash2 } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 
 
@@ -27,6 +28,7 @@ export default function GuestGalleryPage() {
   const [editing, setEditing] = useState<any | null>(null);
   const [loadingMessages, setLoadingMessages] = useState(false);
   const viewerWrapperRef = React.useRef<HTMLDivElement | null>(null);
+  const router = useRouter();
 
 
   async function fetchMedia() {
@@ -233,7 +235,12 @@ useEffect(() => {
         <motion.div
           key={item.id}
           className="relative group rounded-xl overflow-hidden border border-white/10 cursor-pointer"
-          onClick={() => openViewer(index)}
+         onClick={() => {
+            router.push(
+                `/guest-gallery/view?index=${index}&space_id=${spaceId}&pin=${pin}&guest_name=${guestName}&party_name=${partyName}`
+            );
+            }}
+
           whileHover={{ scale: 1.01 }}
         >
           {/* ✅ Video thumbnail: load only metadata; show first frame when possible */}
