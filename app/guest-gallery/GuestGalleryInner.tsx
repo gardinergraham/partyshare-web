@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { API_BASE_URL } from "@/lib/api";
 import { Edit2, Trash2 } from "lucide-react";
 import { createPortal } from "react-dom";
+import { useRouter } from "next/navigation";
 
 export default function GuestGalleryPage() {
   const params = useSearchParams();
@@ -223,6 +224,7 @@ export default function GuestGalleryPage() {
   useEffect(() => setMounted(true), []);
 
   const portalRoot = mounted ? document.getElementById("portal-root") : null;
+  const router = useRouter();
 
   return (
     <div className="min-h-screen bg-[#0f0f23] text-white px-4 py-6">
@@ -247,7 +249,9 @@ export default function GuestGalleryPage() {
                     type="button"
                     key={item.id}
                     className="relative group rounded-xl overflow-hidden border border-white/10 cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#e94560]"
-                    onClick={() => { console.log("CLICKED:", index); openViewer(index); }}
+                    onClick={() => {
+                        router.push(`/guest-gallery/view?space_id=${spaceId}&pin=${pin}&index=${index}`);
+                        }}
                     whileHover={{ scale: 1.01 }}
                     >
 
