@@ -291,7 +291,7 @@ export default function GuestGalleryPage() {
                 {/* Delete (only for uploader) */}
                 {item.uploader_name?.trim().toLowerCase() === guestName?.trim().toLowerCase() && (
                   <button
-                    onClick={(e) => { e.stopPropagation(); handleDeleteMedia(item.id); }}
+                    onClick={(e) => { e .stopPropagation(); handleDeleteMedia(item.id); }}
                     className="absolute top-1 right-1 pointer-events-auto bg-red-600 hover:bg-red-700 p-1 rounded-full opacity-100 md:opacity-0 md:group-hover:opacity-100 transition"
                     title="Delete"
                   >
@@ -319,105 +319,56 @@ export default function GuestGalleryPage() {
           </div>
 
           {/* FULLSCREEN VIEWER (modal overlay) */}
-          <AnimatePresence>
-            {showViewer && selectedIndex !== null && media[selectedIndex] && (
-              <motion.div
-                className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
-                role="dialog"
-                aria-modal="true"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-              >
-                {/* Backdrop */}
-                <button
-                  className="absolute inset-0"
-                  aria-label="Close"
-                  onClick={() => { if (!hasMoved.current) closeViewer(); }}
-                />
+      {showViewer && selectedIndex !== null && (
+  <div
+    className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
+    role="dialog"
+    aria-modal="true"
+  >
+    {/* Close */}
+    <button
+      onClick={closeViewer}
+      className="absolute top-4 right-4 text-white text-3xl font-bold"
+    >
+      ✕
+    </button>
 
-                {/* Close button */}
-                <button
-                  onClick={(e) => { e.stopPropagation(); closeViewer(); }}
-                  className="absolute top-4 right-4 text-white text-3xl font-bold"
-                  aria-label="Close"
-                >
-                  ✕
-                </button>
+    {/* Prev / Next */}
+    {media.length > 1 && (
+      <>
+        <button
+          onClick={prevItem}
+          className="absolute left-4 top-1/2 -translate-y-1/2 text-white text-4xl"
+        >
+          ‹
+        </button>
+        <button
+          onClick={nextItem}
+          className="absolute right-4 top-1/2 -translate-y-1/2 text-white text-4xl"
+        >
+          ›
+        </button>
+      </>
+    )}
 
-                {/* Prev / Next edge hotspots */}
-                {count > 1 && (
-                  <>
-                    <button
-                      onClick={(e) => { e.stopPropagation(); prevItem(); }}
-                      className="absolute left-0 top-0 bottom-0 w-1/5 sm:w-1/4 opacity-0 hover:opacity-100 text-white"
-                      aria-label="Previous"
-                    >
-                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-3xl">‹</span>
-                    </button>
-                    <button
-                      onClick={(e) => { e.stopPropagation(); nextItem(); }}
-                      className="absolute right-0 top-0 bottom-0 w-1/5 sm:w-1/4 opacity-0 hover:opacity-100 text-white"
-                      aria-label="Next"
-                    >
-                      <span className="absolute right-3 top-1/2 -translate-y-1/2 text-3xl">›</span>
-                    </button>
-                  </>
-                )}
+    {/* MEDIA */}
+    {media[selectedIndex].file_type?.startsWith("video") ? (
+      <video
+        src={media[selectedIndex].file_url}
+        controls
+        playsInline
+        className="max-h-[85vh] max-w-[90vw] rounded-lg bg-black"
+      />
+    ) : (
+      <img
+        src={media[selectedIndex].file_url}
+        className="max-h-[85vh] max-w-[90vw] rounded-lg"
+        alt=""
+      />
+    )}
+  </div>
+)}
 
-                {/* Media container with swipe handlers */}
-                <motion.div
-                  key={media[selectedIndex].id}
-                  ref={viewerWrapperRef}
-                  className="max-w-[92vw] max-h-[82vh] w-full flex items-center justify-center"
-                  onPointerDown={onPointerDown}
-                  onPointerMove={onPointerMove}
-                  onPointerUp={onPointerUp}
-                  initial={{ x: 40, opacity: 0 }}
-                  animate={{ x: 0, opacity: 1 }}
-                  exit={{ x: -40, opacity: 0 }}
-                >
-                  {media[selectedIndex].file_type?.startsWith("video") ? (
-                    <div className="relative w-full h-full flex items-center justify-center">
-                      <video
-                        ref={viewerVideoRef}
-                        src={media[selectedIndex].file_url}
-                        controls
-                        playsInline
-                        className="max-h-[82vh] max-w-full rounded-lg bg-black"
-                      />
-
-                      {/* Fullscreen + Open in new tab actions */}
-                      <div className="absolute bottom-3 right-3 flex gap-2">
-                        <button
-                          onClick={(e) => { e.stopPropagation(); enterFullscreen(); }}
-                          className="bg-white/15 hover:bg-white/25 text-white text-sm px-3 py-1 rounded-lg"
-                        >
-                          Fullscreen
-                        </button>
-                        <a
-                          href={media[selectedIndex].file_url}
-                          target="_blank"
-                          rel="noreferrer"
-                          onClick={(e) => e.stopPropagation()}
-                          className="bg-white/20 hover:bg-white/30 text-white text-sm px-3 py-1 rounded-lg"
-                        >
-                          Open
-                        </a>
-                      </div>
-                    </div>
-                  ) : (
-                    <img
-                      src={media[selectedIndex].file_url}
-                      alt="Full media"
-                      className="max-h-[82vh] max-w-full rounded-lg select-none"
-                      draggable={false}
-                    />
-                  )}
-                </motion.div>
-              </motion.div>
-            )}
-          </AnimatePresence>
         </>
       )}
 
