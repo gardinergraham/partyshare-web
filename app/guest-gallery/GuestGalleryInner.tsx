@@ -229,6 +229,8 @@ export default function GuestGalleryPage() {
       if (dx < 0) nextItem(); else prevItem();
     }
   };
+  console.log("viewer state:", showViewer, selectedIndex);
+
 
   return (
     <div className="min-h-screen bg-[#0f0f23] text-white px-4 py-6">
