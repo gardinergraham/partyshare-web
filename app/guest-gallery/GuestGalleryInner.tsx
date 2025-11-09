@@ -139,8 +139,9 @@ export default function GuestGalleryPage() {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [showViewer, setShowViewer] = useState(false);
 
-  const viewerWrapperRef = useRef<HTMLDivElement | null>(null);
-  const viewerVideoRef = useRef<HTMLVideoElement | null>(null);
+const viewerVideoRef = React.useRef<HTMLVideoElement | null>(null);
+const viewerImageRef = React.useRef<HTMLImageElement | null>(null);
+
 
   const count = media.length;
   const clamp = (i: number) => (count === 0 ? 0 : Math.max(0, Math.min(count - 1, i)));
@@ -353,21 +354,23 @@ export default function GuestGalleryPage() {
 
     {/* MEDIA */}
     {media[selectedIndex].file_type?.startsWith("video") ? (
-      <video
+     <video
         ref={viewerVideoRef}
         src={media[selectedIndex].file_url}
         controls
         playsInline
         preload="auto"
         className="max-h-[85vh] max-w-[90vw] rounded-lg bg-black"
-      />
+        />
+
     ) : (
-      <img
-        ref={viewerWrapperRef}
+     <img
+        ref={viewerImageRef}
         src={media[selectedIndex].file_url}
         className="max-h-[85vh] max-w-[90vw] rounded-lg select-none"
         alt=""
-      />
+        />
+
     )}
   </div>,
   document.body
