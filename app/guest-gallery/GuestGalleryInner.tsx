@@ -144,18 +144,19 @@ export default function GuestGalleryPage() {
   const count = media.length;
   const clamp = (i: number) => (count === 0 ? 0 : Math.max(0, Math.min(count - 1, i)));
 
-  const openViewer = (i: number) => {
-    if (!count) return;
-    setSelectedIndex(clamp(i));
-    setShowViewer(true);
-    document.body.style.overflow = "hidden";
-  };
+ const openViewer = (i: number) => {
+  console.log("OPEN VIEWER INDEX:", i);
+  setSelectedIndex(i);
+  setShowViewer(true);
+  document.body.style.overflow = "hidden";
+};
 
-  const closeViewer = () => {
-    setShowViewer(false);
-    setSelectedIndex(null);
-    document.body.style.overflow = "";
-  };
+ const closeViewer = () => {
+  setShowViewer(false);
+  setSelectedIndex(null);
+  document.body.style.overflow = "";
+};
+
 
   const nextItem = useCallback(() => {
     setSelectedIndex((i) => (i == null ? 0 : (i + 1) % Math.max(1, count)));
@@ -202,13 +203,7 @@ export default function GuestGalleryPage() {
     }
   };
 
-  useEffect(() => {
-    const handleFsExit = () => {
-      if (!document.fullscreenElement) closeViewer();
-    };
-    document.addEventListener("fullscreenchange", handleFsExit);
-    return () => document.removeEventListener("fullscreenchange", handleFsExit);
-  }, []);
+  
 
   // Swipe handling (Pointer Events)
   const startX = useRef<number | null>(null);
