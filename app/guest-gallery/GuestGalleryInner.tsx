@@ -173,68 +173,46 @@ const enterFullscreen = () => {
 
 
   return (
-  /*
-    <div className="min-h-screen bg-[#0f0f23] text-white px-4 pt-6 pb-32">
-
-      <h1 className="text-2xl font-bold text-center text-[#e94560] mb-6">{partyName}</h1>
-
-      <div className="flex justify-center gap-6 mb-6">
-        <button className={`px-4 py-2 rounded-lg ${tab === "gallery" ? "bg-[#e94560]" : "bg-[#1b263b]"}`} onClick={() => setTab("gallery")}>
-          Gallery
-        </button>
-        <button className={`px-4 py-2 rounded-lg ${tab === "guestbook" ? "bg-[#e94560]" : "bg-[#1b263b]"}`} onClick={() => setTab("guestbook")}>
-          Guestbook
-        </button>
-      </div>
-*/
-<div className="min-h-screen bg-[#0f0f23] text-white px-4 pt-[130px] pb-[140px] overflow-y-auto">
-
+  
 <div className="fixed top-0 left-0 right-0 bg-[#0f0f23] z-[9998] pt-6 pb-4 border-b border-white/10">
   <h1 className="text-2xl font-bold text-center text-[#e94560] mb-4">{partyName}</h1>
 
-  <div className="flex justify-center gap-6">
+  {/* Four buttons in one row */}
+  <div className="flex justify-center flex-wrap gap-4 px-4">
+
+    {/* Upload Media */}
+    <label className="cursor-pointer bg-[#4ade80] hover:bg-[#22c55e]
+      border-[4px] border-[#14532d] px-4 py-2 rounded-lg text-black font-semibold transition active:scale-95">
+      Upload Media
+      <input type="file" onChange={handleUpload} accept="image/*,video/*" className="hidden" />
+    </label>
+
+    {/* Take Photo */}
+    <label className="cursor-pointer bg-[#38bdf8] hover:bg-[#0ea5e9]
+      border-[4px] border-[#075985] px-4 py-2 rounded-lg text-black font-semibold transition active:scale-95">
+      Take Photo
+      <input type="file" accept="image/*,video/*" capture="environment" onChange={handleUpload} className="hidden" />
+    </label>
+
+    {/* Gallery Tab */}
     <button
       className={`px-4 py-2 rounded-lg ${tab === "gallery" ? "bg-[#e94560]" : "bg-[#1b263b]"}`}
       onClick={() => setTab("gallery")}
     >
       Gallery
     </button>
+
+    {/* Guestbook Tab */}
     <button
       className={`px-4 py-2 rounded-lg ${tab === "guestbook" ? "bg-[#e94560]" : "bg-[#1b263b]"}`}
       onClick={() => setTab("guestbook")}
     >
       Guestbook
     </button>
+
   </div>
 
 
-
-    {/* Fixed bottom upload bar */}
-<div className="fixed bottom-0 left-0 right-0 w-full bg-[#0f0f23] border-t border-white/10 
-    p-6 flex justify-center items-center gap-6 z-[9999]">
-
-  {/* Upload Media (Lime Green) */}
-  <label className="cursor-pointer 
-      bg-[#4ade80] hover:bg-[#22c55e] 
-      border-[6px] border-[#14532d]
-      px-8 py-6 rounded-2xl text-xl font-semibold 
-      text-black shadow-lg transition active:scale-95">
-    {uploading ? "Uploading..." : "Upload Media"}
-    <input type="file" onChange={handleUpload} accept="image/*,video/*" className="hidden" />
-  </label>
-
-  {/* Take Photo (Sky Blue) */}
-  <label className="cursor-pointer 
-      bg-[#38bdf8] hover:bg-[#0ea5e9] 
-      border-[6px] border-[#075985]
-      px-8 py-6 rounded-2xl text-xl font-semibold 
-      text-black shadow-lg transition active:scale-95">
-    Take Photo
-    <input type="file" accept="image/*,video/*" capture="environment" onChange={handleUpload} className="hidden" />
-  </label>
-  </div>
-
-</div>
       {/* =======================  GALLERY VIEW  ======================= */}
      {tab === "gallery" && (
   <>
