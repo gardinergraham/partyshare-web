@@ -11,9 +11,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="en">
       <body className="bg-psDark text-white min-h-screen">
         {/* Page content should NOT control portal positioning */}
-        <div id="app-root" className="min-h-screen w-full flex flex-col items-center justify-center">
-          {children}
-        </div>
+       <div id="app-root" className="min-h-screen w-full">
+        {children}
+       </div>
+
 
         {/* ✅ Portal must be OUTSIDE any flex, grid, or overflow container */}
         <div id="portal-root" className="fixed inset-0 pointer-events-none z-[999999]"></div>

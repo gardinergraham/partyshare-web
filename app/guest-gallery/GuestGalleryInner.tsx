@@ -146,24 +146,7 @@ export default function GuestGalleryPage() {
     fetchGuestbook();
   }
 
-  const enterFullscreen = () => {
-    const wrapper = viewerWrapperRef.current;
-    if (!wrapper) return;
-
-    // Desktop & Android
-    if ((wrapper as any).requestFullscreen) {
-      (wrapper as any).requestFullscreen();
-      return;
-    }
-    // Older Safari desktop
-    if ((wrapper as any).webkitRequestFullscreen) {
-      (wrapper as any).webkitRequestFullscreen();
-      return;
-    }
-    // iOS Safari fallback
-    const el = viewerVideoRef.current;
-    if (el) window.open((el as any).currentSrc || (el as any).src, "_blank");
-  };
+  
 
   return (
     <div
@@ -183,7 +166,7 @@ export default function GuestGalleryPage() {
 
         {/* Buttons: center; on narrow screens they stretch in 2 columns */}
         <div className="mx-auto w-full max-w-3xl px-4">
-          <div className="grid grid-cols-2 gap-3 sm:flex sm:flex-wrap sm:justify-center">
+         <div className="flex flex-wrap justify-center gap-3">
             {/* Upload Media */}
             <label className="cursor-pointer bg-[#4ade80] hover:bg-[#22c55e] border-[4px] border-[#14532d] px-4 py-2 rounded-lg text-black font-semibold transition active:scale-95 text-center">
               {uploading ? "Uploading..." : "Upload Media"}
