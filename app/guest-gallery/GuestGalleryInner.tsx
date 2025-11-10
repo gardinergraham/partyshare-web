@@ -189,7 +189,8 @@ const enterFullscreen = () => {
  {tab === "gallery" && (
   <>
     {/* GRID */}
-    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+   <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 pb-32">
+
       {media.map((item, index) => (
         <motion.div
           key={item.id}
@@ -263,42 +264,8 @@ const enterFullscreen = () => {
         </motion.div>
       ))}
     </div>
-
-    {/* UPLOAD */}
-    <div className="mt-10 text-center space-y-4">
-      <div className="flex flex-col sm:flex-row justify-center gap-4">
-        <label className="cursor-pointer inline-block bg-[#e94560] hover:bg-[#ff5b74] px-10 py-5 rounded-2xl text-xl font-semibold transition">
-          {uploading ? "Uploading..." : "Upload Media"}
-          <input
-            type="file"
-            onChange={handleUpload}
-            accept="image/*,video/*"
-            hidden
-          />
-        </label>
-
-        <label className="cursor-pointer inline-block bg-[#1b263b] hover:bg-[#263b50] px-10 py-5 rounded-2xl text-xl font-semibold transition border border-[#e94560]/40">
-          Take a Picture
-          <input
-            type="file"
-            accept="image/*,video/*"
-            capture="environment"
-            onChange={handleUpload}
-            hidden
-          />
-        </label>
-      </div>
-      <p className="text-gray-400 text-sm mt-2">
-        Supported: JPG, PNG, MP4 (max 100MB)
-      </p>
-    </div>
-
-   
-
   </>
 )}
-
-
 
       {/* =======================  GUESTBOOK VIEW  ======================= */}
       {tab === "guestbook" && (
@@ -343,6 +310,24 @@ const enterFullscreen = () => {
           </div>
         </div>
       )}
+
+      {/* Fixed bottom upload bar */}
+    <div className="fixed bottom-0 left-0 right-0 bg-[#0f0f23] border-t border-white/10 p-4 flex justify-center gap-4 z-50">
+
+    <label className="cursor-pointer bg-[#e94560] hover:bg-[#ff5b74] px-6 py-3 rounded-xl font-semibold transition text-white">
+        {uploading ? "Uploading..." : "Upload"}
+        <input type="file" onChange={handleUpload} accept="image/*,video/*" hidden />
+    </label>
+
+    <label className="cursor-pointer bg-[#1b263b] hover:bg-[#263b50] px-6 py-3 rounded-xl font-semibold transition text-white border border-[#e94560]/40">
+        Take Photo
+        <input type="file" accept="image/*,video/*" capture="environment" onChange={handleUpload} hidden />
+    </label>
+
+    </div>
+
+
+
     </div>
   );
 }
