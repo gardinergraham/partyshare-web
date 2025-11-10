@@ -207,7 +207,7 @@ const enterFullscreen = () => {
     </button>
   </div>
 
-</div>
+
 
     {/* Fixed bottom upload bar */}
 <div className="fixed bottom-0 left-0 right-0 w-full bg-[#0f0f23] border-t border-white/10 
@@ -232,6 +232,7 @@ const enterFullscreen = () => {
     Take Photo
     <input type="file" accept="image/*,video/*" capture="environment" onChange={handleUpload} className="hidden" />
   </label>
+</div>
 </div>
 
       {/* =======================  GALLERY VIEW  ======================= */}
