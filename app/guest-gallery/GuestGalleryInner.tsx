@@ -187,8 +187,7 @@ const enterFullscreen = () => {
         </button>
       </div>
 */
-<div className="min-h-screen bg-[#0f0f23] text-white px-4 pt-[130px] pb-[140px] overflow-y-auto flex flex-col items-center">
-
+<div className="min-h-screen bg-[#0f0f23] text-white px-4 pt-[130px] pb-[140px] overflow-y-auto">
 
 <div className="fixed top-0 left-0 right-0 bg-[#0f0f23] z-[9998] pt-6 pb-4 border-b border-white/10">
   <h1 className="text-2xl font-bold text-center text-[#e94560] mb-4">{partyName}</h1>
@@ -240,7 +239,7 @@ const enterFullscreen = () => {
      {tab === "gallery" && (
   <>
     {/* GRID */}
-   <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 pb-24">
+   <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 pb-24 mt-10">
 
       {media.map((item, index) => (
         <motion.div
