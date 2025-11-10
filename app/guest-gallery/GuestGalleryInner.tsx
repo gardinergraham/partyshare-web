@@ -156,7 +156,7 @@ export default function GuestGalleryPage() {
   <header
     className="fixed top-0 left-0 right-0 bg-[#0f0f23] z-[9998] border-b border-white/10"
     style={{
-      paddingTop: "calc(env(safe-area-inset-top) + 12px)",
+      paddingTop: "calc(env(safe-area-inset-top) + 120px)",
       paddingBottom: "12px"
     }}
   >
