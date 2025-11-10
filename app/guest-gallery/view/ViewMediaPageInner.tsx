@@ -33,7 +33,7 @@ export default function ViewMediaPageInner() {
   const prev = () => setCurrent((c) => (c - 1 + media.length) % media.length);
 
   return (
-    <div className="fixed inset-0 bg-black flex items-center justify-center p-4 text-white">
+    <div className="fixed inset-0 bg-black flex flex-col items-center justify-center p-4 text-white">
 
       {/* Back */}
       <button
@@ -43,25 +43,7 @@ export default function ViewMediaPageInner() {
         ←
       </button>
 
-      {/* Prev / Next */}
-      {media.length > 1 && (
-        <>
-          <button
-            onClick={prev}
-            className="absolute left-4 top-1/2 text-4xl"
-          >
-            ‹
-          </button>
-          <button
-            onClick={next}
-            className="absolute right-4 top-1/2 text-4xl"
-          >
-            ›
-          </button>
-        </>
-      )}
-
-      {/* Media */}
+       {/* Media */}
       {item.file_type?.startsWith("video") ? (
         <video
           src={item.file_url}
@@ -77,6 +59,25 @@ export default function ViewMediaPageInner() {
           draggable={false}
         />
       )}
+
+        {/* Prev / Next */}
+        {media.length > 1 && (
+    <div className="w-full flex justify-center gap-12 py-4 mt-4">
+        <button
+        onClick={prev}
+        className="text-xl bg-white/10 hover:bg-white/20 px-6 py-3 rounded-xl"
+        >
+        ‹ Previous
+        </button>
+
+        <button
+        onClick={next}
+        className="text-xl bg-white/10 hover:bg-white/20 px-6 py-3 rounded-xl"
+        >
+        Next ›
+        </button>
+    </div>
+    )}
     </div>
   );
 }
