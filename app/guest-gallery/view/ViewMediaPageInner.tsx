@@ -36,17 +36,18 @@ export default function ViewMediaPageInner() {
     <div className="fixed inset-0 bg-black flex flex-col items-center justify-center p-4 text-white">
       
        {/* Media */}
+         <div className="flex flex-col items-center justify-center flex-1 w-full max-w-6xl">
       {item.file_type?.startsWith("video") ? (
         <video
           src={item.file_url}
           controls
           playsInline
-          className="max-h-[90vh] max-w-[90vw] rounded"
+           className="max-h-[70vh] max-w-full object-contain rounded-lg"
         />
       ) : (
         <img
           src={item.file_url}
-          className="max-h-[90vh] max-w-[90vw] rounded select-none"
+          className="max-h-[70vh] max-w-full object-contain rounded-lg select-none"
           alt=""
           draggable={false}
         />
@@ -76,6 +77,7 @@ export default function ViewMediaPageInner() {
         </button>
     </div>
     )}
+    </div>
     </div>
   );
 }
