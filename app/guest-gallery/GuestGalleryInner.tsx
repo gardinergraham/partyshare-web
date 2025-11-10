@@ -188,24 +188,30 @@ const enterFullscreen = () => {
       </div>
 
 
-            {/* Fixed bottom upload bar */}
-     <div className="fixed bottom-0 left-0 right-0 w-full  bg-[#0f0f23] border-t border-white/10 p-6 flex justify-center items-center gap-6 z-[9999]">
+        {/* Fixed bottom upload bar */}
+    <div className="fixed bottom-0 left-0 right-0 w-full bg-[#0f0f23] border-t border-white/10 
+        p-6 flex justify-center items-center gap-6 z-[9999]">
 
-        <label className="cursor-pointer bg-[#e94560] hover:bg-[#ff5b74] 
-                px-8 py-10 rounded-2xl text-xl font-semibold transition text-white 
-                shadow-lg active:scale-95">
-            {uploading ? "Uploading..." : "Upload Media"}
-            <input type="file" onChange={handleUpload} accept="image/*,video/*" className="hidden" />
-        </label>
+    {/* Upload Media (Lime Green) */}
+    <label className="cursor-pointer bg-lime-500 hover:bg-lime-400 
+        border-[20px] border-lime-300
+        px-10 py-10 rounded-3xl text-xl font-semibold 
+        text-black shadow-xl transition active:scale-95">
+        {uploading ? "Uploading..." : "Upload Media"}
+        <input type="file" onChange={handleUpload} accept="image/*,video/*" className="hidden" />
+    </label>
 
-        <label className="cursor-pointer bg-[#1b263b] hover:bg-[#263b50] 
-                px-8 py-10 rounded-2xl text-xl font-semibold transition text-white 
-                border border-[#e94560]/40 shadow-lg active:scale-95">
-            Take Photo
-            <input type="file" accept="image/*,video/*" capture="environment" onChange={handleUpload} className="hidden" />
-        </label>
+    {/* Take Photo (Sky Blue) */}
+    <label className="cursor-pointer bg-sky-500 hover:bg-sky-400 
+        border-[20px] border-sky-300
+        px-10 py-10 rounded-3xl text-xl font-semibold 
+        text-black shadow-xl transition active:scale-95">
+        Take Photo
+        <input type="file" accept="image/*,video/*" capture="environment" onChange={handleUpload} className="hidden" />
+    </label>
 
-        </div>
+    </div>
+
       {/* =======================  GALLERY VIEW  ======================= */}
      {tab === "gallery" && (
   <>
