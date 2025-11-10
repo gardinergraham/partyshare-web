@@ -34,7 +34,6 @@ export default function ViewMediaPageInner() {
 
   return (
     <div className="fixed inset-0 bg-black flex flex-col items-center justify-center p-4 text-white">
-
       
        {/* Media */}
       {item.file_type?.startsWith("video") ? (
@@ -52,13 +51,13 @@ export default function ViewMediaPageInner() {
           draggable={false}
         />
       )}
-   {/* Back */}
-      <button
-        onClick={() => router.back()}
-        className="absolute top-4 left-4 text-3xl"
-      >
-        ←
-      </button>
+    {/* Back */}
+  <button
+    onClick={() => router.back()}
+    className="text-lg bg-white/10 hover:bg-white/20 px-6 py-3 rounded-xl"
+  >
+    ← Back
+  </button>
         {/* Prev / Next */}
         {media.length > 1 && (
     <div className="w-full flex justify-center gap-12 py-4 mt-4">
