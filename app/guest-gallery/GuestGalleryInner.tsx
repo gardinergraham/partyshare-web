@@ -1,15 +1,11 @@
-
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { useSearchParams } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
+import { useSearchParams, useRouter } from "next/navigation";
+import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
 import { API_BASE_URL } from "@/lib/api";
 import { Edit2, Trash2 } from "lucide-react";
-import { useRouter } from "next/navigation";
-
-
 
 const ReactPlayer = dynamic(() => import("react-player"), { ssr: false }) as unknown as React.FC<any>;
 
@@ -27,9 +23,14 @@ export default function GuestGalleryPage() {
   const [messageText, setMessageText] = useState("");
   const [editing, setEditing] = useState<any | null>(null);
   const [loadingMessages, setLoadingMessages] = useState(false);
+
   const viewerWrapperRef = React.useRef<HTMLDivElement | null>(null);
+  const viewerVideoRef = React.useRef<HTMLVideoElement | null>(null);
   const router = useRouter();
 
+  // You can tweak this if you want the content to start higher/lower.
+  // 112px is header height (title + buttons) roughly ~25px less than your last version.
+  const HEADER_HEIGHT = 112;
 
   async function fetchMedia() {
     try {
@@ -46,9 +47,9 @@ export default function GuestGalleryPage() {
     try {
       setLoadingMessages(true);
       const res = await fetch(
-        `${API_BASE_URL}/api/guestbook/${spaceId}?guest_pin=${encodeURIComponent(
-          pin
-        )}&party_name=${encodeURIComponent(partyName)}&guest_name=${encodeURIComponent(guestName)}`
+        `${API_BASE_URL}/api/guestbook/${spaceId}?guest_pin=${encodeURIComponent(pin)}&party_name=${encodeURIComponent(
+          partyName
+        )}&guest_name=${encodeURIComponent(guestName)}`
       );
       if (!res.ok) return;
       const data = await res.json();
@@ -82,7 +83,10 @@ export default function GuestGalleryPage() {
     form.append("file_type", file.type);
     form.append("file", file);
 
-    const res = await fetch(`${API_BASE_URL}/api/media/guest/upload`, { method: "POST", body: form });
+    const res = await fetch(`${API_BASE_URL}/api/media/guest/upload`, {
+      method: "POST",
+      body: form,
+    });
     setUploading(false);
 
     if (res.ok) {
@@ -114,10 +118,10 @@ export default function GuestGalleryPage() {
     const form = new FormData();
     form.append("message", messageText.trim());
 
-    await fetch(
-      `${API_BASE_URL}/api/guestbook/${editing.id}?guest_pin=${pin}&guest_name=${guestName}`,
-      { method: "PUT", body: form }
-    );
+    await fetch(`${API_BASE_URL}/api/guestbook/${editing.id}?guest_pin=${pin}&guest_name=${guestName}`, {
+      method: "PUT",
+      body: form,
+    });
 
     setEditing(null);
     setMessageText("");
@@ -142,140 +146,161 @@ export default function GuestGalleryPage() {
     fetchGuestbook();
   }
 
-// Keep ref for fullscreen
-const viewerVideoRef = React.useRef<HTMLVideoElement | null>(null);
+  const enterFullscreen = () => {
+    const wrapper = viewerWrapperRef.current;
+    if (!wrapper) return;
 
+    // Desktop & Android
+    if ((wrapper as any).requestFullscreen) {
+      (wrapper as any).requestFullscreen();
+      return;
+    }
+    // Older Safari desktop
+    if ((wrapper as any).webkitRequestFullscreen) {
+      (wrapper as any).webkitRequestFullscreen();
+      return;
+    }
+    // iOS Safari fallback
+    const el = viewerVideoRef.current;
+    if (el) window.open((el as any).currentSrc || (el as any).src, "_blank");
+  };
 
-// ✅ Proper fullscreen handling (with real iOS fallback)
-const enterFullscreen = () => {
-  const wrapper = viewerWrapperRef.current;
-  if (!wrapper) return;
+  return (
+    <div
+      className="min-h-screen bg-[#0f0f23] text-white px-4 overflow-y-auto"
+      // Push content below the fixed header + respect iOS notch at the top & bottom
+      style={{
+        paddingTop: `calc(env(safe-area-inset-top) + ${HEADER_HEIGHT}px)`,
+        paddingBottom: `calc(env(safe-area-inset-bottom) + 16px)`,
+      }}
+    >
+      {/* Fixed header */}
+      <header
+        className="fixed top-0 left-0 right-0 bg-[#0f0f23] z-[9998] border-b border-white/10"
+        style={{ paddingTop: "calc(env(safe-area-inset-top) + 12px)", paddingBottom: 12 }}
+      >
+        <h1 className="text-2xl font-bold text-center text-[#e94560] mb-2">{partyName}</h1>
 
-  // Desktop & Android first
-  if (wrapper.requestFullscreen) {
-    wrapper.requestFullscreen();
-    return;
-  }
+        {/* Buttons: center; on narrow screens they stretch in 2 columns */}
+        <div className="mx-auto w-full max-w-3xl px-4">
+          <div className="grid grid-cols-2 gap-3 sm:flex sm:flex-wrap sm:justify-center">
+            {/* Upload Media */}
+            <label className="cursor-pointer bg-[#4ade80] hover:bg-[#22c55e] border-[4px] border-[#14532d] px-4 py-2 rounded-lg text-black font-semibold transition active:scale-95 text-center">
+              {uploading ? "Uploading..." : "Upload Media"}
+              <input type="file" onChange={handleUpload} accept="image/*,video/*" className="hidden" />
+            </label>
 
-  // Older Safari desktop
-  // @ts-ignore
-  if (wrapper.webkitRequestFullscreen) {
-    // @ts-ignore
-    wrapper.webkitRequestFullscreen();
-    return;
-  }
+            {/* Take Photo */}
+            <label className="cursor-pointer bg-[#38bdf8] hover:bg-[#0ea5e9] border-[4px] border-[#075985] px-4 py-2 rounded-lg text-black font-semibold transition active:scale-95 text-center">
+              Take Photo
+              <input
+                type="file"
+                accept="image/*,video/*"
+                capture="environment"
+                onChange={handleUpload}
+                className="hidden"
+              />
+            </label>
 
-  // iOS Safari fallback (no true fullscreen API)
-  const el = viewerVideoRef.current;
-  if (el) window.open(el.currentSrc || el.src, "_blank");
- };
+            {/* Gallery */}
+            <button
+              className={`px-4 py-2 rounded-lg ${
+                tab === "gallery" ? "bg-[#e94560]" : "bg-[#1b263b]"
+              } font-semibold text-center`}
+              onClick={() => setTab("gallery")}
+            >
+              Gallery
+            </button>
 
-
-
-   return (
-    <div className="min-h-screen bg-[#0f0f23] text-white px-4 pt-[170px] pb-10 overflow-y-auto">
-
-      {/* Fixed Header + Buttons */}
-      <div className="fixed top-0 left-0 right-0 bg-[#0f0f23] z-[9998] pt-6 pb-4 border-b border-white/10">
-        <h1 className="text-2xl font-bold text-center text-[#e94560] mb-4">{partyName}</h1>
-
-        <div className="flex justify-center flex-wrap gap-4 px-4">
-
-          {/* Upload Media */}
-          <label className="cursor-pointer bg-[#4ade80] hover:bg-[#22c55e]
-            border-[4px] border-[#14532d] px-4 py-2 rounded-lg text-black font-semibold transition active:scale-95">
-            Upload Media
-            <input type="file" onChange={handleUpload} accept="image/*,video/*" className="hidden" />
-          </label>
-
-          {/* Take Photo */}
-          <label className="cursor-pointer bg-[#38bdf8] hover:bg-[#0ea5e9]
-            border-[4px] border-[#075985] px-4 py-2 rounded-lg text-black font-semibold transition active:scale-95">
-            Take Photo
-            <input type="file" accept="image/*,video/*" capture="environment" onChange={handleUpload} className="hidden" />
-          </label>
-
-          {/* Gallery */}
-          <button
-            className={`px-4 py-2 rounded-lg ${tab === "gallery" ? "bg-[#e94560]" : "bg-[#1b263b]"}`}
-            onClick={() => setTab("gallery")}
-          >
-            Gallery
-          </button>
-
-          {/* Guestbook */}
-          <button
-            className={`px-4 py-2 rounded-lg ${tab === "guestbook" ? "bg-[#e94560]" : "bg-[#1b263b]"}`}
-            onClick={() => setTab("guestbook")}
-          >
-            Guestbook
-          </button>
-        </div>
-      </div>
-
-
-      {/* ----------------- GALLERY TAB ----------------- */}
-      {tab === "gallery" && (
-        <>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 pb-24 mt-10">
-            {media.map((item, index) => (
-              <motion.div
-                key={item.id}
-                className="relative group rounded-xl overflow-hidden border border-white/10 cursor-pointer"
-                onClick={() =>
-                  router.push(
-                    `/guest-gallery/view?index=${index}&space_id=${spaceId}&pin=${pin}&guest_name=${guestName}&party_name=${partyName}`
-                  )
-                }
-                whileHover={{ scale: 1.01 }}
-              >
-                {item.file_type?.startsWith("video") ? (
-                  <div className="relative w-full aspect-[4/3] bg-black pointer-events-none">
-                    <ReactPlayer
-                      src={item.file_url}
-                      width="100%"
-                      height="100%"
-                      controls={false}
-                      light={true}
-                      playing={false}
-                      muted={false}
-                      playsinline
-                    />
-                  </div>
-                ) : (
-                  <img
-                    src={item.file_url || "/placeholder.jpg"}
-                    alt="Event media"
-                    className="w-full h-full object-cover pointer-events-none"
-                    loading="lazy"
-                  />
-                )}
-
-                <p className="absolute bottom-1 left-1 text-[11px] bg-black/60 px-2 py-1 rounded">
-                  {item.uploader_name || item.guest_name || "Guest"}
-                </p>
-
-                {item.uploader_name?.trim().toLowerCase() === guestName.trim().toLowerCase() && (
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleDeleteMedia(item.id);
-                    }}
-                    className="absolute top-1 right-1 bg-red-600 hover:bg-red-700 p-1 rounded-full transition"
-                  >
-                    <Trash2 size={14} />
-                  </button>
-                )}
-              </motion.div>
-            ))}
+            {/* Guestbook */}
+            <button
+              className={`px-4 py-2 rounded-lg ${
+                tab === "guestbook" ? "bg-[#e94560]" : "bg-[#1b263b]"
+              } font-semibold text-center`}
+              onClick={() => setTab("guestbook")}
+            >
+              Guestbook
+            </button>
           </div>
-        </>
+        </div>
+      </header>
+
+      {/* =======================  GALLERY VIEW  ======================= */}
+      {tab === "gallery" && (
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 pb-10 mt-4">
+          {media.map((item, index) => (
+            <motion.div
+              key={item.id}
+              className="relative group rounded-xl overflow-hidden border border-white/10 cursor-pointer"
+              onClick={() => {
+                router.push(
+                  `/guest-gallery/view?index=${index}&space_id=${spaceId}&pin=${pin}&guest_name=${guestName}&party_name=${partyName}`
+                );
+              }}
+              whileHover={{ scale: 1.01 }}
+            >
+              {item.file_type?.startsWith("video") ? (
+                <div className="relative w-full aspect-[4/3] bg-black pointer-events-none">
+                  <ReactPlayer
+                    src={item.file_url}
+                    width="100%"
+                    height="100%"
+                    controls={false}
+                    light={true}
+                    playIcon={null}
+                    playing={false}
+                    muted={false}
+                    playsinline
+                    style={{ objectFit: "cover" }}
+                    config={{
+                      file: {
+                        attributes: {
+                          playsInline: true,
+                          webkitPlaysinline: "true",
+                        },
+                      },
+                    }}
+                  />
+                </div>
+              ) : (
+                <img
+                  src={item.file_url || "/placeholder.jpg"}
+                  alt="Event media"
+                  className="w-full h-full object-cover pointer-events-none"
+                  loading="lazy"
+                  draggable={false}
+                />
+              )}
+
+              {/* Name Tag */}
+              <p className="absolute bottom-1 left-1 text-[11px] bg-black/60 px-2 py-1 rounded">
+                {item.uploader_name ||
+                  item.guest_name ||
+                  item.uploaded_by?.replace("guest_", "") ||
+                  "Guest"}
+              </p>
+
+              {/* Delete (only for uploader) */}
+              {item.uploader_name?.trim().toLowerCase() === guestName?.trim().toLowerCase() && (
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleDeleteMedia(item.id);
+                  }}
+                  className="absolute top-1 right-1 pointer-events-auto bg-red-600 hover:bg-red-700 p-1 rounded-full opacity-100 md:opacity-0 md:group-hover:opacity-100 transition"
+                  title="Delete"
+                >
+                  <Trash2 size={14} className="text-white" />
+                </button>
+              )}
+            </motion.div>
+          ))}
+        </div>
       )}
 
-
-      {/* ----------------- GUESTBOOK TAB ----------------- */}
+      {/* =======================  GUESTBOOK VIEW  ======================= */}
       {tab === "guestbook" && (
-        <div className="max-w-lg mx-auto mt-6">
+        <div className="max-w-lg mx-auto px-1 sm:px-2">
           {loadingMessages ? (
             <p className="text-center text-gray-400">Loading…</p>
           ) : (
@@ -286,7 +311,12 @@ const enterFullscreen = () => {
 
                 {msg.guest_name.trim().toLowerCase() === guestName.trim().toLowerCase() && (
                   <div className="flex gap-3 mt-3">
-                    <button onClick={() => { setEditing(msg); setMessageText(msg.message); }}>
+                    <button
+                      onClick={() => {
+                        setEditing(msg);
+                        setMessageText(msg.message);
+                      }}
+                    >
                       <Edit2 size={18} className="text-blue-400" />
                     </button>
                     <button onClick={() => handleDeleteMessage(msg.id)}>
@@ -305,20 +335,26 @@ const enterFullscreen = () => {
               placeholder={editing ? "Edit your message..." : "Write a message..."}
               className="flex-1 bg-[#1a1a2e] p-2 rounded-lg border border-gray-700"
             />
-
-            <button onClick={editing ? handleEditMessage : handleMessageSave} className="bg-[#e94560] px-4 py-2 rounded-lg">
+            <button
+              onClick={editing ? handleEditMessage : handleMessageSave}
+              className="bg-[#e94560] hover:bg-[#ff5b74] px-4 py-2 rounded-lg"
+            >
               {editing ? "Save" : "Send"}
             </button>
-
             {editing && (
-              <button onClick={() => { setEditing(null); setMessageText(""); }} className="bg-gray-600 px-4 py-2 rounded-lg">
+              <button
+                onClick={() => {
+                  setEditing(null);
+                  setMessageText("");
+                }}
+                className="bg-gray-600 hover:bg-gray-500 px-4 py-2 rounded-lg"
+              >
                 Cancel
               </button>
             )}
           </div>
         </div>
       )}
-
     </div>
   );
 }
