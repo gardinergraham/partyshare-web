@@ -189,18 +189,17 @@ const enterFullscreen = () => {
 
 
             {/* Fixed bottom upload bar */}
-        <div className="fixed bottom-0 left-0 right-0 bg-[#0f0f23] border-t border-white/10 
-            p-6 flex justify-center gap-6 z-[9999]">
+     <div className="fixed bottom-0 left-0 right-0 w-full  bg-[#0f0f23] border-t border-white/10 p-6 flex justify-center items-center gap-6 z-[9999]">
 
         <label className="cursor-pointer bg-[#e94560] hover:bg-[#ff5b74] 
-                px-8 py-6 rounded-2xl text-xl font-semibold transition text-white 
+                px-8 py-10 rounded-2xl text-xl font-semibold transition text-white 
                 shadow-lg active:scale-95">
             {uploading ? "Uploading..." : "Upload Media"}
             <input type="file" onChange={handleUpload} accept="image/*,video/*" className="hidden" />
         </label>
 
         <label className="cursor-pointer bg-[#1b263b] hover:bg-[#263b50] 
-                px-8 py-6 rounded-2xl text-xl font-semibold transition text-white 
+                px-8 py-10 rounded-2xl text-xl font-semibold transition text-white 
                 border border-[#e94560]/40 shadow-lg active:scale-95">
             Take Photo
             <input type="file" accept="image/*,video/*" capture="environment" onChange={handleUpload} className="hidden" />
