@@ -142,37 +142,8 @@ export default function GuestGalleryPage() {
     fetchGuestbook();
   }
 
-
-
-// ✅ Viewer state
-const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
-const [showViewer, setShowViewer] = useState(false);
-
 // Keep ref for fullscreen
 const viewerVideoRef = React.useRef<HTMLVideoElement | null>(null);
-
-// ✅ Open full viewer
-const openViewer = (i: number) => {
-  setSelectedIndex(i);
-  setShowViewer(true);
-  document.body.style.overflow = "hidden";
-};
-
-// ✅ Close viewer
-const closeViewer = () => {
-  setShowViewer(false);
-  setSelectedIndex(null);
-  document.body.style.overflow = "";
-};
-
-// ✅ Navigation
-const nextItem = () => {
-  setSelectedIndex((i) => (i !== null ? (i + 1) % media.length : 0));
-};
-
-const prevItem = () => {
-  setSelectedIndex((i) => (i !== null ? (i - 1 + media.length) % media.length : 0));
-};
 
 
 // ✅ Proper fullscreen handling (with real iOS fallback)
@@ -198,18 +169,6 @@ const enterFullscreen = () => {
   const el = viewerVideoRef.current;
   if (el) window.open(el.currentSrc || el.src, "_blank");
 };
-
-useEffect(() => {
-  const handleFsExit = () => {
-    if (!document.fullscreenElement) {
-      // user pressed ESC or back
-      closeViewer();
-    }
-  };
-  document.addEventListener("fullscreenchange", handleFsExit);
-  return () => document.removeEventListener("fullscreenchange", handleFsExit);
-}, []);
-
 
 
 
@@ -334,115 +293,8 @@ useEffect(() => {
       </p>
     </div>
 
-    {/* FULLSCREEN VIEWER (modal overlay) */}
-    <AnimatePresence>
-      {showViewer && selectedIndex !== null && media[selectedIndex] && (
-        <motion.div
-          className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          onClick={closeViewer}
-        >
-          {/* Close button */}
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              closeViewer();
-            }}
-            className="absolute top-4 right-4 text-white text-3xl font-bold"
-            aria-label="Close"
-          >
-            ✕
-          </button>
+   
 
-          {/* Prev / Next */}
-          {media.length > 1 && (
-            <>
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  prevItem();
-                }}
-                className="absolute left-2 md:left-6 top-1/2 -translate-y-1/2 text-white/80 hover:text-white text-3xl"
-                aria-label="Previous"
-              >
-                ‹
-              </button>
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  nextItem();
-                }}
-                className="absolute right-2 md:right-6 top-1/2 -translate-y-1/2 text-white/80 hover:text-white text-3xl"
-                aria-label="Next"
-              >
-                ›
-              </button>
-            </>
-          )}
-
-          {/* Media container */}
-          <motion.div
-            key={media[selectedIndex].id}
-            className="max-w-[92vw] max-h-[82vh] w-full flex items-center justify-center"
-            onClick={(e) => e.stopPropagation()}
-            initial={{ x: 40, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            exit={{ x: -40, opacity: 0 }}
-          >
-            {media[selectedIndex].file_type?.startsWith("video") ? (
-         <div
-            ref={viewerWrapperRef}
-            className="relative w-full h-full flex items-center justify-center"
-            >
-
-          <video
-                ref={viewerVideoRef}
-                src={media[selectedIndex].file_url}
-                controls
-                playsInline
-                className="max-h-[82vh] max-w-full rounded-lg bg-black"
-                />
-
-
-            
-            {/* Fullscreen + Open in new tab actions */}
-            <div className="absolute bottom-3 right-3 flex gap-2">
-               <button
-                    onClick={(e) => {
-                        e.stopPropagation();
-                        enterFullscreen();
-                    }}
-                    className="bg-white/15 hover:bg-white/25 text-white text-sm px-3 py-1 rounded-lg"
-                    >
-                    Fullscreen
-                    </button>
-
-
-                <a
-                href={media[selectedIndex].file_url}
-                target="_blank"
-                rel="noreferrer"
-                onClick={(e) => e.stopPropagation()}
-                className="bg-white/20 hover:bg-white/30 text-white text-sm px-3 py-1 rounded-lg"
-                >
-                Open
-                </a>
-            </div>
-            </div>
-
-            ) : (
-              <img
-                src={media[selectedIndex].file_url}
-                alt="Full media"
-                className="max-h-[82vh] max-w-full rounded-lg select-none"
-              />
-            )}
-          </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
   </>
 )}
 
