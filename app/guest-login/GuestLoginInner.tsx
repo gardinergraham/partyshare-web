@@ -18,7 +18,7 @@ export default function GuestLoginPage() {
   const router = useRouter();
 
   // Deep link scheme for your app (replace with your actual app scheme)
-  const APP_SCHEME = "https://party-share.uk";
+  const APP_SCHEME = "https://party-share.uk/";
   const APP_STORE_URL = "https://apps.apple.com/yourapp"; // Replace with your App Store URL
   const PLAY_STORE_URL = "https://play.google.com/yourapp"; // Replace with your Play Store URL
 
