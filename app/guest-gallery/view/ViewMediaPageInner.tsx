@@ -35,15 +35,36 @@ export default function ViewMediaPageInner() {
   return (
     <div className="fixed inset-0 bg-black flex flex-col">
       
-      {/* Top Bar with Back Button and Counter */}
+      {/* Top Bar with ALL buttons */}
       <div className="flex justify-between items-center p-4 bg-black/80 backdrop-blur-sm z-10 shrink-0">
-        <button
-          onClick={() => router.back()}
-          className="text-lg bg-white/10 hover:bg-white/20 px-6 py-3 rounded-xl transition-colors"
-        >
-          ← Back
-        </button>
+        <div className="flex items-center gap-4">
+          <button
+            onClick={() => router.back()}
+            className="text-lg bg-white/10 hover:bg-white/20 px-6 py-3 rounded-xl transition-colors"
+          >
+            ← Back
+          </button>
+          
+          {/* Prev/Next buttons */}
+          {media.length > 1 && (
+            <div className="flex gap-3">
+              <button
+                onClick={prev}
+                className="text-lg bg-white/10 hover:bg-white/20 px-5 py-3 rounded-xl transition-colors"
+              >
+                ‹ Prev
+              </button>
+              <button
+                onClick={next}
+                className="text-lg bg-white/10 hover:bg-white/20 px-5 py-3 rounded-xl transition-colors"
+              >
+                Next ›
+              </button>
+            </div>
+          )}
+        </div>
         
+        {/* Counter on the right */}
         {media.length > 1 && (
           <div className="bg-black/50 px-4 py-2 rounded-lg text-lg">
             {current + 1} / {media.length}
@@ -51,9 +72,9 @@ export default function ViewMediaPageInner() {
         )}
       </div>
 
-      {/* Media Area - Constrained with max dimensions */}
+      {/* Media Area - Now has more space without bottom buttons */}
       <div className="flex-1 flex items-center justify-center p-4 overflow-hidden">
-        <div className="max-w-[95vw] max-h-[70vh] flex items-center justify-center">
+        <div className="max-w-[95vw] max-h-[85vh] flex items-center justify-center">
           {item.file_type?.startsWith("video") ? (
             <video
               src={item.file_url}
@@ -71,25 +92,6 @@ export default function ViewMediaPageInner() {
           )}
         </div>
       </div>
-
-      {/* Bottom Navigation - Fixed at bottom */}
-      {media.length > 1 && (
-        <div className="flex justify-center gap-8 p-4 bg-black/80 backdrop-blur-sm z-10 shrink-0">
-          <button
-            onClick={prev}
-            className="text-xl bg-white/10 hover:bg-white/20 px-8 py-4 rounded-xl transition-colors min-w-32"
-          >
-            ‹ Previous
-          </button>
-
-          <button
-            onClick={next}
-            className="text-xl bg-white/10 hover:bg-white/20 px-8 py-4 rounded-xl transition-colors min-w-32"
-          >
-            Next ›
-          </button>
-        </div>
-      )}
     </div>
   );
 }
