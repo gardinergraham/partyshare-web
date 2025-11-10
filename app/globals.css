@@ -1,3 +1,4 @@
+/* globals.css */
 /* Tailwind Layers */
 @tailwind base;
 @tailwind components;
@@ -63,6 +64,7 @@ a:hover {
 a + a {
   margin-left: 16px;
 }
+
 html, body {
   width: 100%;
   min-height: 100vh;
@@ -71,9 +73,3 @@ html, body {
   overflow-x: hidden; /* prevents accidental horizontal scroll */
 }
 
-main {
-  width: 100%;
-  max-width: none;
-  margin: 0;
-  padding: 0;
-}
