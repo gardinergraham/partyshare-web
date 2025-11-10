@@ -36,7 +36,7 @@ export default function ViewMediaPageInner() {
     <div className="fixed inset-0 bg-black flex flex-col">
       
       {/* Top Bar with Back Button and Counter */}
-      <div className="flex justify-between items-center p-4 bg-black/80 backdrop-blur-sm z-10">
+      <div className="flex justify-between items-center p-4 bg-black/80 backdrop-blur-sm z-10 shrink-0">
         <button
           onClick={() => router.back()}
           className="text-lg bg-white/10 hover:bg-white/20 px-6 py-3 rounded-xl transition-colors"
@@ -51,9 +51,9 @@ export default function ViewMediaPageInner() {
         )}
       </div>
 
-      {/* Media Area - Takes most of the screen */}
+      {/* Media Area - Constrained with max dimensions */}
       <div className="flex-1 flex items-center justify-center p-4 overflow-hidden">
-        <div className="w-full h-full flex items-center justify-center">
+        <div className="max-w-[95vw] max-h-[70vh] flex items-center justify-center">
           {item.file_type?.startsWith("video") ? (
             <video
               src={item.file_url}
@@ -72,9 +72,9 @@ export default function ViewMediaPageInner() {
         </div>
       </div>
 
-      {/* Bottom Navigation */}
+      {/* Bottom Navigation - Fixed at bottom */}
       {media.length > 1 && (
-        <div className="flex justify-center gap-8 p-4 bg-black/80 backdrop-blur-sm z-10">
+        <div className="flex justify-center gap-8 p-4 bg-black/80 backdrop-blur-sm z-10 shrink-0">
           <button
             onClick={prev}
             className="text-xl bg-white/10 hover:bg-white/20 px-8 py-4 rounded-xl transition-colors min-w-32"
