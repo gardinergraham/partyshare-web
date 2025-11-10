@@ -148,174 +148,165 @@ export default function GuestGalleryPage() {
 
   
 
-  return (
-// inside your component’s return…
-<div className="min-h-screen bg-[#0f0f23] text-white px-4 pb-10 overflow-y-auto">
-
-  {/* Fixed Header + Buttons */}
-  <header
-    className="fixed top-0 left-0 right-0 bg-[#0f0f23] z-[9998] border-b border-white/10"
-    style={{
-      paddingTop: "calc(env(safe-area-inset-top) + 120px)",
-      paddingBottom: "12px"
-    }}
-  >
-    <h1 className="text-2xl font-bold text-center text-[#e94560] mb-2">{partyName}</h1>
-
-    <div className="mx-auto w-full max-w-4xl px-4">
-      <div className="grid grid-cols-2 gap-3 sm:flex sm:flex-wrap sm:justify-center">
-        <label className="cursor-pointer bg-[#4ade80] hover:bg-[#22c55e] border-[4px] border-[#14532d] px-4 py-2 rounded-lg text-black font-semibold transition active:scale-95 text-center">
-          {uploading ? "Uploading..." : "Upload Media"}
-          <input type="file" onChange={handleUpload} accept="image/*,video/*" className="hidden" />
-        </label>
-        <label className="cursor-pointer bg-[#38bdf8] hover:bg-[#0ea5e9] border-[4px] border-[#075985] px-4 py-2 rounded-lg text-black font-semibold transition active:scale-95 text-center">
-          Take Photo
-          <input type="file" accept="image/*,video/*" capture="environment" onChange={handleUpload} className="hidden" />
-        </label>
-        <button
-          className={`px-4 py-2 rounded-lg font-semibold text-center ${
-            tab === "gallery" ? "bg-[#e94560]" : "bg-[#1b263b]"
-          }`}
-          onClick={() => setTab("gallery")}
-        >
-          Gallery
-        </button>
-        <button
-          className={`px-4 py-2 rounded-lg font-semibold text-center ${
-            tab === "guestbook" ? "bg-[#e94560]" : "bg-[#1b263b]"
-          }`}
-          onClick={() => setTab("guestbook")}
-        >
-          Guestbook
-        </button>
+ return (
+  <div className="min-h-screen bg-[#0f0f23] text-white px-4 pb-10 overflow-y-auto">
+    {/* Fixed Header + Buttons */}
+    <header className="fixed top-0 left-0 right-0 bg-[#0f0f23] z-[9998] border-b border-white/10 pt-[calc(env(safe-area-inset-top)+1rem)] pb-3">
+      <div className="mx-auto w-full max-w-4xl px-4">
+        <h1 className="text-2xl font-bold text-center text-[#e94560] mb-3">{partyName}</h1>
+        
+        <div className="grid grid-cols-2 gap-3 sm:flex sm:flex-wrap sm:justify-center">
+          <label className="cursor-pointer bg-[#4ade80] hover:bg-[#22c55e] border-[4px] border-[#14532d] px-4 py-2 rounded-lg text-black font-semibold transition active:scale-95 text-center">
+            {uploading ? "Uploading..." : "Upload Media"}
+            <input type="file" onChange={handleUpload} accept="image/*,video/*" className="hidden" />
+          </label>
+          <label className="cursor-pointer bg-[#38bdf8] hover:bg-[#0ea5e9] border-[4px] border-[#075985] px-4 py-2 rounded-lg text-black font-semibold transition active:scale-95 text-center">
+            Take Photo
+            <input type="file" accept="image/*,video/*" capture="environment" onChange={handleUpload} className="hidden" />
+          </label>
+          <button
+            className={`px-4 py-2 rounded-lg font-semibold text-center ${
+              tab === "gallery" ? "bg-[#e94560]" : "bg-[#1b263b]"
+            }`}
+            onClick={() => setTab("gallery")}
+          >
+            Gallery
+          </button>
+          <button
+            className={`px-4 py-2 rounded-lg font-semibold text-center ${
+              tab === "guestbook" ? "bg-[#e94560]" : "bg-[#1b263b]"
+            }`}
+            onClick={() => setTab("guestbook")}
+          >
+            Guestbook
+          </button>
+        </div>
       </div>
-    </div>
-  </header>
+    </header>
 
-  {/* Spacer to ensure scroll content starts below header */}
-  <div style={{ height: "calc(env(safe-area-inset-top) + 12px + 12px + (/* approximate header+buttons height */ 64px))" }} />
+    {/* Spacer to push content below fixed header */}
+    <div className="h-[180px] sm:h-[160px]" />
 
-  {/* Gallery View */}
-  {tab === "gallery" && (
-    <div className="mx-auto w-full max-w-6xl grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 pb-24">
-      {media.map((item, index) => (
-        <motion.div
-          key={item.id}
-          className="relative group rounded-xl overflow-hidden border border-white/10 cursor-pointer"
-          onClick={() => {
-            router.push(
-              `/guest-gallery/view?index=${index}&space_id=${spaceId}&pin=${pin}&guest_name=${guestName}&party_name=${partyName}`
-            );
-          }}
-          whileHover={{ scale: 1.01 }}
-        >
-          {/* video vs image logic */}
-          {item.file_type?.startsWith("video") ? (
-            <div className="relative w-full aspect-[4/3] bg-black pointer-events-none">
-              <ReactPlayer
-                src={item.file_url}
-                width="100%"
-                height="100%"
-                controls={false}
-                light={true}
-                playIcon={null}
-                playing={false}
-                muted
-                playsinline
-                style={{ objectFit: "cover" }}
-                config={{
-                  file: {
-                    attributes: {
-                      playsInline: true,
-                      webkitPlaysinline: "true",
+    {/* Gallery View */}
+    {tab === "gallery" && (
+      <div className="mx-auto w-full max-w-6xl grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 pb-24">
+        {media.map((item, index) => (
+          <motion.div
+            key={item.id}
+            className="relative group rounded-xl overflow-hidden border border-white/10 cursor-pointer"
+            onClick={() => {
+              router.push(
+                `/guest-gallery/view?index=${index}&space_id=${spaceId}&pin=${pin}&guest_name=${guestName}&party_name=${partyName}`
+              );
+            }}
+            whileHover={{ scale: 1.01 }}
+          >
+            {/* video vs image logic */}
+            {item.file_type?.startsWith("video") ? (
+              <div className="relative w-full aspect-[4/3] bg-black pointer-events-none">
+                <ReactPlayer
+                  src={item.file_url}
+                  width="100%"
+                  height="100%"
+                  controls={false}
+                  light={true}
+                  playIcon={null}
+                  playing={false}
+                  muted
+                  playsinline
+                  style={{ objectFit: "cover" }}
+                  config={{
+                    file: {
+                      attributes: {
+                        playsInline: true,
+                        webkitPlaysinline: "true",
+                      },
                     },
-                  },
-                }}
+                  }}
+                />
+              </div>
+            ) : (
+              <img
+                src={item.file_url || "/placeholder.jpg"}
+                alt="Event media"
+                className="w-full h-full object-cover pointer-events-none"
+                loading="lazy"
+                draggable={false}
               />
+            )}
+
+            <p className="absolute bottom-1 left-1 text-[11px] bg-black/60 px-2 py-1 rounded">
+              {item.uploader_name ||
+                item.guest_name ||
+                item.uploaded_by?.replace("guest_", "") ||
+                "Guest"}
+            </p>
+
+            {item.uploader_name?.trim().toLowerCase() === guestName?.trim().toLowerCase() && (
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleDeleteMedia(item.id);
+                }}
+                className="absolute top-1 right-1 pointer-events-auto bg-red-600 hover:bg-red-700 p-1 rounded-full opacity-100 md:opacity-0 md:group-hover:opacity-100 transition"
+                title="Delete"
+              >
+                <Trash2 size={14} className="text-white" />
+              </button>
+            )}
+          </motion.div>
+        ))}
+      </div>
+    )}
+
+    {/* Guestbook View */}
+    {tab === "guestbook" && (
+      <div className="max-w-lg mx-auto">
+        {loadingMessages ? (
+          <p className="text-center text-gray-400">Loading…</p>
+        ) : (
+          messages.map((msg) => (
+            <div key={msg.id} className="bg-[#1a1a2e] p-4 rounded-lg mb-4">
+              <p className="text-[#e94560] font-semibold">{msg.guest_name}</p>
+              <p>{msg.message}</p>
+              {msg.guest_name.trim().toLowerCase() === guestName.trim().toLowerCase() && (
+                <div className="flex gap-3 mt-3">
+                  <button onClick={() => { setEditing(msg); setMessageText(msg.message); }}>
+                    <Edit2 size={18} className="text-blue-400" />
+                  </button>
+                  <button onClick={() => handleDeleteMessage(msg.id)}>
+                    <Trash2 size={18} className="text-red-400" />
+                  </button>
+                </div>
+              )}
             </div>
-          ) : (
-            <img
-              src={item.file_url || "/placeholder.jpg"}
-              alt="Event media"
-              className="w-full h-full object-cover pointer-events-none"
-              loading="lazy"
-              draggable={false}
-            />
-          )}
+          ))
+        )}
 
-          <p className="absolute bottom-1 left-1 text-[11px] bg-black/60 px-2 py-1 rounded">
-            {item.uploader_name ||
-              item.guest_name ||
-              item.uploaded_by?.replace("guest_", "") ||
-              "Guest"}
-          </p>
-
-          {item.uploader_name?.trim().toLowerCase() === guestName?.trim().toLowerCase() && (
+        <div className="mt-6 flex gap-2">
+          <input
+            value={messageText}
+            onChange={(e) => setMessageText(e.target.value)}
+            placeholder={editing ? "Edit your message..." : "Write a message..."}
+            className="flex-1 bg-[#1a1a2e] p-2 rounded-lg border border-gray-700"
+          />
+          <button
+            onClick={editing ? handleEditMessage : handleMessageSave}
+            className="bg-[#e94560] hover:bg-[#ff5b74] px-4 py-2 rounded-lg"
+          >
+            {editing ? "Save" : "Send"}
+          </button>
+          {editing && (
             <button
-              onClick={(e) => {
-                e.stopPropagation();
-                handleDeleteMedia(item.id);
-              }}
-              className="absolute top-1 right-1 pointer-events-auto bg-red-600 hover:bg-red-700 p-1 rounded-full opacity-100 md:opacity-0 md:group-hover:opacity-100 transition"
-              title="Delete"
+              onClick={() => { setEditing(null); setMessageText(""); }}
+              className="bg-gray-600 hover:bg-gray-500 px-4 py-2 rounded-lg"
             >
-              <Trash2 size={14} className="text-white" />
+              Cancel
             </button>
           )}
-        </motion.div>
-      ))}
-    </div>
-  )}
-
-  {/* Guestbook View */}
-  {tab === "guestbook" && (
-    <div className="max-w-lg mx-auto">
-      {loadingMessages ? (
-        <p className="text-center text-gray-400">Loading…</p>
-      ) : (
-        messages.map((msg) => (
-          <div key={msg.id} className="bg-[#1a1a2e] p-4 rounded-lg mb-4">
-            <p className="text-[#e94560] font-semibold">{msg.guest_name}</p>
-            <p>{msg.message}</p>
-            {msg.guest_name.trim().toLowerCase() === guestName.trim().toLowerCase() && (
-              <div className="flex gap-3 mt-3">
-                <button onClick={() => { setEditing(msg); setMessageText(msg.message); }}>
-                  <Edit2 size={18} className="text-blue-400" />
-                </button>
-                <button onClick={() => handleDeleteMessage(msg.id)}>
-                  <Trash2 size={18} className="text-red-400" />
-                </button>
-              </div>
-            )}
-          </div>
-        ))
-      )}
-
-      <div className="mt-6 flex gap-2">
-        <input
-          value={messageText}
-          onChange={(e) => setMessageText(e.target.value)}
-          placeholder={editing ? "Edit your message..." : "Write a message..."}
-          className="flex-1 bg-[#1a1a2e] p-2 rounded-lg border border-gray-700"
-        />
-        <button
-          onClick={editing ? handleEditMessage : handleMessageSave}
-          className="bg-[#e94560] hover:bg-[#ff5b74] px-4 py-2 rounded-lg"
-        >
-          {editing ? "Save" : "Send"}
-        </button>
-        {editing && (
-          <button
-            onClick={() => { setEditing(null); setMessageText(""); }}
-            className="bg-gray-600 hover:bg-gray-500 px-4 py-2 rounded-lg"
-          >
-            Cancel
-          </button>
-        )}
+        </div>
       </div>
-    </div>
-  )}
-</div>
-
-  );
+    )}
+  </div>
+);
 }
