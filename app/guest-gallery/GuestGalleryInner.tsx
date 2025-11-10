@@ -233,7 +233,7 @@ const enterFullscreen = () => {
     <input type="file" accept="image/*,video/*" capture="environment" onChange={handleUpload} className="hidden" />
   </label>
 </div>
-</div>
+
 
       {/* =======================  GALLERY VIEW  ======================= */}
      {tab === "gallery" && (
@@ -361,7 +361,7 @@ const enterFullscreen = () => {
         </div>
       )}
 
-   
+   </div>
     </div>
   );
 }
