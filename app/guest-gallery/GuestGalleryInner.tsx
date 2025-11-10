@@ -148,27 +148,24 @@ export default function GuestGalleryPage() {
 
   
 return (
-  <div className="min-h-screen bg-[#0f0f23] text-white px-4 pb-10 overflow-y-auto">
-  
+  <div className="min-h-screen bg-[#0f0f23] text-white flex flex-col items-center px-4 pb-10 overflow-y-auto">
     {/* Fixed Header + Buttons */}
     <header className="fixed top-0 left-0 right-0 bg-[#0f0f23] z-[9998] border-b border-white/10 pt-[calc(env(safe-area-inset-top)+1rem)] pb-3">
-      {/* Full width background */}
-      <div className="w-full bg-[#0f0f23]">
-        {/* Centered content container - REMOVE w-full */}
-        <div className="mx-auto max-w-6xl px-4"> {/* Remove w-full here */}
+      <div className="w-full flex justify-center">
+        <div className="w-full max-w-6xl px-4">
           <h1 className="text-2xl font-bold text-center text-[#e94560] mb-4">{partyName}</h1>
           
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 w-full">
-            <label className="cursor-pointer bg-[#4ade80] hover:bg-[#22c55e] border-[4px] border-[#14532d] px-4 py-3 rounded-lg text-black font-semibold transition active:scale-95 text-center w-full">
+            <label className="cursor-pointer bg-[#4ade80] hover:bg-[#22c55e] border-[4px] border-[#14532d] px-6 py-4 rounded-2xl text-black font-semibold transition active:scale-95 text-center w-full text-lg">
               {uploading ? "Uploading..." : "Upload Media"}
               <input type="file" onChange={handleUpload} accept="image/*,video/*" className="hidden" />
             </label>
-            <label className="cursor-pointer bg-[#38bdf8] hover:bg-[#0ea5e9] border-[4px] border-[#075985] px-4 py-3 rounded-lg text-black font-semibold transition active:scale-95 text-center w-full">
+            <label className="cursor-pointer bg-[#38bdf8] hover:bg-[#0ea5e9] border-[4px] border-[#075985] px-6 py-4 rounded-2xl text-black font-semibold transition active:scale-95 text-center w-full text-lg">
               Take Photo
               <input type="file" accept="image/*,video/*" capture="environment" onChange={handleUpload} className="hidden" />
             </label>
             <button
-              className={`px-4 py-3 rounded-lg font-semibold text-center w-full ${
+              className={`px-6 py-4 rounded-2xl font-semibold text-center w-full text-lg ${
                 tab === "gallery" ? "bg-[#e94560]" : "bg-[#1b263b]"
               }`}
               onClick={() => setTab("gallery")}
@@ -176,7 +173,7 @@ return (
               Gallery
             </button>
             <button
-              className={`px-4 py-3 rounded-lg font-semibold text-center w-full ${
+              className={`px-6 py-4 rounded-2xl font-semibold text-center w-full text-lg ${
                 tab === "guestbook" ? "bg-[#e94560]" : "bg-[#1b263b]"
               }`}
               onClick={() => setTab("guestbook")}
