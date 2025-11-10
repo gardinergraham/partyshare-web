@@ -187,7 +187,8 @@ const enterFullscreen = () => {
         </button>
       </div>
 */
-<div className="min-h-screen bg-[#0f0f23] text-white px-4 pt-[130px] pb-[140px] overflow-y-auto">
+<div className="min-h-screen bg-[#0f0f23] text-white px-4 pt-[130px] pb-[140px] overflow-y-auto flex flex-col items-center">
+
 
 <div className="fixed top-0 left-0 right-0 bg-[#0f0f23] z-[9998] pt-6 pb-4 border-b border-white/10">
   <h1 className="text-2xl font-bold text-center text-[#e94560] mb-4">{partyName}</h1>
@@ -232,9 +233,9 @@ const enterFullscreen = () => {
     Take Photo
     <input type="file" accept="image/*,video/*" capture="environment" onChange={handleUpload} className="hidden" />
   </label>
+  </div>
+
 </div>
-
-
       {/* =======================  GALLERY VIEW  ======================= */}
      {tab === "gallery" && (
   <>
@@ -361,7 +362,7 @@ const enterFullscreen = () => {
         </div>
       )}
 
-   </div>
+
     </div>
   );
 }
