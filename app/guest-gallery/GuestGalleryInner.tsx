@@ -188,21 +188,25 @@ const enterFullscreen = () => {
       </div>
 
 
-    {/* Fixed bottom upload bar */}
-    <div className="fixed bottom-0 left-0 right-0 bg-[#0f0f23] border-t border-white/10 p-4 flex justify-center gap-4 z-[9999]">
+            {/* Fixed bottom upload bar */}
+        <div className="fixed bottom-0 left-0 right-0 bg-[#0f0f23] border-t border-white/10 
+            p-6 flex justify-center gap-6 z-[9999]">
 
-        <label className="cursor-pointer bg-[#e94560] hover:bg-[#ff5b74] px-6 py-3 rounded-xl text-lg font-semibold transition text-white shadow-md active:scale-95">
-            {uploading ? "Uploading..." : "Upload"}
+        <label className="cursor-pointer bg-[#e94560] hover:bg-[#ff5b74] 
+                px-8 py-6 rounded-2xl text-xl font-semibold transition text-white 
+                shadow-lg active:scale-95">
+            {uploading ? "Uploading..." : "Upload Media"}
             <input type="file" onChange={handleUpload} accept="image/*,video/*" className="hidden" />
         </label>
 
-        <label className="cursor-pointer bg-[#1b263b] hover:bg-[#263b50] px-6 py-3 rounded-xl text-lg font-semibold transition text-white border border-[#e94560]/40 shadow-md active:scale-95">
+        <label className="cursor-pointer bg-[#1b263b] hover:bg-[#263b50] 
+                px-8 py-6 rounded-2xl text-xl font-semibold transition text-white 
+                border border-[#e94560]/40 shadow-lg active:scale-95">
             Take Photo
             <input type="file" accept="image/*,video/*" capture="environment" onChange={handleUpload} className="hidden" />
         </label>
 
-    </div>
-
+        </div>
       {/* =======================  GALLERY VIEW  ======================= */}
      {tab === "gallery" && (
   <>
@@ -222,37 +226,36 @@ const enterFullscreen = () => {
           whileHover={{ scale: 1.01 }}
         >
           {/* ✅ Video thumbnail: load only metadata; show first frame when possible */}
-           {item.file_type?.startsWith("video") ? (
-                <div className="relative w-full aspect-[4/3] bg-black">
-                    <ReactPlayer
-                    src={item.file_url}
-                    width="100%"
-                    height="100%"
-                    controls={false}       // ✅ No controls in thumbnail
-                    light={true}           // ✅ Show video preview thumbnail
-                    playIcon={null}        // ✅ No big play icon
-                    playing={false}
-                    muted={false}
-                    playsinline
-                    style={{ objectFit: "cover" }}
-                    onClick={() => enterFullscreen()}
-                    config={{
-                        file: {
-                        attributes: {
-                            playsInline: true,
-                            webkitPlaysinline: "true",
-                        }
-                        }
-                    }}
-                    />
-                </div>
-                ) : (
-
+         {item.file_type?.startsWith("video") ? (
+            <div className="relative w-full aspect-[4/3] bg-black pointer-events-none">
+                <ReactPlayer
+                src={item.file_url}
+                width="100%"
+                height="100%"
+                controls={false}
+                light={true}
+                playIcon={null}
+                playing={false}
+                muted={false}
+                playsinline
+                style={{ objectFit: "cover" }}
+                config={{
+                    file: {
+                    attributes: {
+                        playsInline: true,
+                        webkitPlaysinline: "true",
+                    }
+                    }
+                }}
+                />
+            </div>
+            ) : (
             <img
                 src={item.file_url || "/placeholder.jpg"}
                 alt="Event media"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover pointer-events-none"
                 loading="lazy"
+                draggable={false}
             />
             )}
 
