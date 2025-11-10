@@ -269,6 +269,20 @@ const enterFullscreen = () => {
   </>
 )}
 
+   {/* Fixed bottom upload bar */}
+    <div className="fixed bottom-0 left-0 right-0 bg-[#0f0f23] border-t border-white/10 p-4 flex justify-center gap-4 z-[9999]">
+    <label className="cursor-pointer bg-[#e94560] hover:bg-[#ff5b74] px-6 py-3 rounded-xl font-semibold transition text-white">
+        {uploading ? "Uploading..." : "Upload"}
+        <input type="file" onChange={handleUpload} accept="image/*,video/*" hidden />
+    </label>
+
+    <label className="cursor-pointer bg-[#1b263b] hover:bg-[#263b50] px-6 py-3 rounded-xl font-semibold transition text-white border border-[#e94560]/40">
+        Take Photo
+        <input type="file" accept="image/*,video/*" capture="environment" onChange={handleUpload} hidden />
+    </label>
+
+    </div>
+
       {/* =======================  GUESTBOOK VIEW  ======================= */}
       {tab === "guestbook" && (
         <div className="max-w-lg mx-auto">
@@ -313,19 +327,7 @@ const enterFullscreen = () => {
         </div>
       )}
 
-      {/* Fixed bottom upload bar */}
-    <div className="fixed bottom-0 left-0 right-0 bg-[#0f0f23] border-t border-white/10 p-4 flex justify-center gap-4 z-[9999]">
-    <label className="cursor-pointer bg-[#e94560] hover:bg-[#ff5b74] px-6 py-3 rounded-xl font-semibold transition text-white">
-        {uploading ? "Uploading..." : "Upload"}
-        <input type="file" onChange={handleUpload} accept="image/*,video/*" hidden />
-    </label>
-
-    <label className="cursor-pointer bg-[#1b263b] hover:bg-[#263b50] px-6 py-3 rounded-xl font-semibold transition text-white border border-[#e94560]/40">
-        Take Photo
-        <input type="file" accept="image/*,video/*" capture="environment" onChange={handleUpload} hidden />
-    </label>
-
-    </div>
+   
     </div>
   );
 }
