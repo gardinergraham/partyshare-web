@@ -173,7 +173,9 @@ const enterFullscreen = () => {
 
 
   return (
-    <div className="min-h-screen bg-[#0f0f23] text-white px-4 py-6">
+  
+    <div className="min-h-screen bg-[#0f0f23] text-white px-4 pt-6 pb-32">
+
       <h1 className="text-2xl font-bold text-center text-[#e94560] mb-6">{partyName}</h1>
 
       <div className="flex justify-center gap-6 mb-6">
@@ -186,7 +188,7 @@ const enterFullscreen = () => {
       </div>
 
       {/* =======================  GALLERY VIEW  ======================= */}
- {tab === "gallery" && (
+     {tab === "gallery" && (
   <>
     {/* GRID */}
    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 pb-32">
@@ -312,8 +314,7 @@ const enterFullscreen = () => {
       )}
 
       {/* Fixed bottom upload bar */}
-    <div className="fixed bottom-0 left-0 right-0 bg-[#0f0f23] border-t border-white/10 p-4 flex justify-center gap-4 z-50">
-
+    <div className="fixed bottom-0 left-0 right-0 bg-[#0f0f23] border-t border-white/10 p-4 flex justify-center gap-4 z-[9999]">
     <label className="cursor-pointer bg-[#e94560] hover:bg-[#ff5b74] px-6 py-3 rounded-xl font-semibold transition text-white">
         {uploading ? "Uploading..." : "Upload"}
         <input type="file" onChange={handleUpload} accept="image/*,video/*" hidden />
@@ -325,9 +326,6 @@ const enterFullscreen = () => {
     </label>
 
     </div>
-
-
-
     </div>
   );
 }
