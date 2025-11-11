@@ -1,0 +1,10 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appID": "99EM8TF6XP.com.grahamgardiner.partyshare",
+        "paths": [ "/download/*", "/join/*", "/guest-login/*" ]
+      }
+    ]
+  }
+}
