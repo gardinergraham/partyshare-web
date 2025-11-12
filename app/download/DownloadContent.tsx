@@ -14,7 +14,7 @@ export default function DownloadContent() {
       {partnerPin && (
         <div style={{ background: '#f0f8ff', padding: 15, borderRadius: 8, margin: '20px 0' }}>
           <p><strong>Partner PIN:</strong> {partnerPin}</p>
-          <p style={{ fontSize: '14px', color: '#666' }}>
+          <p style={{ fontSize: '14px', color: '#f64600ff' }}>
             Keep this PIN - you'll need it when you open the app
           </p>
         </div>
@@ -24,33 +24,28 @@ export default function DownloadContent() {
         <h2>Get the App</h2>
         
         <div style={{ display: 'flex', gap: 20, justifyContent: 'center', flexWrap: 'wrap' }}>
-          <a 
-            href="https://apps.apple.com/app/partyshare/idYOUR_APP_STORE_ID"
-            style={{
-              display: 'inline-block',
-              padding: '12px 24px',
-              background: '#000',
-              color: '#fff',
-              borderRadius: 8,
-              textDecoration: 'none'
-            }}
-          >
-            📱 App Store
-          </a>
-          
-          <a 
-            href="https://play.google.com/store/apps/details?id=com.grahamgardiner.partyshare"
-            style={{
-              display: 'inline-block',
-              padding: '12px 24px',
-              background: '#000',
-              color: '#fff',
-              borderRadius: 8,
-              textDecoration: 'none'
-            }}
-          >
-            🤖 Google Play
-          </a>
+           <a
+              href="https://apps.apple.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
+                alt="Download on the App Store"
+                className="h-12 w-[165px] object-contain"
+              />
+            </a>
+            <a
+              href="https://play.google.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
+                alt="Get it on Google Play"
+                className="h-12 w-[180px] object-contain"
+              />
+            </a>
         </div>
       </div>
 
