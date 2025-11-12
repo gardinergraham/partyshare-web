@@ -12,13 +12,23 @@ export default function DownloadContent() {
       <h1>Download PartyShare</h1>
       
       {partnerPin && (
-        <div style={{ background: '#5cf604ff', padding: 15, borderRadius: 8, margin: '20px 0' }}>
-          <p><strong>Partner PIN:</strong> {partnerPin}</p>
-          <p style={{ fontSize: '14px', color: '#111010ff' }}>
-            Keep this PIN - you'll need it when you open the app
-          </p>
+        <div
+            style={{
+            background: '#f71a0aff',
+            padding: 15,
+            borderRadius: 8,
+            margin: '20px 0',
+            }}>
+            <p style={{ fontSize: 18, color: '#000' }}>
+            <strong>Partner PIN:</strong> {partnerPin}
+            </p>
+
+            <p style={{ fontSize: 14, color: '#f6f0f0ff' }}>
+            Keep this PIN - you'll need it when you open the app, or scan the QR code again when you have installed the app.
+            </p>
         </div>
-      )}
+        )}
+
 
       <div style={{ margin: '30px 0' }}>
         <h2>Get the App</h2>
