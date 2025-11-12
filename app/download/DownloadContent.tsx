@@ -12,9 +12,9 @@ export default function DownloadContent() {
       <h1>Download PartyShare</h1>
       
       {partnerPin && (
-        <div style={{ background: '#f0f8ff', padding: 15, borderRadius: 8, margin: '20px 0' }}>
+        <div style={{ background: '#5cf604ff', padding: 15, borderRadius: 8, margin: '20px 0' }}>
           <p><strong>Partner PIN:</strong> {partnerPin}</p>
-          <p style={{ fontSize: '14px', color: '#f64600ff' }}>
+          <p style={{ fontSize: '14px', color: '#111010ff' }}>
             Keep this PIN - you'll need it when you open the app
           </p>
         </div>
