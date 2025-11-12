@@ -14,12 +14,12 @@ export default function DownloadContent() {
       {partnerPin && (
         <div
             style={{
-            background: '#f71a0aff',
+            background: "#e94560",
             padding: 15,
             borderRadius: 8,
             margin: '20px 0',
             }}>
-            <p style={{ fontSize: 18, color: '#000' }}>
+            <p style={{ fontSize: 22, color: '#000' }}>
             <strong>Partner PIN:</strong> {partnerPin}
             </p>
 
