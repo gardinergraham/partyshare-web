@@ -70,32 +70,74 @@ export default function GuestGalleryPage() {
     return () => clearInterval(interval);
   }, [spaceId]);
 
-  async function handleUpload(e: React.ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0];
-    if (!file) return;
+ async function handleUpload(e: React.ChangeEvent<HTMLInputElement>) {
+  const file = e.target.files?.[0];
+  if (!file) return;
 
-    setUploading(true);
-    const form = new FormData();
-    form.append("space_id", spaceId);
-    form.append("guest_pin", pin);
-    form.append("party_name", partyName);
-    form.append("guest_name", guestName);
-    form.append("file_type", file.type);
-    form.append("file", file);
+  setUploading(true);
+  const form = new FormData();
+  form.append("space_id", spaceId);
+  form.append("guest_pin", pin);
+  form.append("party_name", partyName);
+  form.append("guest_name", guestName);
+  form.append("file_type", file.type);
+  form.append("file", file);
 
+  try {
     const res = await fetch(`${API_BASE_URL}/api/media/guest/upload`, {
       method: "POST",
       body: form,
     });
-    setUploading(false);
+    
+    const result: any = await res.json(); // You can define a more specific type if you know the response structure
 
     if (res.ok) {
       fetchMedia();
       alert("✅ Upload successful!");
     } else {
-      alert("❌ Upload failed");
+      let userFriendlyMessage = "Upload failed";
+      
+      // Define interface for validation error items
+      interface ValidationError {
+        msg: string;
+        // Add other properties if needed
+      }
+      
+      if (result.detail) {
+        if (typeof result.detail === 'string') {
+          userFriendlyMessage = result.detail;
+        } else if (Array.isArray(result.detail)) {
+          userFriendlyMessage = result.detail.map((err: ValidationError) => err.msg).join(', ');
+        }
+      } else if (result.message) {
+        userFriendlyMessage = result.message;
+      }
+      
+      if (res.status === 403) {
+        userFriendlyMessage = "Uploads are not allowed at this time. The event may not have started yet.";
+      } else if (res.status === 400) {
+        userFriendlyMessage = "Invalid file or upload parameters.";
+      } else if (res.status === 413) {
+        userFriendlyMessage = "File too large. Please choose a smaller file.";
+      }
+      
+      alert(`❌ ${userFriendlyMessage}`);
     }
+  } catch (error: unknown) { // Use 'unknown' for better TypeScript practice
+    console.error("Upload error:", error);
+    let errorMessage = "Network error - please check your connection and try again.";
+    
+    if (error instanceof Error) {
+      errorMessage = error.message;
+    }
+    
+    alert(`❌ ${errorMessage}`);
+  } finally {
+    setUploading(false);
+    e.target.value = '';
   }
+}
+
 
   async function handleMessageSave() {
     if (!messageText.trim()) return;
@@ -156,15 +198,29 @@ return (
           <h1 className="text-2xl font-bold text-center text-[#e94560] mb-4">{partyName}</h1>
           
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 w-full">
-            <label className="cursor-pointer bg-[#4ade80] hover:bg-[#22c55e] border-[4px] border-[#14532d] px-6 py-4 rounded-2xl text-black font-semibold transition active:scale-95 text-center w-full text-lg">
-              {uploading ? "Uploading..." : "Upload Media"}
-              <input type="file" onChange={handleUpload} accept="image/*,video/*" className="hidden" />
-            </label>
-            <label className="cursor-pointer bg-[#38bdf8] hover:bg-[#0ea5e9] border-[4px] border-[#075985] px-6 py-4 rounded-2xl text-black font-semibold transition active:scale-95 text-center w-full text-lg">
-              Take Photo
-              <input type="file" accept="image/*,video/*" capture="environment" onChange={handleUpload} className="hidden" />
-            </label>
-            <button
+           <label className={`cursor-pointer ${uploading ? 'bg-gray-500' : 'bg-[#4ade80] hover:bg-[#22c55e]'} border-[4px] border-[#14532d] px-6 py-8 rounded-2xl text-black font-semibold transition active:scale-95 text-center w-full text-lg`}>
+            {uploading ? "📤 Uploading..." : "📷 Upload Media"}
+            <input 
+              type="file" 
+              onChange={handleUpload} 
+              accept="image/*,video/*" 
+              className="hidden" 
+              disabled={uploading}
+            />
+          </label>
+
+          <label className={`cursor-pointer ${uploading ? 'bg-gray-500' : 'bg-[#38bdf8] hover:bg-[#0ea5e9]'} border-[4px] border-[#075985] px-6 py-8 rounded-2xl text-black font-semibold transition active:scale-95 text-center w-full text-lg`}>
+            {uploading ? "📤 Uploading..." : "📸 Take Photo"}
+            <input 
+              type="file" 
+              accept="image/*,video/*" 
+              capture="environment" 
+              onChange={handleUpload} 
+              className="hidden" 
+              disabled={uploading}
+            />
+          </label>
+          <button
               className={`px-6 py-4 rounded-2xl font-semibold text-center w-full text-lg ${
                 tab === "gallery" ? "bg-[#e94560]" : "bg-[#1b263b]"
               }`}
