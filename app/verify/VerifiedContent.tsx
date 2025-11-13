@@ -105,3 +105,4 @@ export default function VerifiedContent() {
     </div>
   );
 }
+//changed folder name to verify
