@@ -60,6 +60,7 @@ export default function ChangePasswordContent() {
       setLoading(false);
     }
   };
+  console.log("API BASE URL:", process.env.NEXT_PUBLIC_API_BASE_URL);
 
   return (
     <div className="min-h-screen bg-[#0d1b2a] text-white flex flex-col items-center justify-center px-6 py-10">
