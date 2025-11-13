@@ -34,14 +34,18 @@ export default function ChangePasswordContent() {
           ? "/api/partners/reset-password"
           : "/api/auth/reset-password";
 
-      const res = await fetch(
+      const formData = new FormData();
+        formData.append("token", token);
+        formData.append("new_password", password);
+
+        const res = await fetch(
         `${process.env.NEXT_PUBLIC_API_BASE_URL}${endpoint}`,
         {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ token, new_password: password }),
+            method: "POST",
+            body: formData,
         }
-      );
+        );
+
 
       if (!res.ok) {
         const err = await res.json().catch(() => null);
