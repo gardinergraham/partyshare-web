@@ -21,9 +21,10 @@ export default function VerifiedContent() {
 
       try {
         // ✅ Call backend verification endpoint
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/verify/${token}`
+      const res = await fetch(
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/partners/verify/${token}`
         );
+
 
         if (!res.ok) {
           const errText = await res.text();
@@ -36,6 +37,8 @@ export default function VerifiedContent() {
             setStatus("error");
             setMessage("Invalid or expired verification link.");
           }
+          console.log("🔗 Verifying via:", `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/partners/verify/${token}`);
+
           return;
         }
 
