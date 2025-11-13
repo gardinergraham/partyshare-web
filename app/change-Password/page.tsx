@@ -1,10 +1,9 @@
-"use client";
 import { Suspense } from "react";
 import ChangePasswordContent from "./ChangePasswordContent";
 
-export default function Page() {
+export default function ChangePasswordPage() {
   return (
-    <Suspense fallback={<div className="text-white text-center p-8">Loading...</div>}>
+    <Suspense fallback={<div>Loading...</div>}>
       <ChangePasswordContent />
     </Suspense>
   );
