@@ -22,7 +22,7 @@ export default function VerifiedContent() {
       try {
         // ✅ Call backend verification endpoint
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/partners/verify/${token}`
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/verify/${token}`
         );
 
         if (!res.ok) {
