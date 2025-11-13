@@ -29,10 +29,12 @@ export default function ChangePasswordContent() {
       setStatus(null);
 
       // 🔹 Decide correct endpoint based on type
-      const endpoint =
+    const endpoint =
         type === "partner"
-          ? "/api/partners/reset-password"
-          : "/api/auth/reset-password";
+            ? "/api/partners/reset-partner-password"
+            : "/api/auth/reset-password";
+
+
 
       const formData = new FormData();
         formData.append("token", token);
