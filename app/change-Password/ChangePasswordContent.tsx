@@ -51,7 +51,8 @@ export default function ChangePasswordContent() {
 
       if (!res.ok) {
         const err = await res.json().catch(() => null);
-        throw new Error(err?.detail || "Password reset failed");
+        throw new Error(err?.detail ?? "Password reset failed");
+
       }
 
       setStatus("✅ Your password has been updated successfully!");
