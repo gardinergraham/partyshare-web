@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 
 export default function ChangePasswordContent() {
@@ -54,7 +54,7 @@ export default function ChangePasswordContent() {
         throw new Error(err?.detail ?? "Password reset failed");
 
       }
-
+      
       setStatus("✅ Your password has been updated successfully!");
     } catch (err: any) {
       console.error(err);
@@ -63,7 +63,20 @@ export default function ChangePasswordContent() {
       setLoading(false);
     }
   };
+  useEffect(() => {
+  if (status?.startsWith("✅")) {
+    const deepLink =
+      type === "partner"
+        ? "partyshare://partner-login"
+        : "partyshare://auth";
+
+    window.location.href = deepLink;
+  }
+}, [status, type]);
+
   console.log("API BASE URL:", process.env.NEXT_PUBLIC_API_BASE_URL);
+
+  
 
   return (
     <div className="min-h-screen bg-[#0d1b2a] text-white flex flex-col items-center justify-center px-6 py-10">

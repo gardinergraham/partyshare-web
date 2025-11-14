@@ -81,13 +81,13 @@ export default function VerifiedContent() {
             </p>
             <a
               href="partyshare://partner-login"
-              className="block bg-[#e94560] hover:bg-[#ff5b74] transition text-white font-semibold py-4 rounded-xl mb-4"
+              className="block bg-[#e94560] hover:bg-[#ff5b74] transition text-white font-semibold py-8 rounded-xl mb-4"
             >
               Open in PartyShare App
             </a>
             <a
               href="/partner-login"
-              className="block bg-[#1a1a2e] hover:bg-[#2c2c4a] border border-[#e94560] text-[#e94560] font-semibold py-4 rounded-xl"
+              className="block bg-[#1a1a2e] hover:bg-[#2c2c4a] border border-[#e94560] text-[#e94560] font-semibold py-8 rounded-xl"
             >
               Go to Partner Login
             </a>
