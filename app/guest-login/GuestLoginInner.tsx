@@ -221,15 +221,21 @@ export default function GuestLoginPage() {
         </section>
       </div>
 
-      {/* --- Footer --- */}
-      <footer className="mt-8 text-sm text-white text-center flex flex-wrap justify-center gap-6">
-        <a href="/terms" className="text-white hover:text-[#e94560]">
-          Terms & Conditions
-        </a>
-        <a href="/forgot-password" className="text-white hover:text-[#e94560]">
-          Forgot Password?
-        </a>
-      </footer>
+    {/* --- Footer --- */}
+<footer className="mt-8 text-sm text-white text-center flex flex-wrap justify-center gap-6">
+  <a href="/terms" className="text-white hover:text-[#e94560]">
+    Terms & Conditions
+  </a>
+
+  <a href="/support" className="text-white hover:text-[#e94560]">
+    Support
+  </a>
+
+  <a href="/contact" className="text-white hover:text-[#e94560]">
+    Contact Us
+  </a>
+</footer>
+
     </div>
   );
 }
