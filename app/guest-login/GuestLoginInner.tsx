@@ -234,7 +234,7 @@ export default function GuestLoginPage() {
   <a href="/contact" className="text-white hover:text-[#e94560]">
     Contact Us
   </a>
-
+{/* added privacy*/}
   <a href="/privacy" className="text-white hover:text-[#e94560]">
     Privacy Policy
   </a>
