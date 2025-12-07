@@ -75,7 +75,7 @@ export default function HomePage() {
 
       <main className="relative z-10 max-w-6xl mx-auto px-6 lg:px-8 py-12 lg:py-16">
      {/* ================= HERO ================= */}
-        <section className="relative mb-20 overflow-hidden rounded-3xl">
+       <section className="relative mb-20 overflow-visible rounded-3xl">
         {/* Soft floral background */}
         <div
             className="absolute inset-0 opacity-[0.22] sm:opacity-[0.28]"
@@ -99,7 +99,7 @@ export default function HomePage() {
             <div className="w-full flex justify-center mb-6">
             <div className="relative w-20 h-20">
                 <Image
-               src="/images/IMG_3588.webp"
+               src="/images/iconweb.webp"
                 alt="Party Share logo"
                 fill
                 className="object-contain drop-shadow-xl"
@@ -168,7 +168,7 @@ export default function HomePage() {
                 highlight
             />
             <PhoneMockup
-                className="absolute left-3/4 top-0 -translate-x-3/4 rotate-[2deg] sm:scale-[1.05] shadow-2xl z-20"
+                className="absolute left-3/4 top-0 -translate-x-3/4 rotate-[4deg] sm:scale-[1.05] shadow-2xl z-20"
                 src="/images/IMG_3588.webp"
                 alt="PartyShare host dashboard"
                 label="Hosts stay in control"
@@ -278,10 +278,9 @@ export default function HomePage() {
 
         {/* ================================================== */}
         {/* ================= FEATURES ======================= */}
-        <section
-          id="features"
-          className="grid lg:grid-cols-2 gap-12 items-start mb-20"
-        >
+        <section id="features"
+        className="lg:grid lg:grid-cols-2 gap-12 items-start mb-20">
+
           {/* Left: feature list */}
           <div>
             <h2 className="text-3xl sm:text-4xl font-semibold mb-6">
@@ -329,10 +328,12 @@ export default function HomePage() {
             </p>
 
             {/* Centered content wrapper */}
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+           <div className="flex flex-col sm:flex-row sm:items-start justify-center gap-10">
+
 
             {/* QR Card */}
-         <div className="relative h-44 w-48 rounded-3xl overflow-hidden shadow-xl bg-[#111322]/80 backdrop-blur-md p-4 flex flex-col items-center text-center border border-white/10">
+     <div className="relative min-h-48 w-56 rounded-3xl overflow-visible shadow-xl bg-[#111322]/80 backdrop-blur-md p-6 flex flex-col items-center text-center border border-white/10">
+
 
             <div className="relative w-16 h-16 mb-2 rounded-md bg-white p-1">
                 <Image
