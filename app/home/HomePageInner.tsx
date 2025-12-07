@@ -64,7 +64,7 @@ export default function HomePage() {
       {/* Background image */}
       <div className="absolute inset-0 -z-20">
         <Image
-          src="/images/roseBackground.webp"
+          src="/images/rosesWhite.webp"
           alt="Soft floral background"
           fill
           priority
@@ -154,7 +154,7 @@ export default function HomePage() {
                 highlight
             />
             <PhoneMockup
-                className="absolute right-0 bottom-6 rotate-[10deg] sm:scale-[0.95] shadow-2xl hidden sm:block"
+               className="absolute right-0 bottom-6 rotate-[10deg] sm:scale-[0.95] shadow-2xl z-30"
                 src="/images/IMG_3588.webp"
                 alt="PartyShare host dashboard"
                 label="Hosts stay in control"
@@ -164,62 +164,60 @@ export default function HomePage() {
         </section>
 
 
-        
-
-
-{/* ================= FLOATING EVENT PHOTOS ================= */}
-{/* ================= FLOATING EVENT PHOTOS ================= */}
+       
+            {/* ================= FLOATING EVENT PHOTOS ================= */}
         <section className="relative py-20 overflow-hidden">
         <h2 className="text-center text-3xl sm:text-4xl font-bold text-white mb-12">
             Your Event, Captured Beautifully
         </h2>
 
-        <div className="relative max-w-6xl mx-auto h-[520px] sm:h-[580px]">
-            
-            {/* Top-left photo */}
+        <div className="relative max-w-6xl mx-auto h-[420px] sm:h-[460px]">
+
+            {/* Top-left */}
             <img
             src="/images/IMG_3269.webp"
             alt="event"
-            className="absolute top-8 left-6 w-32 sm:w-44 rounded-xl shadow-2xl rotate-[-8deg] animate-float-slow"
+            className="absolute top-10 left-4 w-16 sm:w-24 rounded-xl shadow-2xl rotate-[-8deg] animate-float-slow"
             />
 
-            {/* Top-right large photo */}
+            {/* Top-right */}
             <img
-            src="/images/IMG_3587.webp"
+            src="/images/IMG_3354.webp"
             alt="event"
-            className="absolute top-0 right-10 w-40 sm:w-56 rounded-xl shadow-2xl rotate-[6deg] animate-float-medium"
+            className="absolute top-2 right-8 w-20 sm:w-28 rounded-xl shadow-2xl rotate-[6deg] animate-float-medium"
             />
 
-            {/* Center-left smaller photo */}
+            {/* Middle-left */}
             <img
-            src="/images/IMG_3588.webp"
+            src="/images/IMG_3355.webp"
             alt="event"
-            className="absolute top-1/3 left-32 w-28 sm:w-40 rounded-xl shadow-2xl rotate-[10deg] animate-float-fast"
+            className="absolute top-1/3 left-20 w-16 sm:w-24 rounded-xl shadow-2xl rotate-[10deg] animate-float-fast"
             />
 
-            {/* Center-right mid photo */}
+            {/* Middle-right */}
             <img
-            src="/images/IMG_3589.webp"
+            src="/images/IMG_3356.webp"
             alt="event"
-            className="absolute top-1/3 right-40 w-32 sm:w-44 rounded-xl shadow-2xl rotate-[-5deg] animate-float-slow"
+            className="absolute top-1/3 right-28 w-18 sm:w-26 rounded-xl shadow-2xl rotate-[-5deg] animate-float-slow"
             />
 
-            {/* Bottom-left wide photo */}
+            {/* Bottom-left */}
             <img
-            src="/images/IMG_3606.webp"
+            src="/images/IMG_3350.webp"
             alt="event"
-            className="absolute bottom-4 left-12 w-40 sm:w-52 rounded-xl shadow-2xl rotate-[4deg] animate-float-medium"
+            className="absolute bottom-4 left-16 w-20 sm:w-28 rounded-xl shadow-2xl rotate-[4deg] animate-float-medium"
             />
 
-            {/* Bottom-right medium photo */}
+            {/* Bottom-right */}
             <img
-            src="/images/IMG_3586.webp"
+            src="/images/IMG_3268.webp"
             alt="event"
-            className="absolute bottom-10 right-20 w-32 sm:w-44 rounded-xl shadow-2xl rotate-[9deg] animate-float-fast"
+            className="absolute bottom-6 right-20 w-16 sm:w-22 rounded-xl shadow-2xl rotate-[9deg] animate-float-fast"
             />
 
         </div>
         </section>
+
 
 
                 {/* ================= HOW IT WORKS ================= */}
@@ -301,61 +299,68 @@ export default function HomePage() {
           </div>
 
           {/* Right: On-the-table mockup */}
-          <div className="relative">
-            <div className="rounded-3xl bg-white/5 border border-white/10 p-5 sm:p-6 backdrop-blur-md shadow-xl">
-              <p className="text-xs uppercase tracking-[0.25em] text-[#ffd6e8] mb-3">
-                On the table
-              </p>
-              <h3 className="text-2xl font-semibold mb-2">
-                Elegant name cards & QR table talkers
-              </h3>
-              <p className="text-gray-200 text-sm mb-5">
-                Design once in Party Share, then print matching stationery
-                for every place setting &mdash; complete with your event
-                branding and QR code for instant sharing.
-              </p>
+      <div className="relative">
+        <div className="rounded-3xl bg-white/5 border border-white/10 p-5 sm:p-6 backdrop-blur-md shadow-xl text-center">
 
-             <div className="grid sm:grid-cols-[1.1fr,0.9fr] gap-4 items-center">
+            <p className="text-xs uppercase tracking-[0.25em] text-[#ffd6e8] mb-3">
+            On the table
+            </p>
 
-                    {/* LEFT — QR CARD */}
-                    <div className="relative h-40 sm:h-44 rounded-2xl overflow-hidden shadow-2xl border border-white/15 bg-[#111322] flex flex-col items-center justify-center px-4 text-center">
-                        <div className="relative w-20 h-20 mb-2 rounded-md bg-white p-1">
-                        <Image
-                            src="/images/IMG_3585.webp"
-                            alt="QR code for Party Share"
-                            fill
-                            className="object-contain rounded"
-                        />
-                        </div>
+            <h3 className="text-2xl font-semibold mb-2">
+            Elegant name cards & QR table talkers
+            </h3>
 
-                        <p className="text-xs text-gray-200 font-medium">Scan to Share Memories</p>
-                        <p className="text-[11px] text-[#7FFF7F] mt-1">PIN: YXNHSA</p>
+            <p className="text-gray-200 text-sm mb-8 max-w-lg mx-auto">
+            Design once in Party Share, then print matching stationery for every place
+            setting — complete with your event branding and QR code for instant sharing.
+            </p>
 
-                        <div className="flex items-center gap-1 mt-2">
-                        <div className="relative w-5 h-5">
-                            <Image
-                            src="/images/iconweb.webp"
-                            alt="Party Share logo"
-                            fill
-                            className="object-contain"
-                            />
-                        </div>
-                        <span className="text-[11px] text-gray-300">Powered by Party Share</span>
-                        </div>
-                    </div>
+            {/* Centered content wrapper */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
 
-                    {/* RIGHT — Missing content previously */}
-                    <div className="relative h-40 sm:h-44 rounded-2xl overflow-hidden shadow-2xl border border-white/20 bg-[#2a2421]">
-                        <Image
-                        src="/images/tablenamecard.webp"
-                        alt="Name card on table"
-                        fill
-                        className="object-cover"
-                        />
-                     </div>
-                    </div>
+            {/* QR Card */}
+            <div className="relative h-40 sm:h-44 w-56 rounded-2xl overflow-hidden shadow-2xl border border-white/15 bg-[#111322] flex flex-col items-center justify-center px-4 text-center">
+                
+                <div className="relative w-20 h-20 mb-2 rounded-md bg-white p-1">
+                <Image
+                    src="/images/IMG_3585.webp"
+                    alt="QR code for Party Share"
+                    fill
+                    className="object-contain rounded"
+                />
+                </div>
+
+                <p className="text-xs text-gray-200 font-medium">Scan to Share Memories</p>
+                <p className="text-[11px] text-[#7FFF7F] mt-1">PIN: YXNHSA</p>
+
+                <div className="flex items-center gap-1 mt-2">
+                <div className="relative w-5 h-5">
+                    <Image
+                    src="/images/iconweb.webp"
+                    alt="Party Share logo"
+                    fill
+                    className="object-contain"
+                    />
+                </div>
+                <span className="text-[11px] text-gray-300">Powered by Party Share</span>
                 </div>
             </div>
+
+            {/* Table Name Card */}
+            <div className="relative h-40 sm:h-44 w-56 rounded-2xl overflow-hidden shadow-2xl border border-white/20 bg-[#2a2421]">
+                <Image
+                src="/images/tablenamecard.webp"
+                alt="Name card on table"
+                fill
+                className="object-cover"
+                />
+            </div>
+
+            </div>
+        </div>
+        </div>
+
+          
         </section>
 
 
