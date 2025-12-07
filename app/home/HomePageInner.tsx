@@ -80,7 +80,7 @@ export default function HomePage() {
         <div
             className="absolute inset-0 opacity-[0.22] sm:opacity-[0.28]"
             style={{
-            backgroundImage: "url('/images/roseBackground.webp')",
+            backgroundImage: "url('/images/rosesWhite.webp')",
             backgroundSize: "cover",
             backgroundPosition: "top right",
             }}
@@ -168,7 +168,7 @@ export default function HomePage() {
                 highlight
             />
             <PhoneMockup
-                className="absolute right-6 sm:right-12 bottom-4 rotate-[10deg] sm:scale-[0.9] shadow-2xl z-30"
+                className="absolute right-0 sm:right-12 bottom-4 rotate-[10deg] sm:scale-[0.9] shadow-2xl z-30"
                 src="/images/IMG_3588.webp"
                 alt="PartyShare host dashboard"
                 label="Hosts stay in control"
@@ -184,7 +184,7 @@ export default function HomePage() {
                 Your Event, Captured Beautifully
             </h2>
 
-            <div className="relative max-w-6xl mx-auto h-[360px] sm:h-[420px] overflow-hidden">
+            <div className="relative max-w-6xl mx-auto h-[260px] sm:h-[220px] overflow-hidden">
 
                 {/* Top-left */}
                 <img
