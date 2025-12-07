@@ -99,7 +99,7 @@ export default function HomePage() {
             <div className="w-full flex justify-center mb-6">
             <div className="relative w-20 h-20">
                 <Image
-                src="/images/iconweb.webp"
+               src="/images/IMG_3588.webp"
                 alt="Party Share logo"
                 fill
                 className="object-contain drop-shadow-xl"
@@ -168,7 +168,7 @@ export default function HomePage() {
                 highlight
             />
             <PhoneMockup
-                className="absolute right-0 sm:right-12 bottom-4 rotate-[10deg] sm:scale-[0.9] shadow-2xl z-30"
+                className="absolute left-3/4 top-0 -translate-x-3/4 rotate-[2deg] sm:scale-[1.05] shadow-2xl z-20"
                 src="/images/IMG_3588.webp"
                 alt="PartyShare host dashboard"
                 label="Hosts stay in control"
@@ -184,7 +184,7 @@ export default function HomePage() {
                 Your Event, Captured Beautifully
             </h2>
 
-            <div className="relative max-w-6xl mx-auto h-[260px] sm:h-[220px] overflow-hidden">
+            <div className="relative max-w-2xl mx-auto h-[360px] sm:h-[320px] overflow-hidden">
 
                 {/* Top-left */}
                 <img
