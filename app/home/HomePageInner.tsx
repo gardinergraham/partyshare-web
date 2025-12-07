@@ -2,13 +2,28 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 type Testimonial = {
   quote: string;
   name: string;
   subtitle: string;
 };
+
+function useRandomPositions(count: number, width = 500, height = 350) {
+  const [positions, setPositions] = useState<{ top: number; left: number }[]>([]);
+
+  useEffect(() => {
+    const newPositions = Array.from({ length: count }).map(() => ({
+      top: Math.random() * height + 20,
+      left: Math.random() * width + 20,
+    }));
+    setPositions(newPositions);
+  }, [count, width, height]);
+
+  return positions;
+}
+
 
 const testimonials: Testimonial[] = [
   {
@@ -149,52 +164,18 @@ export default function HomePage() {
         </section>
 
 
+        
 
-        {/* ================= FLOATING EVENT PHOTOS ================= */}
-      {/* ================= FLOATING PHOTO SCATTER ================= */}
-        <section className="relative py-20 overflow-hidden">
-        {/* Section title */}
-        <h2 className="text-center text-3xl sm:text-4xl font-bold text-white mb-12">
-            Your Event, Captured Beautifully
-        </h2>
 
-        <div className="relative max-w-6xl mx-auto h-[480px] sm:h-[540px]">
-            {/* Photo 1 */}
-            <img
-            src="/images/IMG_3268.webp"
-            alt="event"
-            className="absolute top-6 left-4 w-40 sm:w-48 rounded-xl shadow-2xl rotate-[-6deg] animate-float-slow"
-            />
+{/* ================= FLOATING EVENT PHOTOS ================= */}
+<section className="relative py-20 overflow-hidden">
+  <h2 className="text-center text-3xl sm:text-4xl font-bold text-white mb-12">
+    Your Event, Captured Beautifully
+  </h2>
 
-            {/* Photo 2 */}
-            <img
-            src="/images/IMG_3269.webp"
-            alt="event"
-            className="absolute top-20 right-10 w-44 sm:w-56 rounded-xl shadow-2xl rotate-[4deg] animate-float-medium"
-            />
-
-            {/* Photo 3 */}
-            <img
-            src="/images/IMG_3350.webp"
-            alt="event"
-            className="absolute bottom-10 left-20 w-40 sm:w-48 rounded-xl shadow-2xl rotate-[8deg] animate-float-fast"
-            />
-
-            {/* Photo 4 */}
-            <img
-            src="/images/IMG_3351.webp"
-            alt="event"
-            className="absolute bottom-0 right-24 w-36 sm:w-44 rounded-xl shadow-2xl rotate-[-3deg] animate-float-slow"
-            />
-
-            {/* Photo 5 (subtle centerpiece) */}
-            <img
-            src="/images/IMG_3585.webp"
-            alt="event"
-            className="absolute top-1/2 left-1/2 w-52 sm:w-60 -translate-x-1/2 -translate-y-1/2 rounded-2xl shadow-[0_0_60px_rgba(255,255,255,0.15)] rotate-[2deg] animate-float-medium"
-            />
-        </div>
+  <FloatingPhotos />
         </section>
+
 
                 {/* ================= HOW IT WORKS ================= */}
 
@@ -554,6 +535,50 @@ function PhoneMockup({
     </div>
   );
 }
+
+ function FloatingPhotos() {
+        const images = [
+            "/images/IMG_3269.webp",
+            "/images/IMG_3587.webp",
+            "/images/IMG_3588.webp",
+            "/images/IMG_3589.webp",
+            "/images/IMG_3585.webp", // QR
+        ];
+
+        const positions = useRandomPositions(images.length, 500, 320);
+
+        return (
+            <div className="relative max-w-6xl mx-auto h-[520px] sm:h-[600px] pointer-events-none">
+            {positions.length > 0 &&
+                images.map((src, i) => {
+                const isQR = src.includes("3585");
+
+                return (
+                    <img
+                    key={src}
+                    src={src}
+                    alt="event"
+                    className={`
+                        absolute rounded-xl 
+                        shadow-[0_0_30px_rgba(0,0,0,0.6)] 
+                        ${isQR ? "w-20 sm:w-24" : "w-40 sm:w-52"} 
+                        animate-float-${i % 3 === 0 ? "slow" : i % 3 === 1 ? "medium" : "fast"}
+                        ${isQR ? "rotate-[2deg]" : ""}
+                        ${!isQR ? "hover:scale-[1.02] transition" : ""} 
+                    `}
+                    style={{
+                        top: positions[i].top,
+                        left: positions[i].left,
+                        filter: isQR
+                        ? "drop-shadow(0 0 10px rgba(255, 255, 255, 0.25))"
+                        : "drop-shadow(0 0 25px rgba(255, 255, 255, 0.15))",
+                    }}
+                    />
+                );
+                })}
+            </div>
+        );
+        }
 
 function FeatureItem({
   title,
