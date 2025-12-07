@@ -60,7 +60,15 @@ export default function HomePage() {
     );
 
   return (
-    <div className="min-h-screen bg-[#0f0f23] text-white relative overflow-hidden">
+    <div className="min-h-screen bg-[#0f0f23] text-white relative overflow-visible">
+        <section className="relative py-24 px-6 sm:px-10 lg:px-16">
+              <img
+                src="/images/iconweb.webp"
+                alt="Place Card Mockup"
+                className="w-full rounded-2xl shadow-2xl rotate-[-2deg] mb-8"
+            />
+
+        </section>
       {/* Background image */}
       <div className="absolute inset-0 -z-20">
         <Image
@@ -379,16 +387,14 @@ export default function HomePage() {
 
           
         </section>
+        {/* ================= Show QR code ================= */}
         <section className="relative py-24 px-6 sm:px-10 lg:px-16">
-             <div className="relative w-16 h-16 mb-2 rounded-md bg-white p-1">
-                <Image
+              <img
                 src="/images/IMG_3585.webp"
-                alt="QR code for Party Share"
-                fill
-                unoptimized
-                className="object-contain rounded"
-                />
-            </div>
+                alt="Place Card Mockup"
+                className="w-full rounded-2xl shadow-2xl rotate-[-2deg] mb-8"
+            />
+
         </section>
         {/* ================= TABLE STATIONERY SHOWCASE ================= */}
         <section className="relative py-24 px-6 sm:px-10 lg:px-16">
