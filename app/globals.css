@@ -73,3 +73,32 @@ html, body {
   overflow-x: hidden; /* prevents accidental horizontal scroll */
 }
 
+@keyframes floatSlow {
+  0% { transform: translateY(0) rotate(var(--tw-rotate)); }
+  50% { transform: translateY(-14px) rotate(var(--tw-rotate)); }
+  100% { transform: translateY(0) rotate(var(--tw-rotate)); }
+}
+
+@keyframes floatMedium {
+  0% { transform: translateY(0) rotate(var(--tw-rotate)); }
+  50% { transform: translateY(-10px) rotate(var(--tw-rotate)); }
+  100% { transform: translateY(0) rotate(var(--tw-rotate)); }
+}
+
+@keyframes floatFast {
+  0% { transform: translateY(0) rotate(var(--tw-rotate)); }
+  50% { transform: translateY(-7px) rotate(var(--tw-rotate)); }
+  100% { transform: translateY(0) rotate(var(--tw-rotate)); }
+}
+
+.animate-float-slow {
+  animation: floatSlow 7s ease-in-out infinite;
+}
+
+.animate-float-medium {
+  animation: floatMedium 5s ease-in-out infinite;
+}
+
+.animate-float-fast {
+  animation: floatFast 4s ease-in-out infinite;
+}

@@ -150,60 +150,48 @@ export default function HomePage() {
 
 
         {/* ================= FLOATING EVENT PHOTOS ================= */}
-        <section className="relative h-[320px] sm:h-[380px] mb-24">
-        {/* Glow background */}
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#0f0f23] pointer-events-none" />
+      {/* ================= FLOATING PHOTO SCATTER ================= */}
+        <section className="relative py-20 overflow-hidden">
+        {/* Section title */}
+        <h2 className="text-center text-3xl sm:text-4xl font-bold text-white mb-12">
+            Your Event, Captured Beautifully
+        </h2>
 
-        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-            {/* Middle photo (hero) */}
-            <div className="relative w-40 sm:w-56 h-40 sm:h-56 rotate-[-2deg] shadow-2xl rounded-xl overflow-hidden border border-white/10 z-30">
-            <Image
-                src="/images/event1.webp"
-                alt="Event photo 1"
-                fill
-                className="object-cover"
+        <div className="relative max-w-6xl mx-auto h-[480px] sm:h-[540px]">
+            {/* Photo 1 */}
+            <img
+            src="/images/IMG_3269.webp"
+            alt="event"
+            className="absolute top-6 left-4 w-40 sm:w-48 rounded-xl shadow-2xl rotate-[-6deg] animate-float-slow"
             />
-            </div>
 
-            {/* Left photo */}
-            <div className="absolute left-[10%] top-[15%] w-32 sm:w-40 h-32 sm:h-40 rotate-[8deg] shadow-xl rounded-xl overflow-hidden border border-white/10 z-20 opacity-90">
-            <Image
-                src="/images/event2.webp"
-                alt="Event photo 2"
-                fill
-                className="object-cover"
+            {/* Photo 2 */}
+            <img
+            src="/images/IMG_3587.webp"
+            alt="event"
+            className="absolute top-20 right-10 w-44 sm:w-56 rounded-xl shadow-2xl rotate-[4deg] animate-float-medium"
             />
-            </div>
 
-            {/* Right photo */}
-            <div className="absolute right-[10%] top-[20%] w-32 sm:w-40 h-32 sm:h-40 rotate-[-10deg] shadow-xl rounded-xl overflow-hidden border border-white/10 z-20 opacity-90">
-            <Image
-                src="/images/event3.webp"
-                alt="Event photo 3"
-                fill
-                className="object-cover"
+            {/* Photo 3 */}
+            <img
+            src="/images/IMG_3588.webp"
+            alt="event"
+            className="absolute bottom-10 left-20 w-40 sm:w-48 rounded-xl shadow-2xl rotate-[8deg] animate-float-fast"
             />
-            </div>
 
-            {/* Bottom left */}
-            <div className="absolute left-[18%] bottom-[12%] w-28 sm:w-36 h-28 sm:h-36 rotate-[14deg] shadow-xl rounded-xl overflow-hidden border border-white/10 z-10 opacity-80">
-            <Image
-                src="/images/event4.webp"
-                alt="Event photo 4"
-                fill
-                className="object-cover"
+            {/* Photo 4 */}
+            <img
+            src="/images/IMG_3589.webp"
+            alt="event"
+            className="absolute bottom-0 right-24 w-36 sm:w-44 rounded-xl shadow-2xl rotate-[-3deg] animate-float-slow"
             />
-            </div>
 
-            {/* Bottom right */}
-            <div className="absolute right-[18%] bottom-[8%] w-28 sm:w-36 h-28 sm:h-36 rotate-[-6deg] shadow-xl rounded-xl overflow-hidden border border-white/10 z-10 opacity-80">
-            <Image
-                src="/images/event5.webp"
-                alt="Event photo 5"
-                fill
-                className="object-cover"
+            {/* Photo 5 (subtle centerpiece) */}
+            <img
+            src="/images/IMG_3585.webp"
+            alt="event"
+            className="absolute top-1/2 left-1/2 w-52 sm:w-60 -translate-x-1/2 -translate-y-1/2 rounded-2xl shadow-[0_0_60px_rgba(255,255,255,0.15)] rotate-[2deg] animate-float-medium"
             />
-            </div>
         </div>
         </section>
 
@@ -344,6 +332,81 @@ export default function HomePage() {
             </div>
           </div>
         </section>
+
+
+        {/* ================= TABLE STATIONERY SHOWCASE ================= */}
+        <section className="relative py-24 px-6 sm:px-10 lg:px-16">
+        <h2 className="text-center text-3xl sm:text-4xl font-bold text-white mb-4">
+            Beautiful Table Stationery — Auto-Generated
+        </h2>
+        <p className="text-center text-gray-300 max-w-2xl mx-auto mb-14">
+            Create printable name cards, table talkers with QR codes, and full table layouts — all matched to your chosen theme.
+        </p>
+
+        <div className="grid lg:grid-cols-2 gap-12 max-w-7xl mx-auto items-center">
+            
+            {/* Left: mockups */}
+            <div className="relative">
+            {/* Place card */}
+            <img
+                src="/images/IMG_3604.webp"
+                alt="Place Card Mockup"
+                className="w-full rounded-2xl shadow-2xl rotate-[-2deg] mb-8"
+            />
+
+            {/* Table Talker */}
+            <img
+                src="/images/IMG_3605.webp"
+                alt="Table Talker"
+                className="w-4/5 rounded-2xl shadow-2xl rotate-[3deg] mx-auto"
+            />
+
+            {/* Logo */}
+            <img
+                src="/images/iconweb.png"
+                className="absolute bottom-[-25px] right-[-10px] w-20 opacity-80"
+                alt="Party Share Logo"
+            />
+            </div>
+
+            {/* Right: description */}
+            <div className="text-gray-200 space-y-6">
+            <h3 className="text-2xl font-semibold text-white">Stationery Your Guests Will Love</h3>
+
+            <p>
+                Party Share automatically generates elegant table stationery that matches your event theme. 
+                Simply choose a style — or upload your own custom theme — and we handle the rest.
+            </p>
+
+            <ul className="space-y-3">
+                <li className="flex items-start gap-3">
+                <span className="text-[#ff8bb7] text-xl">•</span>
+                Printable name cards for every guest
+                </li>
+                <li className="flex items-start gap-3">
+                <span className="text-[#ff8bb7] text-xl">•</span>
+                Table talkers with your QR code
+                </li>
+                <li className="flex items-start gap-3">
+                <span className="text-[#ff8bb7] text-xl">•</span>
+                Visual seating layout diagrams
+                </li>
+                <li className="flex items-start gap-3">
+                <span className="text-[#ff8bb7] text-xl">•</span>
+                Fully themed PDFs ready for printing
+                </li>
+            </ul>
+
+            <a
+                href="#features"
+                className="inline-block mt-6 px-6 py-3 rounded-xl bg-[#e94560] hover:bg-[#ff5b74] text-white font-semibold transition shadow-lg shadow-[#e94560]/40"
+            >
+                Explore Stationery Tools
+            </a>
+            </div>
+        </div>
+        </section>
+
 
         {/* ================= TESTIMONIALS ================= */}
         <section className="mb-20">
