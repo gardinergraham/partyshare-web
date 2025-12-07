@@ -49,7 +49,7 @@ export default function HomePage() {
       {/* Background image */}
       <div className="absolute inset-0 -z-20">
         <Image
-          src="/images/blush_original.webp"
+          src="/images/roseBackground.webp"
           alt="Soft floral background"
           fill
           priority
@@ -65,7 +65,7 @@ export default function HomePage() {
         <div
             className="absolute inset-0 opacity-[0.22] sm:opacity-[0.28]"
             style={{
-            backgroundImage: "url('/images/blush_original.webp')",
+            backgroundImage: "url('/images/roseBackground.webp')",
             backgroundSize: "cover",
             backgroundPosition: "top right",
             }}
@@ -120,26 +120,27 @@ export default function HomePage() {
             </div>
 
             {/* Right: stacked phone mockups */}
-            <div className="relative h-[340px] sm:h-[420px]">
+            <div className="relative h-[360px] sm:h-[440px]">
             {/* Glow */}
             <div className="absolute inset-0 bg-gradient-to-tr from-[#ff8bb7]/30 via-transparent to-[#ffd56f]/20 blur-3xl"></div>
 
+            {/* Left phone */}
             <PhoneMockup
-                className="absolute left-2 top-6 rotate-[-10deg] shadow-2xl"
-                src="/images/app-login.webp"
+                className="absolute left-0 top-10 rotate-[-12deg] sm:scale-[0.95] shadow-2xl"
+                src="/images/IMG_3586.webp"
                 alt="PartyShare login screen"
                 label="Create or join your event"
             />
             <PhoneMockup
-                className="absolute right-3 top-0 rotate-[8deg] shadow-2xl"
-                src="/images/app-gallery.webp"
+                className="absolute left-1/2 top-0 -translate-x-1/2 rotate-[2deg] sm:scale-[1.05] shadow-2xl z-20"
+                src="/images/IMG_3591.webp"
                 alt="PartyShare shared gallery"
                 label="Guests upload photos & videos"
                 highlight
             />
             <PhoneMockup
-                className="absolute left-10 bottom-0 rotate-[3deg] shadow-2xl hidden sm:block"
-                src="/images/app-dashboard.webp"
+                className="absolute right-0 bottom-6 rotate-[10deg] sm:scale-[0.95] shadow-2xl hidden sm:block"
+                src="/images/IMG_3588.webp"
                 alt="PartyShare host dashboard"
                 label="Hosts stay in control"
             />
@@ -160,28 +161,28 @@ export default function HomePage() {
         <div className="relative max-w-6xl mx-auto h-[480px] sm:h-[540px]">
             {/* Photo 1 */}
             <img
-            src="/images/IMG_3269.webp"
+            src="/images/IMG_3268.webp"
             alt="event"
             className="absolute top-6 left-4 w-40 sm:w-48 rounded-xl shadow-2xl rotate-[-6deg] animate-float-slow"
             />
 
             {/* Photo 2 */}
             <img
-            src="/images/IMG_3587.webp"
+            src="/images/IMG_3269.webp"
             alt="event"
             className="absolute top-20 right-10 w-44 sm:w-56 rounded-xl shadow-2xl rotate-[4deg] animate-float-medium"
             />
 
             {/* Photo 3 */}
             <img
-            src="/images/IMG_3588.webp"
+            src="/images/IMG_3350.webp"
             alt="event"
             className="absolute bottom-10 left-20 w-40 sm:w-48 rounded-xl shadow-2xl rotate-[8deg] animate-float-fast"
             />
 
             {/* Photo 4 */}
             <img
-            src="/images/IMG_3589.webp"
+            src="/images/IMG_3351.webp"
             alt="event"
             className="absolute bottom-0 right-24 w-36 sm:w-44 rounded-xl shadow-2xl rotate-[-3deg] animate-float-slow"
             />
@@ -301,7 +302,7 @@ export default function HomePage() {
                   <div className="absolute inset-0 rounded-2xl bg-[#111322] border border-white/15 shadow-2xl flex flex-col items-center justify-center px-4 text-center">
                     <div className="relative w-20 h-20 mb-2 rounded-md bg-white p-1">
                       <Image
-                        src="/images/qr-pin-yxnhsa.webp"
+                        src="public/images/IMG_3585.webp "
                         alt="QR code for Party Share"
                         fill
                         className="object-contain rounded"
@@ -361,12 +362,6 @@ export default function HomePage() {
                 className="w-4/5 rounded-2xl shadow-2xl rotate-[3deg] mx-auto"
             />
 
-            {/* Logo */}
-            <img
-                src="/images/iconweb.png"
-                className="absolute bottom-[-25px] right-[-10px] w-20 opacity-80"
-                alt="Party Share Logo"
-            />
             </div>
 
             {/* Right: description */}
@@ -477,36 +472,37 @@ export default function HomePage() {
         </section>
 
         {/* ================= CTA ================= */}
-        <section className="mb-10 text-center">
-          <h2 className="text-3xl sm:text-4xl font-semibold mb-3">
-            Ready to use Party Share at your event?
-          </h2>
-          <p className="text-sm sm:text-base text-gray-200 max-w-xl mx-auto mb-6">
-            Set up an event space, share your QR code, and watch the memories
-            roll in &mdash; from the welcome drinks to the last dance.
+       {/* --- App Promo --- */}
+        <section className="mt-10 bg-[#0f0f23] rounded-2xl p-6 text-center">
+          <h3 className="text-lg font-bold mb-2">Love Party Share?</h3>
+          <p className="text-gray-300 mb-4">
+            Get the full experience on our mobile app.
           </p>
 
-          <div className="flex flex-wrap justify-center gap-4 mb-4">
-            <Link
-              href="/guest-login"
-              className="px-7 py-3 rounded-2xl bg-[#e94560] hover:bg-[#ff5b74] font-semibold text-base shadow-lg shadow-[#e94560]/40 transition"
-            >
-              Go to Guest Login
-            </Link>
+          <div className="flex items-center justify-center gap-4">
             <a
               href="https://apps.apple.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-7 py-3 rounded-2xl bg-white text-[#0f0f23] hover:bg-gray-100 font-semibold text-base transition"
             >
-              Download on the App Store
+              <img
+                src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
+                alt="Download on the App Store"
+                className="h-12 w-[165px] object-contain"
+              />
+            </a>
+            <a
+              href="https://play.google.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
+                alt="Get it on Google Play"
+                className="h-12 w-[180px] object-contain"
+              />
             </a>
           </div>
-
-          <p className="text-xs text-gray-500">
-            Also available on Google Play. Guests can join via web &mdash; no
-            download required.
-          </p>
         </section>
 
         <footer className="py-6 text-center text-xs text-gray-500">
@@ -576,3 +572,4 @@ function FeatureItem({
     </li>
   );
 }
+   
