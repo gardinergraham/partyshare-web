@@ -315,35 +315,46 @@ export default function HomePage() {
                 branding and QR code for instant sharing.
               </p>
 
-              <div className="grid sm:grid-cols-[1.1fr,0.9fr] gap-4 items-center">
-              <div className="relative h-40 sm:h-44 rounded-2xl overflow-hidden shadow-2xl border border-white/15 bg-[#111322] flex flex-col items-center justify-center px-4 text-center">
-                <div className="relative w-20 h-20 mb-2 rounded-md bg-white p-1">
-                    <Image
-                    src="/images/IMG_3585.webp"
-                    alt="QR code for Party Share"
-                    fill
-                    className="object-contain rounded"
-                    />
-                </div>
+             <div className="grid sm:grid-cols-[1.1fr,0.9fr] gap-4 items-center">
 
-                <p className="text-xs text-gray-200 font-medium">Scan to Share Memories</p>
-                <p className="text-[11px] text-[#7FFF7F] mt-1">PIN: YXNHSA</p>
+                    {/* LEFT — QR CARD */}
+                    <div className="relative h-40 sm:h-44 rounded-2xl overflow-hidden shadow-2xl border border-white/15 bg-[#111322] flex flex-col items-center justify-center px-4 text-center">
+                        <div className="relative w-20 h-20 mb-2 rounded-md bg-white p-1">
+                        <Image
+                            src="/images/IMG_3585.webp"
+                            alt="QR code for Party Share"
+                            fill
+                            className="object-contain rounded"
+                        />
+                        </div>
 
-                <div className="flex items-center gap-1 mt-2">
-                    <div className="relative w-5 h-5">
-                    <Image
-                        src="/images/iconweb.webp"
-                        alt="Party Share logo"
-                        fill
-                        className="object-contain"
-                    />
+                        <p className="text-xs text-gray-200 font-medium">Scan to Share Memories</p>
+                        <p className="text-[11px] text-[#7FFF7F] mt-1">PIN: YXNHSA</p>
+
+                        <div className="flex items-center gap-1 mt-2">
+                        <div className="relative w-5 h-5">
+                            <Image
+                            src="/images/iconweb.webp"
+                            alt="Party Share logo"
+                            fill
+                            className="object-contain"
+                            />
+                        </div>
+                        <span className="text-[11px] text-gray-300">Powered by Party Share</span>
+                        </div>
                     </div>
-                    <span className="text-[11px] text-gray-300">Powered by Party Share</span>
-                </div>
-                </div>
 
+                    {/* RIGHT — Missing content previously */}
+                    <div className="relative h-40 sm:h-44 rounded-2xl overflow-hidden shadow-2xl border border-white/20 bg-[#2a2421]">
+                        <Image
+                        src="/images/tablenamecard.webp"
+                        alt="Name card on table"
+                        fill
+                        className="object-cover"
+                        />
+                     </div>
+                    </div>
                 </div>
-              </div>
             </div>
         </section>
 
