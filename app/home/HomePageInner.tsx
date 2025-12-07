@@ -59,79 +59,94 @@ export default function HomePage() {
       </div>
 
       <main className="relative z-10 max-w-6xl mx-auto px-6 lg:px-8 py-12 lg:py-16">
-        {/* ================= HERO ================= */}
-        <section className="grid lg:grid-cols-[1.15fr,0.85fr] gap-10 items-center mb-20">
-          {/* Left: text */}
-          <div>
+     {/* ================= HERO ================= */}
+        <section className="relative mb-20 overflow-hidden rounded-3xl">
+        {/* Soft floral background */}
+        <div
+            className="absolute inset-0 opacity-[0.22] sm:opacity-[0.28]"
+            style={{
+            backgroundImage: "url('/images/blush_original.webp')",
+            backgroundSize: "cover",
+            backgroundPosition: "top right",
+            }}
+        ></div>
+
+        {/* Gradient overlay for readability */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0f0f23] via-[#0f0f23]/70 to-transparent backdrop-blur-[1px]"></div>
+
+        {/* Main hero content */}
+        <div className="relative grid lg:grid-cols-[1.15fr,0.85fr] gap-10 items-center px-6 sm:px-10 lg:px-14 py-16">
+            {/* Left: text */}
+            <div>
             <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1 text-xs uppercase tracking-[0.25em] text-[#ffd6e8] mb-5">
-              <span>Weddings</span>
-              <span>•</span>
-              <span>Parties</span>
-              <span>•</span>
-              <span>Events</span>
+                <span>Weddings</span>
+                <span>•</span>
+                <span>Parties</span>
+                <span>•</span>
+                <span>Events</span>
             </div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight text-white">
-              Capture the
-              <span className="block text-[#ff8bb7]">
-                Moments That Matter
-              </span>
+                Capture the
+                <span className="block text-[#ff8bb7]">Moments That Matter</span>
             </h1>
 
             <p className="mt-6 text-base sm:text-lg text-gray-200 max-w-xl">
-              Your guests upload photos instantly — all in one beautiful
-              event gallery. Party Share brings together media, guest
-              messages, table plans, and printable stationery in one place.
+                Your guests upload photos instantly — all in one beautiful event
+                gallery. Party Share brings together media, guest messages, table
+                plans, and printable stationery in one place.
             </p>
 
             <div className="mt-8 flex flex-wrap gap-4">
-              <Link
+                <Link
                 href="/guest-login"
                 className="px-7 py-3 rounded-2xl bg-[#e94560] hover:bg-[#ff5b74] font-semibold text-base shadow-lg shadow-[#e94560]/40 transition"
-              >
+                >
                 Join an Event
-              </Link>
+                </Link>
 
-              <Link
+                <Link
                 href="#features"
                 className="px-7 py-3 rounded-2xl border border-white/30 text-sm sm:text-base font-medium hover:bg-white/10 transition"
-              >
+                >
                 Explore Host Tools
-              </Link>
+                </Link>
             </div>
 
-            <p className="mt-4 text-xs sm:text-sm text-gray-400">
-              Guests don&apos;t need an account &mdash; they just scan your QR
-              code and start sharing.
+            <p className="mt-4 text-xs sm:text-sm text-gray-300">
+                Guests don&apos;t need an account — they just scan your QR code and
+                start sharing.
             </p>
-          </div>
+            </div>
 
-          {/* Right: stacked phone mockups */}
-          <div className="relative h-[340px] sm:h-[420px]">
+            {/* Right: stacked phone mockups */}
+            <div className="relative h-[340px] sm:h-[420px]">
             {/* Glow */}
-            <div className="absolute inset-0 bg-gradient-to-tr from-[#ff8bb7]/30 via-transparent to-[#ffd56f]/20 blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-tr from-[#ff8bb7]/30 via-transparent to-[#ffd56f]/20 blur-3xl"></div>
 
             <PhoneMockup
-              className="absolute left-2 top-6 rotate-[-10deg] shadow-2xl"
-              src="/images/app-login.webp"
-              alt="PartyShare login screen"
-              label="Create or join your event"
+                className="absolute left-2 top-6 rotate-[-10deg] shadow-2xl"
+                src="/images/app-login.webp"
+                alt="PartyShare login screen"
+                label="Create or join your event"
             />
             <PhoneMockup
-              className="absolute right-3 top-0 rotate-[8deg] shadow-2xl"
-              src="/images/app-gallery.webp"
-              alt="PartyShare shared gallery"
-              label="Guests upload photos & videos"
-              highlight
+                className="absolute right-3 top-0 rotate-[8deg] shadow-2xl"
+                src="/images/app-gallery.webp"
+                alt="PartyShare shared gallery"
+                label="Guests upload photos & videos"
+                highlight
             />
             <PhoneMockup
-              className="absolute left-10 bottom-0 rotate-[3deg] shadow-2xl hidden sm:block"
-              src="/images/app-dashboard.webp"
-              alt="PartyShare host dashboard"
-              label="Hosts stay in control"
+                className="absolute left-10 bottom-0 rotate-[3deg] shadow-2xl hidden sm:block"
+                src="/images/app-dashboard.webp"
+                alt="PartyShare host dashboard"
+                label="Hosts stay in control"
             />
-          </div>
+            </div>
+        </div>
         </section>
+
 
 
         {/* ================= FLOATING EVENT PHOTOS ================= */}
