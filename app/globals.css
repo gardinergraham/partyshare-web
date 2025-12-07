@@ -102,3 +102,33 @@ html, body {
 .animate-float-fast {
   animation: float-fast 4s ease-in-out infinite;
 }
+@keyframes glide-slow {
+  0% { transform: translateX(-20px) translateY(0px) rotate(-2deg); }
+  50% { transform: translateX(20px) translateY(-6px) rotate(2deg); }
+  100% { transform: translateX(-20px) translateY(0px) rotate(-2deg); }
+}
+
+@keyframes glide-medium {
+  0% { transform: translateX(-30px) translateY(0px) rotate(0deg); }
+  50% { transform: translateX(30px) translateY(-10px) rotate(3deg); }
+  100% { transform: translateX(-30px) translateY(0px) rotate(0deg); }
+}
+
+@keyframes glide-fast {
+  0% { transform: translateX(-40px) translateY(0px) rotate(0deg); }
+  50% { transform: translateX(40px) translateY(-14px) rotate(-3deg); }
+  100% { transform: translateX(-40px) translateY(0px) rotate(0deg); }
+}
+
+/* Tailwind helper classes */
+.animate-glide-slow {
+  animation: glide-slow 9s ease-in-out infinite;
+}
+
+.animate-glide-medium {
+  animation: glide-medium 7s ease-in-out infinite;
+}
+
+.animate-glide-fast {
+  animation: glide-fast 5s ease-in-out infinite;
+}

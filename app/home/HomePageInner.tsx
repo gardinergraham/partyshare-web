@@ -88,11 +88,25 @@ export default function HomePage() {
 
         {/* Gradient overlay for readability */}
         <div className="absolute inset-0 bg-gradient-to-br from-[#0f0f23] via-[#0f0f23]/70 to-transparent backdrop-blur-[1px]"></div>
+        
 
         {/* Main hero content */}
         <div className="relative grid lg:grid-cols-[1.15fr,0.85fr] gap-10 items-center px-6 sm:px-10 lg:px-14 py-16">
             {/* Left: text */}
             <div>
+
+                {/* Top-center Logo */}
+            <div className="w-full flex justify-center mb-6">
+            <div className="relative w-20 h-20">
+                <Image
+                src="/images/iconweb.webp"
+                alt="Party Share logo"
+                fill
+                className="object-contain drop-shadow-xl"
+                />
+            </div>
+            </div>
+
             <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1 text-xs uppercase tracking-[0.25em] text-[#ffd6e8] mb-5">
                 <span>Weddings</span>
                 <span>•</span>
@@ -154,7 +168,7 @@ export default function HomePage() {
                 highlight
             />
             <PhoneMockup
-               className="absolute right-0 bottom-6 rotate-[10deg] sm:scale-[0.95] shadow-2xl z-30"
+                className="absolute right-6 sm:right-12 bottom-4 rotate-[10deg] sm:scale-[0.9] shadow-2xl z-30"
                 src="/images/IMG_3588.webp"
                 alt="PartyShare host dashboard"
                 label="Hosts stay in control"
@@ -164,59 +178,58 @@ export default function HomePage() {
         </section>
 
 
-       
-            {/* ================= FLOATING EVENT PHOTOS ================= */}
-        <section className="relative py-20 overflow-hidden">
-        <h2 className="text-center text-3xl sm:text-4xl font-bold text-white mb-12">
-            Your Event, Captured Beautifully
-        </h2>
+                {/* ================= FLOATING EVENT PHOTOS ================= */}
+            <section className="relative py-20 overflow-hidden mt-32 sm:mt-40">
+            <h2 className="text-center text-3xl sm:text-4xl font-bold text-white mb-12">
+                Your Event, Captured Beautifully
+            </h2>
 
-        <div className="relative max-w-6xl mx-auto h-[420px] sm:h-[460px]">
+            <div className="relative max-w-6xl mx-auto h-[360px] sm:h-[420px] overflow-hidden">
 
-            {/* Top-left */}
-            <img
-            src="/images/IMG_3269.webp"
-            alt="event"
-            className="absolute top-10 left-4 w-16 sm:w-24 rounded-xl shadow-2xl rotate-[-8deg] animate-float-slow"
-            />
+                {/* Top-left */}
+                <img
+                src="/images/IMG_3269.webp"
+                alt="event"
+                className="absolute top-8 left-4 w-12 sm:w-20 rounded-xl shadow-2xl animate-glide-slow"
+                />
 
-            {/* Top-right */}
-            <img
-            src="/images/IMG_3354.webp"
-            alt="event"
-            className="absolute top-2 right-8 w-20 sm:w-28 rounded-xl shadow-2xl rotate-[6deg] animate-float-medium"
-            />
+                {/* Top-right */}
+                <img
+                src="/images/IMG_3354.webp"
+                alt="event"
+                className="absolute top-4 right-6 w-14 sm:w-22 rounded-xl shadow-2xl animate-glide-medium"
+                />
 
-            {/* Middle-left */}
-            <img
-            src="/images/IMG_3355.webp"
-            alt="event"
-            className="absolute top-1/3 left-20 w-16 sm:w-24 rounded-xl shadow-2xl rotate-[10deg] animate-float-fast"
-            />
+                {/* Middle-left */}
+                <img
+                src="/images/IMG_3355.webp"
+                alt="event"
+                className="absolute top-1/3 left-10 w-12 sm:w-20 rounded-xl shadow-2xl animate-glide-fast"
+                />
 
-            {/* Middle-right */}
-            <img
-            src="/images/IMG_3356.webp"
-            alt="event"
-            className="absolute top-1/3 right-28 w-18 sm:w-26 rounded-xl shadow-2xl rotate-[-5deg] animate-float-slow"
-            />
+                {/* Middle-right */}
+                <img
+                src="/images/IMG_3356.webp"
+                alt="event"
+                className="absolute top-1/3 right-20 w-14 sm:w-22 rounded-xl shadow-2xl animate-glide-medium"
+                />
 
-            {/* Bottom-left */}
-            <img
-            src="/images/IMG_3350.webp"
-            alt="event"
-            className="absolute bottom-4 left-16 w-20 sm:w-28 rounded-xl shadow-2xl rotate-[4deg] animate-float-medium"
-            />
+                {/* Bottom-left */}
+                <img
+                src="/images/IMG_3350.webp"
+                alt="event"
+                className="absolute bottom-6 left-10 w-14 sm:w-22 rounded-xl shadow-2xl animate-glide-slow"
+                />
 
-            {/* Bottom-right */}
-            <img
-            src="/images/IMG_3268.webp"
-            alt="event"
-            className="absolute bottom-6 right-20 w-16 sm:w-22 rounded-xl shadow-2xl rotate-[9deg] animate-float-fast"
-            />
+                {/* Bottom-right */}
+                <img
+                src="/images/IMG_3268.webp"
+                alt="event"
+                className="absolute bottom-6 right-16 w-12 sm:w-20 rounded-xl shadow-2xl animate-glide-fast"
+                />
 
-        </div>
-        </section>
+            </div>
+            </section>
 
 
 
@@ -319,32 +332,35 @@ export default function HomePage() {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
 
             {/* QR Card */}
-            <div className="relative h-40 sm:h-44 w-56 rounded-2xl overflow-hidden shadow-2xl border border-white/15 bg-[#111322] flex flex-col items-center justify-center px-4 text-center">
-                
-                <div className="relative w-20 h-20 mb-2 rounded-md bg-white p-1">
+         <div className="relative h-44 w-48 rounded-3xl overflow-hidden shadow-xl bg-[#111322]/80 backdrop-blur-md p-4 flex flex-col items-center text-center border border-white/10">
+
+            <div className="relative w-16 h-16 mb-2 rounded-md bg-white p-1">
                 <Image
-                    src="/images/IMG_3585.webp"
-                    alt="QR code for Party Share"
-                    fill
-                    className="object-contain rounded"
+                src="/images/IMG_3585.webp"
+                alt="QR code for Party Share"
+                fill
+                unoptimized
+                className="object-contain rounded"
                 />
-                </div>
+            </div>
 
-                <p className="text-xs text-gray-200 font-medium">Scan to Share Memories</p>
-                <p className="text-[11px] text-[#7FFF7F] mt-1">PIN: YXNHSA</p>
+            <p className="text-xs text-gray-200 font-medium">Scan to Share Memories</p>
+            <p className="text-[11px] text-[#7FFF7F] mt-1">PIN: YXNHSA</p>
 
-                <div className="flex items-center gap-1 mt-2">
-                <div className="relative w-5 h-5">
-                    <Image
+            <div className="flex items-center gap-1 mt-2">
+                <div className="relative w-4 h-4">
+                <Image
                     src="/images/iconweb.webp"
                     alt="Party Share logo"
                     fill
                     className="object-contain"
-                    />
+                />
                 </div>
                 <span className="text-[11px] text-gray-300">Powered by Party Share</span>
-                </div>
             </div>
+
+            </div>
+
 
             {/* Table Name Card */}
             <div className="relative h-40 sm:h-44 w-56 rounded-2xl overflow-hidden shadow-2xl border border-white/20 bg-[#2a2421]">
