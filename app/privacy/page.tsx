@@ -1,3 +1,4 @@
+
 // page.tsx
 import PrivacyPolicy from "./privacypolicy";
 

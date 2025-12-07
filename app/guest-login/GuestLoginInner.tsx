@@ -223,6 +223,10 @@ export default function GuestLoginPage() {
 
     {/* --- Footer --- */}
 <footer className="mt-8 text-sm text-white text-center flex flex-wrap justify-center gap-6">
+  <a href="/home" className="text-white hover:text-[#e94560]">
+  About Party Share
+ </a>
+
   <a href="/terms" className="text-white hover:text-[#e94560]">
     Terms & Conditions
   </a>
