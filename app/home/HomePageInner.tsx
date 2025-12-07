@@ -168,7 +168,7 @@ export default function HomePage() {
                 highlight
             />
             <PhoneMockup
-                className="absolute left-3/4 top-0 -translate-x-3/4 rotate-[4deg] sm:scale-[1.05] shadow-2xl z-20"
+                className="absolute left-12/14 top-0 -translate-x-9/10 rotate-[7deg] sm:scale-[1.05] shadow-2xl z-20"
                 src="/images/IMG_3588.webp"
                 alt="PartyShare host dashboard"
                 label="Hosts stay in control"
@@ -184,7 +184,7 @@ export default function HomePage() {
                 Your Event, Captured Beautifully
             </h2>
 
-            <div className="relative max-w-2xl mx-auto h-[360px] sm:h-[320px] overflow-hidden">
+            <div className="relative max-w-6xl mx-auto h-[60px] sm:h-[30px] overflow-hidden">
 
                 {/* Top-left */}
                 <img
