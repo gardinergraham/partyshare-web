@@ -184,48 +184,48 @@ export default function HomePage() {
                 Your Event, Captured Beautifully
             </h2>
 
-            <div className="relative max-w-6xl mx-auto h-[60px] sm:h-[30px] overflow-hidden">
+            <div className="relative max-w-6xl mx-auto h-[360px] sm:h-[330px] overflow-hidden">
 
                 {/* Top-left */}
                 <img
                 src="/images/IMG_3269.webp"
                 alt="event"
-                className="absolute top-8 left-4 w-12 sm:w-20 rounded-xl shadow-2xl animate-glide-slow"
+                className="absolute top-8 left-4 w-5 sm:w-20 rounded-xl shadow-2xl animate-glide-slow"
                 />
 
                 {/* Top-right */}
                 <img
                 src="/images/IMG_3354.webp"
                 alt="event"
-                className="absolute top-4 right-6 w-14 sm:w-22 rounded-xl shadow-2xl animate-glide-medium"
+                className="absolute top-4 right-6 w-5 sm:w-22 rounded-xl shadow-2xl animate-glide-medium"
                 />
 
                 {/* Middle-left */}
                 <img
                 src="/images/IMG_3355.webp"
                 alt="event"
-                className="absolute top-1/3 left-10 w-12 sm:w-20 rounded-xl shadow-2xl animate-glide-fast"
+                className="absolute top-1/3 left-10 w-5 sm:w-20 rounded-xl shadow-2xl animate-glide-fast"
                 />
 
                 {/* Middle-right */}
                 <img
                 src="/images/IMG_3356.webp"
                 alt="event"
-                className="absolute top-1/3 right-20 w-14 sm:w-22 rounded-xl shadow-2xl animate-glide-medium"
+                className="absolute top-1/3 right-20 w-5 sm:w-22 rounded-xl shadow-2xl animate-glide-medium"
                 />
 
                 {/* Bottom-left */}
                 <img
                 src="/images/IMG_3350.webp"
                 alt="event"
-                className="absolute bottom-6 left-10 w-14 sm:w-22 rounded-xl shadow-2xl animate-glide-slow"
+                className="absolute bottom-6 left-10 w-5 sm:w-22 rounded-xl shadow-2xl animate-glide-slow"
                 />
 
                 {/* Bottom-right */}
                 <img
                 src="/images/IMG_3268.webp"
                 alt="event"
-                className="absolute bottom-6 right-16 w-12 sm:w-20 rounded-xl shadow-2xl animate-glide-fast"
+                className="absolute bottom-6 right-16 w-5 sm:w-20 rounded-xl shadow-2xl animate-glide-fast"
                 />
 
             </div>
@@ -379,8 +379,17 @@ export default function HomePage() {
 
           
         </section>
-
-
+        <section className="relative py-24 px-6 sm:px-10 lg:px-16">
+             <div className="relative w-16 h-16 mb-2 rounded-md bg-white p-1">
+                <Image
+                src="/images/IMG_3585.webp"
+                alt="QR code for Party Share"
+                fill
+                unoptimized
+                className="object-contain rounded"
+                />
+            </div>
+        </section>
         {/* ================= TABLE STATIONERY SHOWCASE ================= */}
         <section className="relative py-24 px-6 sm:px-10 lg:px-16">
         <h2 className="text-center text-3xl sm:text-4xl font-bold text-white mb-4">
