@@ -176,57 +176,59 @@ export default function HomePage() {
 
 
                 {/* ================= FLOATING EVENT PHOTOS ================= */}
-            <section className="relative py-20 overflow-hidden mt-32 sm:mt-40">
+           <section className="relative py-20 mt-32 sm:mt-40 overflow-hidden">
             <h2 className="text-center text-3xl sm:text-4xl font-bold text-white mb-12">
                 Your Event, Captured Beautifully
             </h2>
 
-            <div className="relative max-w-6xl mx-auto h-[360px] sm:h-[330px] overflow-hidden">
+            <div className="relative max-w-6xl mx-auto h-[420px] sm:h-[460px] overflow-hidden">
 
-                {/* Top-left */}
+                {/* Each image moves horizontally like a carousel */}
                 <img
                 src="/images/IMG_3269.webp"
+                className="absolute top-10 left-0 w-24 sm:w-32 rounded-xl shadow-2xl animate-carousel"
                 alt="event"
-                className="absolute top-8 left-4 w-5 sm:w-20 rounded-xl shadow-2xl animate-glide-slow"
+                style={{ animationDelay: "0s" }}
                 />
 
-                {/* Top-right */}
                 <img
                 src="/images/IMG_3354.webp"
+                className="absolute top-4 left-10 w-28 sm:w-36 rounded-xl shadow-2xl animate-carousel"
                 alt="event"
-                className="absolute top-4 right-6 w-5 sm:w-22 rounded-xl shadow-2xl animate-glide-medium"
+                style={{ animationDelay: "3s" }}
                 />
 
-                {/* Middle-left */}
                 <img
                 src="/images/IMG_3355.webp"
+                className="absolute top-1/3 left-4 w-24 sm:w-32 rounded-xl shadow-2xl animate-carousel"
                 alt="event"
-                className="absolute top-1/3 left-10 w-5 sm:w-20 rounded-xl shadow-2xl animate-glide-fast"
+                style={{ animationDelay: "6s" }}
                 />
 
-                {/* Middle-right */}
                 <img
                 src="/images/IMG_3356.webp"
+                className="absolute top-1/3 left-20 w-28 sm:w-36 rounded-xl shadow-2xl animate-carousel"
                 alt="event"
-                className="absolute top-1/3 right-20 w-5 sm:w-22 rounded-xl shadow-2xl animate-glide-medium"
+                style={{ animationDelay: "9s" }}
                 />
 
-                {/* Bottom-left */}
                 <img
                 src="/images/IMG_3350.webp"
+                className="absolute bottom-10 left-6 w-24 sm:w-32 rounded-xl shadow-2xl animate-carousel"
                 alt="event"
-                className="absolute bottom-6 left-10 w-5 sm:w-22 rounded-xl shadow-2xl animate-glide-slow"
+                style={{ animationDelay: "12s" }}
                 />
 
-                {/* Bottom-right */}
                 <img
                 src="/images/IMG_3268.webp"
+                className="absolute bottom-4 left-16 w-24 sm:w-32 rounded-xl shadow-2xl animate-carousel"
                 alt="event"
-                className="absolute bottom-6 right-16 w-5 sm:w-20 rounded-xl shadow-2xl animate-glide-fast"
+                style={{ animationDelay: "15s" }}
                 />
 
             </div>
             </section>
+
 
 
 

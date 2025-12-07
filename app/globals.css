@@ -73,35 +73,6 @@ html, body {
   overflow-x: hidden; /* prevents accidental horizontal scroll */
 }
 
-@keyframes float-slow {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-18px); }
-  100% { transform: translateY(0px); }
-}
-
-@keyframes float-medium {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-28px); }
-  100% { transform: translateY(0px); }
-}
-
-@keyframes float-fast {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-38px); }
-  100% { transform: translateY(0px); }
-}
-
-.animate-float-slow {
-  animation: float-slow 6s ease-in-out infinite;
-}
-
-.animate-float-medium {
-  animation: float-medium 5s ease-in-out infinite;
-}
-
-.animate-float-fast {
-  animation: float-fast 4s ease-in-out infinite;
-}
 @keyframes glide-slow {
   0% { transform: translateX(-20px) translateY(0px) rotate(-2deg); }
   50% { transform: translateX(20px) translateY(-6px) rotate(2deg); }
@@ -131,4 +102,13 @@ html, body {
 
 .animate-glide-fast {
   animation: glide-fast 5s ease-in-out infinite;
+}
+@keyframes glide-carousel {
+  0% { transform: translateX(-120%); }
+  50% { transform: translateX(20%); }
+  100% { transform: translateX(120%); }
+}
+
+.animate-carousel {
+  animation: glide-carousel 18s linear infinite;
 }
