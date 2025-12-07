@@ -61,13 +61,14 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-[#0f0f23] text-white relative overflow-visible">
-        <section className="relative py-24 px-6 sm:px-10 lg:px-16">
+        <section className="relative py-18 px-6 sm:px-10 lg:px-16">
+              <div className="relative w-20 h-20">
               <img
                 src="/images/iconweb.webp"
                 alt="Place Card Mockup"
                 className="w-full rounded-2xl shadow-2xl rotate-[-2deg] mb-8"
             />
-
+            </div>
         </section>
       {/* Background image */}
       <div className="absolute inset-0 -z-20">
@@ -102,18 +103,6 @@ export default function HomePage() {
         <div className="relative grid lg:grid-cols-[1.15fr,0.85fr] gap-10 items-center px-6 sm:px-10 lg:px-14 py-16">
             {/* Left: text */}
             <div>
-
-                {/* Top-center Logo */}
-            <div className="w-full flex justify-center mb-6">
-            <div className="relative w-20 h-20">
-                <Image
-               src="/images/iconweb.webp"
-                alt="Party Share logo"
-                fill
-                className="object-contain drop-shadow-xl"
-                />
-            </div>
-            </div>
 
             <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1 text-xs uppercase tracking-[0.25em] text-[#ffd6e8] mb-5">
                 <span>Weddings</span>
@@ -354,17 +343,8 @@ export default function HomePage() {
             </div>
 
             <p className="text-xs text-gray-200 font-medium">Scan to Share Memories</p>
-            <p className="text-[11px] text-[#7FFF7F] mt-1">PIN: YXNHSA</p>
-
             <div className="flex items-center gap-1 mt-2">
-                <div className="relative w-4 h-4">
-                <Image
-                    src="/images/iconweb.webp"
-                    alt="Party Share logo"
-                    fill
-                    className="object-contain"
-                />
-                </div>
+                
                 <span className="text-[11px] text-gray-300">Powered by Party Share</span>
             </div>
 
@@ -389,12 +369,13 @@ export default function HomePage() {
         </section>
         {/* ================= Show QR code ================= */}
         <section className="relative py-24 px-6 sm:px-10 lg:px-16">
+             <div className="relative w-20 h-20">
               <img
                 src="/images/IMG_3585.webp"
                 alt="Place Card Mockup"
                 className="w-full rounded-2xl shadow-2xl rotate-[-2deg] mb-8"
             />
-
+        </div>
         </section>
         {/* ================= TABLE STATIONERY SHOWCASE ================= */}
         <section className="relative py-24 px-6 sm:px-10 lg:px-16">
