@@ -104,11 +104,15 @@ html, body {
   animation: glide-fast 5s ease-in-out infinite;
 }
 @keyframes glide-carousel {
-  0% { transform: translateX(-120%); }
-  50% { transform: translateX(20%); }
-  100% { transform: translateX(120%); }
+ 0%   { transform: translateX(-110%); }
+50%  { transform: translateX(10%); }
+100% { transform: translateX(110%); }
 }
 
 .animate-carousel {
   animation: glide-carousel 18s linear infinite;
+}
+.floating-img {
+  width: clamp(70px, 18vw, 120px); /* mobile → desktop */
+  height: auto;
 }

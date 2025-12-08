@@ -181,47 +181,47 @@ export default function HomePage() {
                 Your Event, Captured Beautifully
             </h2>
 
-            <div className="relative max-w-6xl mx-auto h-[420px] sm:h-[460px] overflow-hidden">
+            <div className="relative max-w-6xl mx-auto min-h-[240px] sm:min-h-[320px] overflow-hidden">
 
                 {/* Each image moves horizontally like a carousel */}
                 <img
                 src="/images/IMG_3269.webp"
-                className="absolute top-10 left-0 w-24 sm:w-32 rounded-xl shadow-2xl animate-carousel"
+               className="absolute top-10 left-0 floating-img rounded-xl shadow-2xl animate-carousel"
                 alt="event"
                 style={{ animationDelay: "0s" }}
                 />
 
                 <img
                 src="/images/IMG_3354.webp"
-                className="absolute top-4 left-10 w-28 sm:w-36 rounded-xl shadow-2xl animate-carousel"
+                className="absolute top-10 left-0 floating-img rounded-xl shadow-2xl animate-carousel"
                 alt="event"
                 style={{ animationDelay: "3s" }}
                 />
 
                 <img
                 src="/images/IMG_3355.webp"
-                className="absolute top-1/3 left-4 w-24 sm:w-32 rounded-xl shadow-2xl animate-carousel"
+                className="absolute top-10 left-0 floating-img rounded-xl shadow-2xl animate-carousel"
                 alt="event"
                 style={{ animationDelay: "6s" }}
                 />
 
                 <img
                 src="/images/IMG_3356.webp"
-                className="absolute top-1/3 left-20 w-28 sm:w-36 rounded-xl shadow-2xl animate-carousel"
+                className="absolute top-10 left-0 floating-img rounded-xl shadow-2xl animate-carousel"
                 alt="event"
                 style={{ animationDelay: "9s" }}
                 />
 
                 <img
                 src="/images/IMG_3350.webp"
-                className="absolute bottom-10 left-6 w-24 sm:w-32 rounded-xl shadow-2xl animate-carousel"
+                className="absolute top-10 left-0 floating-img rounded-xl shadow-2xl animate-carousel"
                 alt="event"
                 style={{ animationDelay: "12s" }}
                 />
 
                 <img
                 src="/images/IMG_3268.webp"
-                className="absolute bottom-4 left-16 w-24 sm:w-32 rounded-xl shadow-2xl animate-carousel"
+                className="absolute top-10 left-0 floating-img rounded-xl shadow-2xl animate-carousel"
                 alt="event"
                 style={{ animationDelay: "15s" }}
                 />
