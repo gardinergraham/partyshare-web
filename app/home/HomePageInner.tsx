@@ -526,7 +526,7 @@ const FloatingCollage = () => {
   ];
 
   return (
-    <div className="floating-collage-container h-[300px] sm:h-[420px] w-screen left-1/2 -translate-x-1/2 relative">
+    <div className="floating-collage-container h-[300px] sm:h-[420px] w-screen items-center justify-center -translate-x-1/2 relative">
       {images.map((src, i) => {
         
         const size = Math.random() * 60 + 80; 
