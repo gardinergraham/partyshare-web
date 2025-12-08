@@ -72,7 +72,7 @@ export default function HomePage() {
         </section>
 
            {/* ================= FLOATING EVENT PHOTOS ================= */}
-       <section className="relative py-24 mt-20 overflow-hidden">
+        <section className="relative py-18 px-6 sm:px-10 lg:px-16">
             <h2 className="text-center text-3xl sm:text-4xl font-bold text-white mb-12">
                 Your Event, Captured Beautifully
             </h2>
