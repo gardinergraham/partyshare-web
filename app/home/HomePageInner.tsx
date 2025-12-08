@@ -72,7 +72,7 @@ export default function HomePage() {
         </section>
 
            {/* ================= FLOATING EVENT PHOTOS ================= */}
-     <section className="relative py-24 mt-20">
+    <section className="relative py-24 mt-20 mb-32">
         <h2 className="text-center text-3xl sm:text-4xl font-bold text-white mb-12">
             Your Event, Captured Beautifully
         </h2>
@@ -80,22 +80,6 @@ export default function HomePage() {
         <FloatingCollage />
       </section>
 
-
-
-      {/* Background image */}
-      <div className="absolute inset-0 -z-20">
-        <Image
-          src="/images/rosesWhite.webp"
-          alt="Soft floral background"
-          fill
-          priority
-          className="object-cover opacity-40"
-        />
-        <div className="absolute inset-0 bg-[#0f0f23]/70" />
-      </div>
-
-
-              
        
 
       <main className="relative z-10 max-w-6xl mx-auto px-6 lg:px-8 py-12 lg:py-16">
