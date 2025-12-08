@@ -226,6 +226,9 @@ export default function GuestLoginPage() {
   <a href="/home" className="text-white hover:text-[#e94560]">
   About Party Share
  </a>
+  <a href="/partner" className="text-white hover:text-[#e94560]">
+  Become a Partner
+ </a>
 
   <a href="/terms" className="text-white hover:text-[#e94560]">
     Terms & Conditions
