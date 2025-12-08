@@ -176,7 +176,7 @@ export default function HomePage() {
 
 
                 {/* ================= FLOATING EVENT PHOTOS ================= */}
-        <section className="relative py-20 mt-32 sm:mt-40 overflow-hidden">
+        <section className="relative py-20 mt-32 sm:mt-40 overflow-hidden w-screen left-1/2 -translate-x-1/2">
             <h2 className="text-center text-3xl sm:text-4xl font-bold text-white mb-12">
                 Your Event, Captured Beautifully
             </h2>
@@ -525,7 +525,7 @@ const FloatingCollage = () => {
   ];
 
   return (
-    <div className="floating-collage-container h-[300px] sm:h-[420px]">
+    <div className="floating-collage-container h-[300px] sm:h-[420px] w-screen left-1/2 -translate-x-1/2 relative">
       {images.map((src, i) => {
         
         const size = Math.random() * 60 + 80; 
