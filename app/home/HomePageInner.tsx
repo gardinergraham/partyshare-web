@@ -128,10 +128,10 @@ export default function HomePage() {
                 <span>Events</span>
             </div>
 
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight text-white">
-                Capture the
-                <span className="block text-[#ff8bb7]">Moments That Matter</span>
-            </h1>
+             <h2 className="text-center text-3xl sm:text-4xl font-bold text-white mb-12">
+                Capture the Moments That Matter
+                
+            </h2>
 
             <p className="mt-6 text-base sm:text-lg text-gray-200 max-w-xl">
                 Your guests upload photos instantly — all in one beautiful event
