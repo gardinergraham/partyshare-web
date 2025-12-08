@@ -176,58 +176,13 @@ export default function HomePage() {
 
 
                 {/* ================= FLOATING EVENT PHOTOS ================= */}
-           <section className="relative py-20 mt-32 sm:mt-40 overflow-hidden">
+        <section className="relative py-20 mt-32 sm:mt-40 overflow-hidden">
             <h2 className="text-center text-3xl sm:text-4xl font-bold text-white mb-12">
                 Your Event, Captured Beautifully
             </h2>
 
-            <div className="relative max-w-6xl mx-auto min-h-[240px] sm:min-h-[320px] overflow-hidden">
-
-                {/* Each image moves horizontally like a carousel */}
-                <img
-                src="/images/IMG_3269.webp"
-               className="absolute top-10 left-0 floating-img rounded-xl shadow-2xl animate-carousel"
-                alt="event"
-                style={{ animationDelay: "0s" }}
-                />
-
-                <img
-                src="/images/IMG_3354.webp"
-                className="absolute top-10 left-0 floating-img rounded-xl shadow-2xl animate-carousel"
-                alt="event"
-                style={{ animationDelay: "3s" }}
-                />
-
-                <img
-                src="/images/IMG_3355.webp"
-                className="absolute top-10 left-0 floating-img rounded-xl shadow-2xl animate-carousel"
-                alt="event"
-                style={{ animationDelay: "6s" }}
-                />
-
-                <img
-                src="/images/IMG_3356.webp"
-                className="absolute top-10 left-0 floating-img rounded-xl shadow-2xl animate-carousel"
-                alt="event"
-                style={{ animationDelay: "9s" }}
-                />
-
-                <img
-                src="/images/IMG_3350.webp"
-                className="absolute top-10 left-0 floating-img rounded-xl shadow-2xl animate-carousel"
-                alt="event"
-                style={{ animationDelay: "12s" }}
-                />
-
-                <img
-                src="/images/IMG_3268.webp"
-                className="absolute top-10 left-0 floating-img rounded-xl shadow-2xl animate-carousel"
-                alt="event"
-                style={{ animationDelay: "15s" }}
-                />
-
-            </div>
-            </section>
+            <FloatingCollage />
+        </section>
 
 
 
@@ -556,6 +511,63 @@ export default function HomePage() {
     </div>
   );
 }
+
+
+
+const FloatingCollage = () => {
+  const images = [
+    "/images/IMG_3269.webp",
+    "/images/IMG_3354.webp",
+    "/images/IMG_3355.webp",
+    "/images/IMG_3356.webp",
+    "/images/IMG_3350.webp",
+    "/images/IMG_3268.webp"
+  ];
+
+  return (
+    <div className="floating-collage-container h-[300px] sm:h-[420px]">
+      {images.map((src, i) => {
+        
+        const size = Math.random() * 60 + 80; 
+        const duration = Math.random() * 8 + 12;
+        const delay = Math.random() * -20;
+
+        const vars = {
+          "--xStart": `${Math.random() * 60 - 30}vw`,
+          "--yStart": `${Math.random() * 40 - 20}vh`,
+          "--xMid":   `${Math.random() * 40 - 20}vw`,
+          "--yMid":   `${Math.random() * 30 - 15}vh`,
+          "--xEnd":   `${Math.random() * 60 - 30}vw`,
+          "--yEnd":   `${Math.random() * 40 - 20}vh`,
+          "--rotStart": `${Math.random() * 20 - 10}deg`,
+          "--rotMid":   `${Math.random() * 30 - 15}deg`,
+          "--rotEnd":   `${Math.random() * 20 - 10}deg`,
+        };
+
+        return (
+          <div
+            key={i}
+            className="floating-item"
+            style={{
+              width: size,
+              animationDuration: `${duration}s`,
+              animationDelay: `${delay}s`,
+              ...vars,
+            }}
+          >
+            <img src={src} alt="event" />
+          </div>
+        );
+      })}
+    </div>
+  );
+};
+
+
+
+
+
+
 
 /* ============ SMALL COMPONENTS ============ */
 

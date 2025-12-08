@@ -73,46 +73,34 @@ html, body {
   overflow-x: hidden; /* prevents accidental horizontal scroll */
 }
 
-@keyframes glide-slow {
-  0% { transform: translateX(-20px) translateY(0px) rotate(-2deg); }
-  50% { transform: translateX(20px) translateY(-6px) rotate(2deg); }
-  100% { transform: translateX(-20px) translateY(0px) rotate(-2deg); }
+/* ============================
+   FLOATING COLLAGE EFFECT
+=============================== */
+
+.floating-collage-container {
+  position: relative;
+  overflow: hidden;
 }
 
-@keyframes glide-medium {
-  0% { transform: translateX(-30px) translateY(0px) rotate(0deg); }
-  50% { transform: translateX(30px) translateY(-10px) rotate(3deg); }
-  100% { transform: translateX(-30px) translateY(0px) rotate(0deg); }
+.floating-item {
+  position: absolute;
+  border-radius: 14px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+  animation: floatAround linear infinite;
+  will-change: transform;
 }
 
-@keyframes glide-fast {
-  0% { transform: translateX(-40px) translateY(0px) rotate(0deg); }
-  50% { transform: translateX(40px) translateY(-14px) rotate(-3deg); }
-  100% { transform: translateX(-40px) translateY(0px) rotate(0deg); }
-}
-
-/* Tailwind helper classes */
-.animate-glide-slow {
-  animation: glide-slow 9s ease-in-out infinite;
-}
-
-.animate-glide-medium {
-  animation: glide-medium 7s ease-in-out infinite;
-}
-
-.animate-glide-fast {
-  animation: glide-fast 5s ease-in-out infinite;
-}
-@keyframes glide-carousel {
- 0%   { transform: translateX(-110%); }
-50%  { transform: translateX(10%); }
-100% { transform: translateX(110%); }
-}
-
-.animate-carousel {
-  animation: glide-carousel 18s linear infinite;
-}
-.floating-img {
-  width: clamp(70px, 18vw, 120px); /* mobile → desktop */
+/* Perfect sizing for all screens */
+.floating-item img {
+  display: block;
+  width: 100%;
   height: auto;
+  border-radius: inherit;
+}
+
+/* Random drift animation */
+@keyframes floatAround {
+  0%   { transform: translate(var(--xStart), var(--yStart)) rotate(var(--rotStart)); }
+  50%  { transform: translate(var(--xMid),   var(--yMid))   rotate(var(--rotMid)); }
+  100% { transform: translate(var(--xEnd),   var(--yEnd))   rotate(var(--rotEnd)); }
 }
