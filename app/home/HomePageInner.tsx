@@ -530,7 +530,7 @@ const FloatingCollage = () => {
   ];
 
   return (
-  <div className="grid grid-cols-3 gap-6 max-w-4xl mx-auto mb-[10px]">
+  <div className="grid grid-cols-3 gap-6 max-w-4xl mx-auto mb-[20px]">
       {images.map((src, i) => {
         const rotation = i % 2 === 0 ? "-7deg" : "7deg";
 
