@@ -80,16 +80,6 @@ export default function HomePage() {
         <FloatingCollage />
       </section>
 
-       {/* Soft floral background */}
-        <div
-            className="absolute inset-0 opacity-[0.22] sm:opacity-[0.28]"
-            style={{
-            backgroundImage: "url('/images/rosesWhite.webp')",
-            backgroundSize: "cover",
-            backgroundPosition: "top right",
-            }}
-        ></div>
-
 
       <main className="relative z-10 max-w-6xl mx-auto px-6 lg:px-8 py-12 lg:py-16">
      {/* ================= HERO ================= */}
@@ -100,7 +90,7 @@ export default function HomePage() {
         
 
         {/* Main hero content */}
-        <div className="relative grid lg:grid-cols-[1.15fr,0.85fr] gap-10 items-center px-6 sm:px-10 lg:px-14 py-16">
+        <div className="relative grid lg:grid-cols-[1.15fr,0.85fr] gap-15 items-center px-6 sm:px-10 lg:px-14 py-16">
             {/* Left: text */}
             <div>
 
