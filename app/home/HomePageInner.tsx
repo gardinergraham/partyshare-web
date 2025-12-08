@@ -519,8 +519,6 @@ export default function HomePage() {
   );
 }
 
-
-
 const FloatingCollage = () => {
   const images = [
     "/images/IMG_3269.webp",
@@ -532,20 +530,24 @@ const FloatingCollage = () => {
   ];
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto px-6">
+    <div className="grid grid-cols-3 gap-6 max-w-4xl mx-auto">
       {images.map((src, i) => {
-        const rotation = (i % 2 === 0 ? -7 : 7); // alternate tilt
+        const rotation = i % 2 === 0 ? "-7deg" : "7deg";
 
         return (
           <div
             key={i}
-            className="rounded-xl overflow-hidden shadow-2xl"
-            style={{ transform: `rotate(${rotation}deg)` }}
+            className="rounded-xl overflow-hidden shadow-2xl mx-auto"
+            style={{
+              width: "140px",   // fixed small size
+              height: "180px",  // fixed height
+              transform: `rotate(${rotation})`,
+            }}
           >
             <img
               src={src}
               alt="event photo"
-              className="w-full h-auto rounded-xl"
+              className="w-full h-full object-cover rounded-xl"
             />
           </div>
         );
