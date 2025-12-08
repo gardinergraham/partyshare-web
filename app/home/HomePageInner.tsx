@@ -176,12 +176,13 @@ export default function HomePage() {
 
 
                 {/* ================= FLOATING EVENT PHOTOS ================= */}
-        <section className="relative py-20 mt-32 sm:mt-40 overflow-hidden w-screen left-1/2 -translate-x-1/2">
+        <section className="relative py-24 px-6 sm:px-10 lg:px-16">
+             <div className="relative w-20 h-20">
             <h2 className="text-center text-3xl sm:text-4xl font-bold text-white mb-12">
                 Your Event, Captured Beautifully
             </h2>
-
             <FloatingCollage />
+            </div>
         </section>
 
 
