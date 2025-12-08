@@ -80,12 +80,7 @@ export default function HomePage() {
         <FloatingCollage />
       </section>
 
-       
-
-      <main className="relative z-10 max-w-6xl mx-auto px-6 lg:px-8 py-12 lg:py-16">
-     {/* ================= HERO ================= */}
-       <section className="relative mb-20 overflow-visible rounded-3xl">
-        {/* Soft floral background */}
+       {/* Soft floral background */}
         <div
             className="absolute inset-0 opacity-[0.22] sm:opacity-[0.28]"
             style={{
@@ -95,6 +90,11 @@ export default function HomePage() {
             }}
         ></div>
 
+
+      <main className="relative z-10 max-w-6xl mx-auto px-6 lg:px-8 py-12 lg:py-16">
+     {/* ================= HERO ================= */}
+       <section className="relative mb-20 overflow-visible rounded-3xl">
+        
         {/* Gradient overlay for readability */}
         <div className="absolute inset-0 bg-gradient-to-br from-[#0f0f23] via-[#0f0f23]/70 to-transparent backdrop-blur-[1px]"></div>
         
