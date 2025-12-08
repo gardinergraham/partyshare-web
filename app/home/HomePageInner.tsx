@@ -82,6 +82,18 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-[#0f0f23]/70" />
       </div>
 
+
+              
+       {/* ================= FLOATING EVENT PHOTOS ================= */}
+       <section className="relative py-24 mt-20 overflow-hidden">
+            <h2 className="text-center text-3xl sm:text-4xl font-bold text-white mb-12">
+                Your Event, Captured Beautifully
+            </h2>
+
+            <FloatingCollage />
+        </section>
+
+
       <main className="relative z-10 max-w-6xl mx-auto px-6 lg:px-8 py-12 lg:py-16">
      {/* ================= HERO ================= */}
        <section className="relative mb-20 overflow-visible rounded-3xl">
@@ -175,16 +187,7 @@ export default function HomePage() {
         </section>
 
 
-                {/* ================= FLOATING EVENT PHOTOS ================= */}
-       {/* ================= FLOATING EVENT PHOTOS ================= */}
-       <section className="relative py-24 mt-20 overflow-hidden">
-            <h2 className="text-center text-3xl sm:text-4xl font-bold text-white mb-12">
-                Your Event, Captured Beautifully
-            </h2>
-
-            <FloatingCollage />
-        </section>
-
+       
 
 
                 {/* ================= HOW IT WORKS ================= */}
