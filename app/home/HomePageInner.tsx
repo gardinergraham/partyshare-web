@@ -72,7 +72,7 @@ export default function HomePage() {
         </section>
 
            {/* ================= FLOATING EVENT PHOTOS ================= */}
-    <section className="relative py-24 mt-20 mb-32">
+     <section className="relative py-24 mt-20">
         <h2 className="text-center text-3xl sm:text-4xl font-bold text-white mb-12">
             Your Event, Captured Beautifully
         </h2>
@@ -81,16 +81,42 @@ export default function HomePage() {
       </section>
 
 
+
+      {/* Background image */}
+      <div className="absolute inset-0 -z-20">
+        <Image
+          src="/images/rosesWhite.webp"
+          alt="Soft floral background"
+          fill
+          priority
+          className="object-cover opacity-40"
+        />
+        <div className="absolute inset-0 bg-[#0f0f23]/70" />
+      </div>
+
+
+              
+       
+
       <main className="relative z-10 max-w-6xl mx-auto px-6 lg:px-8 py-12 lg:py-16">
      {/* ================= HERO ================= */}
        <section className="relative mb-20 overflow-visible rounded-3xl">
-        
+        {/* Soft floral background */}
+        <div
+            className="absolute inset-0 opacity-[0.22] sm:opacity-[0.28]"
+            style={{
+            backgroundImage: "url('/images/rosesWhite.webp')",
+            backgroundSize: "cover",
+            backgroundPosition: "top right",
+            }}
+        ></div>
+
         {/* Gradient overlay for readability */}
         <div className="absolute inset-0 bg-gradient-to-br from-[#0f0f23] via-[#0f0f23]/70 to-transparent backdrop-blur-[1px]"></div>
         
 
         {/* Main hero content */}
-        <div className="relative grid lg:grid-cols-[1.15fr,0.85fr] gap-15 items-center px-6 sm:px-10 lg:px-14 py-16">
+        <div className="relative grid lg:grid-cols-[1.15fr,0.85fr] gap-10 items-center px-6 sm:px-10 lg:px-14 py-16">
             {/* Left: text */}
             <div>
 
@@ -504,7 +530,7 @@ const FloatingCollage = () => {
   ];
 
   return (
-    <div className="grid grid-cols-3 gap-6 max-w-4xl mx-auto">
+  <div className="grid grid-cols-3 gap-6 max-w-4xl mx-auto mb-[10px]">
       {images.map((src, i) => {
         const rotation = i % 2 === 0 ? "-7deg" : "7deg";
 
@@ -529,12 +555,6 @@ const FloatingCollage = () => {
     </div>
   );
 };
-
-
-
-
-
-
 
 /* ============ SMALL COMPONENTS ============ */
 
