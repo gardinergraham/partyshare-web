@@ -72,13 +72,14 @@ export default function HomePage() {
         </section>
 
            {/* ================= FLOATING EVENT PHOTOS ================= */}
-       <section className="relative py-24 mt-20 overflow-hidden">
-            <h2 className="text-center text-3xl sm:text-4xl font-bold text-white mb-12">
-                Your Event, Captured Beautifully
-            </h2>
+     <section className="relative py-24 mt-20">
+        <h2 className="text-center text-3xl sm:text-4xl font-bold text-white mb-12">
+            Your Event, Captured Beautifully
+        </h2>
 
-            <FloatingCollage />
-        </section>
+        <FloatingCollage />
+      </section>
+
 
 
       {/* Background image */}
@@ -531,37 +532,21 @@ const FloatingCollage = () => {
   ];
 
   return (
-     <div className="floating-collage-container h-[300px] sm:h-[420px] w-screen relative left-1/140 -translate-x-1/140">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto px-6">
       {images.map((src, i) => {
-        
-        const size = Math.random() * 60 + 80; 
-        const duration = Math.random() * 8 + 12;
-        const delay = Math.random() * -20;
-
-        const vars = {
-          "--xStart": `${Math.random() * 60 - 30}vw`,
-          "--yStart": `${Math.random() * 40 - 20}vh`,
-          "--xMid":   `${Math.random() * 40 - 20}vw`,
-          "--yMid":   `${Math.random() * 30 - 15}vh`,
-          "--xEnd":   `${Math.random() * 60 - 30}vw`,
-          "--yEnd":   `${Math.random() * 40 - 20}vh`,
-          "--rotStart": `${Math.random() * 20 - 10}deg`,
-          "--rotMid":   `${Math.random() * 30 - 15}deg`,
-          "--rotEnd":   `${Math.random() * 20 - 10}deg`,
-        };
+        const rotation = (i % 2 === 0 ? -7 : 7); // alternate tilt
 
         return (
           <div
             key={i}
-            className="floating-item"
-            style={{
-              width: size,
-              animationDuration: `${duration}s`,
-              animationDelay: `${delay}s`,
-              ...vars,
-            }}
+            className="rounded-xl overflow-hidden shadow-2xl"
+            style={{ transform: `rotate(${rotation}deg)` }}
           >
-            <img src={src} alt="event" />
+            <img
+              src={src}
+              alt="event photo"
+              className="w-full h-auto rounded-xl"
+            />
           </div>
         );
       })}
