@@ -303,7 +303,7 @@ export default function PartnerSchemePage() {
 
           <div className="flex items-center justify-center gap-4">
             <a
-              href="https://apps.apple.com"
+              href="https://apps.apple.com/gb/app/partyshare-events/id6755305083"
               target="_blank"
               rel="noopener noreferrer"
             >

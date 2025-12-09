@@ -35,7 +35,7 @@ export default function DownloadContent() {
         
         <div style={{ display: 'flex', gap: 20, justifyContent: 'center', flexWrap: 'wrap' }}>
            <a
-              href="https://apps.apple.com"
+              href="https://apps.apple.com/gb/app/partyshare-events/id6755305083"
               target="_blank"
               rel="noopener noreferrer"
             >
