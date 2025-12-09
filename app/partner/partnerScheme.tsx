@@ -163,94 +163,101 @@ export default function PartnerSchemePage() {
         </section>
 
         {/* ================= COMMISSION STRUCTURE ================= */}
-        <section className="mb-20 lg:grid lg:grid-cols-[1.15fr,0.85fr] gap-12 items-start">
-          {/* Left: breakdown */}
-          <div>
+    <section className="mb-20 lg:grid lg:grid-cols-[1.15fr,0.85fr] gap-12 items-start">
+        {/* Left: breakdown */}
+        <div>
             <p className="text-[11px] uppercase tracking-[0.25em] text-[#ffd6e8] mb-3">
-              Commission Structure
+            Commission Structure
             </p>
+
             <h2 className="text-2xl sm:text-3xl font-semibold mb-4">
-              Earn 5% per event — plus recurring bonuses.
+            Earn at every milestone — simple, fair and predictable.
             </h2>
+
             <p className="text-sm sm:text-base text-gray-200 mb-4">
-              For every event created using your partner PIN, you earn a{" "}
-              <span className="font-semibold">5% commission</span> on the event
-              package price (Basic, Premium, Deluxe or Prime).
+            Instead of tiny micro-payments per event, Party Share pays partners in
+            <span className="font-semibold"> milestone bundles</span>.
+            Every time your referrals create <span className="font-semibold">10 paid events</span>,
+            you receive a single combined payout.
             </p>
 
             <p className="text-sm text-gray-200 mb-4">
-              On top of that, you collect recurring cash bonuses as you hit
-              milestones:
+            Each milestone payout includes:
             </p>
 
             <ul className="space-y-3 text-sm sm:text-base text-gray-100">
-              <li>
-                <span className="font-semibold">Every 10 events:</span>{" "}
-                £10 bonus (10, 20, 30, ... up to 90)
-              </li>
-              <li>
-                <span className="font-semibold">At 100 events:</span> normal
-                5% commission + £100 extra bonus
-              </li>
-              <li>
-                <span className="font-semibold">At 1000 events:</span> normal
-                5% commission + £1000 mega bonus
-              </li>
+            <li>
+                <span className="font-semibold">• 5% commission</span> on the <span className="font-semibold">last 10 events combined</span>
+            </li>
+            <li>
+                <span className="font-semibold">• £10 milestone bonus</span> for every 10-event cycle
+                (10, 20, 30, … 90, 110, 120, and so on)
+            </li>
+            <li>
+                <span className="font-semibold">• At 100 events:</span> your normal milestone payout
+                <span className="font-semibold"> plus an extra £100 mega bonus</span>
+            </li>
             </ul>
 
-            <p className="mt-4 text-xs text-gray-400">
-              All commissions and bonuses are tracked for you automatically in
-              your partner dashboard.
+            <p className="mt-4 text-sm text-gray-200">
+            This means you get one clear payout at each milestone — easier for you,
+            and no tiny per-event payments.
             </p>
-          </div>
 
-          {/* Right: small "table" card */}
-          <div className="mt-8 lg:mt-0">
+            <p className="mt-4 text-xs text-gray-400">
+            All milestone payouts and progress are tracked automatically in your Partner Dashboard.
+            </p>
+        </div>
+
+        {/* Right: small "table" card */}
+        <div className="mt-8 lg:mt-0">
             <div className="rounded-3xl bg-white/5 border border-white/10 p-6 sm:p-7 backdrop-blur-md shadow-xl">
-              <h3 className="text-lg sm:text-xl font-semibold mb-4">
+            <h3 className="text-lg sm:text-xl font-semibold mb-4">
                 Example Earnings Snapshot
-              </h3>
-              <p className="text-xs text-gray-300 mb-4">
-                For illustration only. Actual earnings depend on the mix of
-                packages your referrals choose.
-              </p>
+            </h3>
 
-              <div className="overflow-hidden rounded-2xl border border-white/10 text-sm">
+            <p className="text-xs text-gray-300 mb-4">
+                Example based on referral events worth £35.99 each. Actual commission
+                depends on the packages your referrals choose.
+            </p>
+
+            <div className="overflow-hidden rounded-2xl border border-white/10 text-sm">
                 <div className="grid grid-cols-3 bg-white/10 px-4 py-2 font-semibold text-xs sm:text-sm">
-                  <div className="text-left">Events Referred</div>
-                  <div className="text-left">5% Commission*</div>
-                  <div className="text-left">Bonuses</div>
+                <div className="text-left">Milestone</div>
+                <div className="text-left">What You Receive</div>
+                <div className="text-left">Total</div>
                 </div>
 
                 <div className="grid grid-cols-3 px-4 py-2 bg-black/20 border-t border-white/5">
-                  <div>10</div>
-                  <div>On each paid event</div>
-                  <div>£10</div>
+                <div>10 events</div>
+                <div>5% of last 10 events + £10 bonus</div>
+                <div>~£27.95</div>
                 </div>
-                <div className="grid grid-cols-3 px-4 py-2 bg-black/30 border-t border-white/5">
-                  <div>20</div>
-                  <div>On each paid event</div>
-                  <div>£20 total</div>
-                </div>
-                <div className="grid grid-cols-3 px-4 py-2 bg-black/20 border-t border-white/5">
-                  <div>50</div>
-                  <div>On each paid event</div>
-                  <div>£50 total</div>
-                </div>
-                <div className="grid grid-cols-3 px-4 py-2 bg-black/30 border-t border-white/5">
-                  <div>100</div>
-                  <div>On each paid event</div>
-                  <div>£100 (10× £10) + £100 milestone</div>
-                </div>
-              </div>
 
-              <p className="mt-4 text-[11px] text-gray-400">
-                *5% is applied to the event package price (e.g. Basic, Premium,
-                Deluxe, Prime) before fees. Exact payouts are shown inside your
-                dashboard.
-              </p>
+                <div className="grid grid-cols-3 px-4 py-2 bg-black/30 border-t border-white/5">
+                <div>20 events</div>
+                <div>Another 5% of last 10 + £10 bonus</div>
+                <div>~£27.95</div>
+                </div>
+
+                <div className="grid grid-cols-3 px-4 py-2 bg-black/20 border-t border-white/5">
+                <div>50 events</div>
+                <div>5 milestone payouts of 10 events each</div>
+                <div>~£139.75 total</div>
+                </div>
+
+                <div className="grid grid-cols-3 px-4 py-2 bg-black/30 border-t border-white/5">
+                <div>100 events</div>
+                <div>5% of last 10 + £10 + £100 mega bonus</div>
+                <div>~£127.95</div>
+                </div>
             </div>
-          </div>
+
+            <p className="mt-4 text-[11px] text-gray-400">
+                Milestones continue after 100 (110, 120, 130…) with the same structure.
+            </p>
+            </div>
+        </div>
         </section>
 
         {/* ================= WHY BECOME A PARTNER ================= */}
