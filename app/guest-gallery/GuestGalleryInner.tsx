@@ -72,7 +72,8 @@ export default function GuestGalleryPage() {
      const res = await fetch(
         `${API_BASE_URL}/api/guestbook/${spaceId}
         ?guest_pin=${encodeURIComponent(pin)}
-        &party_name=${encodeURIComponent(partyName)}`
+        &party_name=${encodeURIComponent( partyName
+        )}&guest_name=${encodeURIComponent(guestName)}`
       );
 
       if (!res.ok) return;
