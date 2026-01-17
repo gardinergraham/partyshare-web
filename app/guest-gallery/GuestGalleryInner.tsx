@@ -172,6 +172,7 @@ export default function GuestGalleryPage() {
     await fetch(`${API_BASE_URL}/api/guestbook`, { method: "POST", body: form });
     setMessageText("");
     fetchGuestbook();
+    setTab("guestbook");
   }
 
   async function handleEditMessage() {
@@ -329,23 +330,41 @@ const getUploaderName = (item: any) => {
               <span className={cn("text-sm", tab === "gallery" ? "text-pink-100" : "text-gray-300")}>Gallery</span>
             </button>
 
-            {/* Guestbook Tab */}
-            <button
-              onClick={() => setTab("guestbook")}
-              className={cn(
-                "flex flex-col items-center justify-center gap-2 p-4 rounded-2xl font-semibold transition-all duration-300",
-                tab === "guestbook"
-                  ? "bg-gradient-to-br from-violet-500/30 to-purple-600/30 border-violet-500/50 shadow-lg shadow-violet-500/20"
-                  : "bg-white/5 hover:bg-white/10 border-white/10 hover:border-white/20",
-                "border"
-              )}
-            >
-              <MessageSquare className={cn("w-6 h-6", tab === "guestbook" ? "text-violet-400" : "text-gray-400")} />
-              <span className={cn("text-sm", tab === "guestbook" ? "text-violet-100" : "text-gray-300")}>Guestbook</span>
-            </button>
-          </div>
-        </div>
-      </header>
+        {/* Guestbook Tab */}
+        <button
+          onClick={() => setTab("guestbook")}
+          className={cn(
+            "relative flex flex-col items-center justify-center gap-2 p-4 rounded-2xl font-semibold transition-all duration-300",
+            tab === "guestbook"
+              ? "bg-gradient-to-br from-violet-500/30 to-purple-600/30 border-violet-500/50 shadow-lg shadow-violet-500/20"
+              : "bg-white/5 hover:bg-white/10 border-white/10 hover:border-white/20",
+            "border"
+          )}
+        >
+          {/* Badge */}
+          {messages.length > 0 && (
+            <span className="absolute top-2 right-2 min-w-[20px] h-5 px-1 rounded-full bg-violet-500 text-white text-xs flex items-center justify-center">
+              {messages.length}
+            </span>
+          )}
+
+          <MessageSquare
+            className={cn(
+              "w-6 h-6",
+              tab === "guestbook" ? "text-violet-400" : "text-gray-400"
+            )}
+          />
+
+          <span
+            className={cn(
+              "text-sm",
+              tab === "guestbook" ? "text-violet-100" : "text-gray-300"
+            )}
+          >
+            Guestbook
+          </span>
+        </button>
+
 
       {/* Main Content - Scrollable Area */}
       <main className="relative z-10 flex-1 overflow-y-auto px-4 py-6">

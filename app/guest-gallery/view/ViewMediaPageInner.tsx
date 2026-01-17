@@ -264,20 +264,24 @@ return (
             className="w-full h-full flex items-center justify-center"
           >
             {item.file_type?.startsWith("video") ? (
-              <video
-                src={item.file_url}
-                controls
-                playsInline
-                autoPlay
-                className="max-w-full max-h-full object-contain rounded-2xl shadow-2xl"
-              />
+             <video
+              src={item.file_url}
+              controls
+              playsInline
+              autoPlay
+              className="max-w-full max-h-full object-contain rounded-2xl shadow-2xl"
+              style={{ maxHeight: "calc(100vh - 220px)" }}
+            />
+
             ) : (
               <img
                 src={item.file_url}
                 className="max-w-full max-h-full object-contain rounded-2xl shadow-2xl select-none"
+                style={{ maxHeight: "calc(100vh - 220px)" }}
                 alt=""
                 draggable={false}
               />
+
             )}
           </motion.div>
         </AnimatePresence>
