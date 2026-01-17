@@ -42,6 +42,13 @@ export default function GuestGalleryPage() {
   const [loadingMedia, setLoadingMedia] = useState(true);
 
   const router = useRouter();
+  
+
+  useEffect(() => {
+  if (guestName) {
+    sessionStorage.setItem("guest_name", guestName);
+  }
+}, [guestName]);
 
   async function fetchMedia() {
     try {
@@ -202,15 +209,32 @@ export default function GuestGalleryPage() {
   }
 
   // Helper to check if current user owns the media
-  const isOwnMedia = (item: any) => {
-    const uploaderName = (item.uploader_name || item.guest_name || item.uploaded_by?.replace("guest_", "") || "").trim().toLowerCase();
-    return uploaderName === guestName?.trim().toLowerCase();
-  };
+const isOwnMedia = (item: any) => {
+  const currentGuest = guestName.trim().toLowerCase();
 
-  // Get display name for media
-  const getUploaderName = (item: any) => {
-    return item.uploader_name || item.guest_name || item.uploaded_by?.replace("guest_", "") || "Guest";
-  };
+  if (!currentGuest) return false;
+
+  if (
+    item.guest_name?.trim().toLowerCase() === currentGuest ||
+    item.uploader_name?.trim().toLowerCase() === currentGuest
+  ) {
+    return true;
+  }
+
+  return item.uploaded_by === `guest_${pin}`;
+};
+
+
+ // Get display name for media (robust)
+const getUploaderName = (item: any) => {
+  if (item.uploader_name?.trim()) return item.uploader_name;
+  if (item.guest_name?.trim()) return item.guest_name;
+
+  // uploaded_by is "guest_<pin>" — never show the pin
+  if (item.uploaded_by?.startsWith("guest_")) return "Guest";
+
+  return "Guest";
+};
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-950/20 to-slate-950 text-white flex flex-col">
