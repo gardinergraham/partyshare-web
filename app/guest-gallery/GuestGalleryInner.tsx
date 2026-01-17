@@ -69,13 +69,11 @@ export default function GuestGalleryPage() {
   async function fetchGuestbook() {
     try {
       setLoadingMessages(true);
-     const res = await fetch(
-        `${API_BASE_URL}/api/guestbook/${spaceId}
-        ?guest_pin=${encodeURIComponent(pin)}
-        &party_name=${encodeURIComponent( partyName
-        )}&guest_name=${encodeURIComponent(guestName)}`
-      );
-
+      const res = await fetch(
+      `${API_BASE_URL}/api/guestbook/${spaceId}?guest_pin=${encodeURIComponent(
+        pin
+      )}&party_name=${encodeURIComponent(partyName)}`
+    );
       if (!res.ok) return;
       const data = await res.json();
       setMessages(Array.isArray(data) ? data : []);
