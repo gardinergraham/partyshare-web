@@ -16,33 +16,41 @@ export default function GuestLoginPage() {
   const searchParams = useSearchParams();
   const router = useRouter();
 
- useEffect(() => {
-  const spaceId = searchParams.get("space_id");
-  const eventName = searchParams.get("name");
-  const pin = searchParams.get("pin");
-  const redirectUrl = searchParams.get("redirect");
+useEffect(() => {
+  const spaceId = searchParams.get("space_id"); // (optional)
+  const eventNameParam = searchParams.get("name");
+  const pinParam = searchParams.get("pin");
 
-  // Attempt app open if redirect present
+  // ✅ redirect param (double-encoded on backend)
+  const rawRedirect = searchParams.get("redirect");
+  const redirectUrl = rawRedirect ? decodeURIComponent(rawRedirect) : null;
+
+  // ✅ decode values for autofill
+  const decodedEventName = eventNameParam ? decodeURIComponent(eventNameParam) : "";
+  const decodedPin = pinParam ?? "";
+
+  // ✅ Autofill UI immediately
+  if (decodedEventName) setPartyName(decodedEventName);
+  if (decodedPin) setPinCode(decodedPin);
+
+  // ✅ iOS-safe attempt to open app (don't block web)
   if (redirectUrl) {
     setTimeout(() => {
       window.location.href = redirectUrl;
     }, 800);
   }
 
-  // Autofill
-  if (eventName) setPartyName(decodeURIComponent(eventName));
-  if (pin) setPinCode(pin);
-
-  // If both present → try lookup
-  if (eventName && pin) {
-    fetch(`${API_BASE_URL}/api/spaces/lookup?name=${encodeURIComponent(
-  partyName
-  )}&pin_code=${encodeURIComponent(pinCode)}`
-  )
+  // ✅ Lookup using *params*, not state (prevents stale state bug)
+  if (decodedEventName && decodedPin) {
+    fetch(
+      `${API_BASE_URL}/api/spaces/lookup?name=${encodeURIComponent(
+        decodedEventName
+      )}&pin_code=${encodeURIComponent(decodedPin)}`
+    )
       .then((res) => res.json().catch(() => null))
       .then((data) => {
         if (data && data.name) {
-          setPartyName(data.name);
+          setPartyName(data.name); // overwrite with canonical name from API
           setStatus("🎉 Event found — enter your name to join!");
         } else {
           setStatus("⚠️ Event not found — please check details.");
@@ -53,6 +61,7 @@ export default function GuestLoginPage() {
       });
   }
 }, [searchParams]);
+
 
 
   // ✅ Join event

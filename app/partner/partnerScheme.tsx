@@ -197,6 +197,10 @@ export default function PartnerSchemePage() {
                 <span className="font-semibold">• At 100 events:</span> your normal milestone payout
                 <span className="font-semibold"> plus an extra £100 mega bonus</span>
             </li>
+            <li>
+                <span className="font-semibold">At 1000 events:</span> normal 5% commission + £1000 mega bonus
+            </li>
+
             </ul>
 
             <p className="mt-4 text-sm text-gray-200">
@@ -222,41 +226,53 @@ export default function PartnerSchemePage() {
             </p>
 
             <div className="overflow-hidden rounded-2xl border border-white/10 text-sm">
-                <div className="grid grid-cols-3 bg-white/10 px-4 py-2 font-semibold text-xs sm:text-sm">
-                <div className="text-left">Milestone</div>
-                <div className="text-left">What You Receive</div>
-                <div className="text-left">Total</div>
-                </div>
+            <div className="grid grid-cols-3 bg-white/10 px-4 py-2 font-semibold text-xs sm:text-sm">
+                <div className="text-left">Events Referred</div>
+                <div className="text-left">5% Commission*</div>
+                <div className="text-left">Bonuses</div>
+            </div>
 
-                <div className="grid grid-cols-3 px-4 py-2 bg-black/20 border-t border-white/5">
-                <div>10 events</div>
-                <div>5% of last 10 events + £10 bonus</div>
-                <div>~£27.95</div>
-                </div>
+            {/* 10 Events */}
+            <div className="grid grid-cols-3 px-4 py-2 bg-black/20 border-t border-white/5">
+                <div>10</div>
+                <div>Commission from first 10 events</div>
+                <div>£10</div>
+            </div>
 
-                <div className="grid grid-cols-3 px-4 py-2 bg-black/30 border-t border-white/5">
-                <div>20 events</div>
-                <div>Another 5% of last 10 + £10 bonus</div>
-                <div>~£27.95</div>
-                </div>
+            {/* 20 Events */}
+            <div className="grid grid-cols-3 px-4 py-2 bg-black/30 border-t border-white/5">
+                <div>20</div>
+                <div>Commission from events 11–20</div>
+                <div>£10</div>
+            </div>
 
-                <div className="grid grid-cols-3 px-4 py-2 bg-black/20 border-t border-white/5">
-                <div>50 events</div>
-                <div>5 milestone payouts of 10 events each</div>
-                <div>~£139.75 total</div>
-                </div>
+            {/* 50 Events */}
+            <div className="grid grid-cols-3 px-4 py-2 bg-black/20 border-t border-white/5">
+                <div>50</div>
+                <div>Commission from events 41–50</div>
+                <div>£10</div>
+            </div>
 
-                <div className="grid grid-cols-3 px-4 py-2 bg-black/30 border-t border-white/5">
-                <div>100 events</div>
-                <div>5% of last 10 + £10 + £100 mega bonus</div>
-                <div>~£127.95</div>
-                </div>
+            {/* 100 Events — FULL BONUS */}
+            <div className="grid grid-cols-3 px-4 py-2 bg-black/30 border-t border-white/5">
+                <div>100</div>
+                <div>Commission from events 91–100</div>
+                <div>£110 (£10 milestone + £100 bonus)</div>
+            </div>
+
+            {/* 1000 Events — MEGA BONUS */}
+            <div className="grid grid-cols-3 px-4 py-2 bg-black/20 border-t border-white/5">
+                <div>1000</div>
+                <div>Commission from events 991–1000</div>
+                <div>£1010 (£10 milestone + £1000 mega bonus)</div>
+            </div>
             </div>
 
             <p className="mt-4 text-[11px] text-gray-400">
-                Milestones continue after 100 (110, 120, 130…) with the same structure.
+            *Commissions are grouped and paid only at milestones (every 10 events). This avoids tiny individual payouts and keeps the programme simple. Exact payouts appear inside your dashboard.
             </p>
-            </div>
+
+        </div>
         </div>
         </section>
 
