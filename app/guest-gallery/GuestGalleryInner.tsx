@@ -42,13 +42,6 @@ export default function GuestGalleryPage() {
   const [loadingMedia, setLoadingMedia] = useState(true);
 
   const router = useRouter();
-  
-
-  useEffect(() => {
-  if (guestName) {
-    sessionStorage.setItem("guest_name", guestName);
-  }
-}, [guestName]);
 
   async function fetchMedia() {
     try {
@@ -58,7 +51,7 @@ export default function GuestGalleryPage() {
       );
       if (!res.ok) return;
       const data = await res.json();
-      setMedia(Array.isArray(data) ? data : data?.media ?? []);
+      setMedia(Array.isArray(data) ? data : []);
     } catch (err) {
       console.error("Failed to fetch media:", err);
     } finally {
@@ -69,19 +62,12 @@ export default function GuestGalleryPage() {
   async function fetchGuestbook() {
     try {
       setLoadingMessages(true);
-
       const res = await fetch(
-        `${API_BASE_URL}/api/guestbook/${spaceId}` +
-        `?guest_pin=${encodeURIComponent(pin)}` +
-        `&party_name=${encodeURIComponent(partyName || "")}` +
-        `&guest_name=${encodeURIComponent(guestName || "")}`
+        `${API_BASE_URL}/api/guestbook/${spaceId}?guest_pin=${encodeURIComponent(pin)}&party_name=${encodeURIComponent(
+          partyName
+        )}&guest_name=${encodeURIComponent(guestName)}`
       );
-
-      if (!res.ok) {
-        console.error("Guestbook fetch failed:", res.status);
-        return;
-      }
-
+      if (!res.ok) return;
       const data = await res.json();
       setMessages(Array.isArray(data) ? data : []);
     } catch (err) {
@@ -91,6 +77,16 @@ export default function GuestGalleryPage() {
     }
   }
 
+  useEffect(() => {
+    if (!spaceId) return;
+    fetchMedia();
+    fetchGuestbook();
+    const interval = setInterval(() => {
+      fetchMedia();
+      fetchGuestbook();
+    }, 60000);
+    return () => clearInterval(interval);
+  }, [spaceId]);
 
   async function handleUpload(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
@@ -169,7 +165,6 @@ export default function GuestGalleryPage() {
     await fetch(`${API_BASE_URL}/api/guestbook`, { method: "POST", body: form });
     setMessageText("");
     fetchGuestbook();
-    setTab("guestbook");
   }
 
   async function handleEditMessage() {
@@ -206,36 +201,8 @@ export default function GuestGalleryPage() {
     fetchGuestbook();
   }
 
-  // Helper to check if current user owns the media
-const isOwnMedia = (item: any) => {
-  const currentGuest = guestName.trim().toLowerCase();
-
-  if (!currentGuest) return false;
-
-  if (
-    item.guest_name?.trim().toLowerCase() === currentGuest ||
-    item.uploader_name?.trim().toLowerCase() === currentGuest
-  ) {
-    return true;
-  }
-
-  return item.uploaded_by === `guest_${pin}`;
-};
-
-
- // Get display name for media (robust)
-const getUploaderName = (item: any) => {
-  if (item.uploader_name?.trim()) return item.uploader_name;
-  if (item.guest_name?.trim()) return item.guest_name;
-
-  // uploaded_by is "guest_<pin>" — never show the pin
-  if (item.uploaded_by?.startsWith("guest_")) return "Guest";
-
-  return "Guest";
-};
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-950/20 to-slate-950 text-white flex flex-col">
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-950/20 to-slate-950 text-white">
       {/* Ambient Background Effects */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-purple-500/20 rounded-full blur-[100px]" />
@@ -244,7 +211,7 @@ const getUploaderName = (item: any) => {
       </div>
 
       {/* Fixed Header */}
-      <header className="sticky top-0 z-50 backdrop-blur-xl bg-slate-950/90 border-b border-white/10 shrink-0">
+      <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl bg-slate-950/80 border-b border-white/10">
         <div className="w-full max-w-6xl mx-auto px-4 py-4">
           {/* Party Name with Icon */}
           <div className="flex items-center justify-center gap-3 mb-5">
@@ -345,8 +312,8 @@ const getUploaderName = (item: any) => {
         </div>
       </header>
 
-      {/* Main Content - Scrollable Area */}
-      <main className="relative z-10 flex-1 overflow-y-auto px-4 py-6">
+      {/* Main Content */}
+      <main className="relative z-10 pt-[220px] md:pt-[200px] pb-24 px-4">
         <div className="max-w-6xl mx-auto">
           <AnimatePresence mode="wait">
             {/* Gallery View */}
@@ -374,7 +341,7 @@ const getUploaderName = (item: any) => {
                     </p>
                   </div>
                 ) : (
-                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4 pb-8">
+                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
                     {media.map((item, index) => (
                       <motion.div
                         key={item.id}
@@ -417,27 +384,29 @@ const getUploaderName = (item: any) => {
                           />
                         )}
 
-                        {/* Gradient Overlay - Always visible for name visibility */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                        {/* Gradient Overlay */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
 
-                        {/* Uploader Name - Always visible */}
+                        {/* Uploader Name */}
                         <div className="absolute bottom-0 left-0 right-0 p-3">
-                          <p className="text-sm font-medium text-white bg-black/60 backdrop-blur-sm px-3 py-1.5 rounded-lg inline-block">
-                            {getUploaderName(item)}
+                          <p className="text-xs font-medium text-white/90 bg-black/50 backdrop-blur-sm px-2 py-1 rounded-full inline-block">
+                            {item.uploader_name ||
+                              item.guest_name ||
+                              item.uploaded_by?.replace("guest_", "") ||
+                              "Guest"}
                           </p>
                         </div>
 
-                        {/* Delete Button - Always visible if user owns the media */}
-                        {isOwnMedia(item) && (
+                        {/* Delete Button */}
+                        {item.uploader_name?.trim().toLowerCase() === guestName?.trim().toLowerCase() && (
                           <button
                             onClick={(e) => {
                               e.stopPropagation();
                               handleDeleteMedia(item.id);
                             }}
-                            className="absolute top-2 right-2 p-2.5 rounded-full bg-red-500 hover:bg-red-600 text-white transition-all duration-300 shadow-lg"
-                            title="Delete your upload"
+                            className="absolute top-2 right-2 p-2 rounded-full bg-red-500/80 hover:bg-red-500 text-white opacity-0 group-hover:opacity-100 transition-all duration-300 backdrop-blur-sm"
                           >
-                            <Trash2 size={16} />
+                            <Trash2 size={14} />
                           </button>
                         )}
                       </motion.div>
@@ -505,7 +474,7 @@ const getUploaderName = (item: any) => {
                     </p>
                   </div>
                 ) : (
-                  <div className="space-y-4 pb-8">
+                  <div className="space-y-4">
                     {messages.map((msg, index) => (
                       <motion.div
                         key={msg.id}
