@@ -241,7 +241,19 @@ return (
       </div>
 
       {/* MEDIA VIEW */}
-      <div className="relative flex-1 flex items-center justify-center p-2 sm:p-4 min-h-0">
+        <div
+          className="
+            relative
+            flex-1
+            flex
+            items-center
+            justify-center
+            p-2 sm:p-4
+            min-h-0
+            overflow-hidden
+          "
+        >
+
         <AnimatePresence mode="wait">
           <motion.div
             key={current}
