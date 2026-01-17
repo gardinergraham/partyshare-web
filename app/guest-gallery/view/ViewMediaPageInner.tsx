@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback , useRef} from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { API_BASE_URL } from "@/lib/api";
@@ -22,6 +22,8 @@ export default function ViewMediaPageInner() {
   const [current, setCurrent] = useState(index);
   const [loading, setLoading] = useState(true);
   const [imageLoaded, setImageLoaded] = useState(false);
+  const touchStartX = useRef<number | null>(null);
+  const touchStartY = useRef<number | null>(null);
 
   useEffect(() => {
     async function load() {
@@ -124,6 +126,36 @@ export default function ViewMediaPageInner() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [next, prev, router]);
 
+    const handleTouchStart = (e: React.TouchEvent) => {
+    const touch = e.touches[0];
+    touchStartX.current = touch.clientX;
+    touchStartY.current = touch.clientY;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null || touchStartY.current === null) return;
+
+    const touch = e.changedTouches[0];
+    const deltaX = touch.clientX - touchStartX.current;
+    const deltaY = touch.clientY - touchStartY.current;
+
+    // Reset
+    touchStartX.current = null;
+    touchStartY.current = null;
+
+    // Ignore vertical swipes
+    if (Math.abs(deltaY) > Math.abs(deltaX)) return;
+
+    // Threshold
+    const SWIPE_THRESHOLD = 50;
+
+    if (deltaX > SWIPE_THRESHOLD) {
+      prev();
+    } else if (deltaX < -SWIPE_THRESHOLD) {
+      next();
+    }
+  };
+
   // Get display name for media
   const getUploaderName = (item: any) => {
     return item.uploader_name || item.guest_name || "Guest";
@@ -159,14 +191,15 @@ export default function ViewMediaPageInner() {
   const item = media[current];
 
 return (
-  <div className="fixed inset-0 bg-black flex justify-center overflow-hidden">
+  <div className="fixed inset-0 bg-black flex items-center justify-center overflow-hidden">
     {/* Ambient Background */}
     <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
       <div className="absolute inset-0 bg-gradient-to-br from-purple-950/20 via-black to-pink-950/20" />
     </div>
 
     {/* CENTER RAIL */}
-    <div className="relative z-10 w-full max-w-5xl flex flex-col">
+    <div className="relative z-10 w-full max-w-5xl h-full max-h-screen flex flex-col">
+
 
       {/* HEADER */}
       <div className="z-20 shrink-0 bg-black/90 backdrop-blur-sm border-b border-white/10">
@@ -241,18 +274,23 @@ return (
       </div>
 
       {/* MEDIA VIEW */}
-        <div
-          className="
-            relative
-            flex-1
-            flex
-            items-center
-            justify-center
-            p-2 sm:p-4
-            min-h-0
-            overflow-hidden
-          "
-        >
+     <div
+        className="
+          relative
+          flex-1
+          min-h-0
+          flex
+          items-center
+          justify-center
+          overflow-hidden
+          p-2 sm:p-4
+          touch-pan-y
+        "
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+      >
+
+
 
         <AnimatePresence mode="wait">
           <motion.div
@@ -264,25 +302,35 @@ return (
             className="w-full h-full flex items-center justify-center"
           >
             {item.file_type?.startsWith("video") ? (
-             <video
-              src={item.file_url}
-              controls
-              playsInline
-              autoPlay
-              className="max-w-full max-h-full object-contain rounded-2xl shadow-2xl"
-              style={{ maxHeight: "calc(100vh - 220px)" }}
-            />
+            <div className="relative w-full h-full flex items-center justify-center">
+              {/* Letterbox background */}
+              <div className="absolute inset-0 bg-black rounded-2xl" />
 
-            ) : (
-              <img
+              <video
                 src={item.file_url}
-                className="max-w-full max-h-full object-contain rounded-2xl shadow-2xl select-none"
-                style={{ maxHeight: "calc(100vh - 220px)" }}
-                alt=""
-                draggable={false}
+                controls
+                playsInline
+                autoPlay
+                className="
+                  relative
+                  z-10
+                  max-w-full
+                  max-h-full
+                  object-contain
+                  rounded-2xl
+                  shadow-2xl
+                "
               />
+            </div>
+          ) : (
+            <img
+              src={item.file_url}
+              className="max-w-full max-h-full object-contain rounded-2xl shadow-2xl select-none"
+              alt=""
+              draggable={false}
+            />
+          )}
 
-            )}
           </motion.div>
         </AnimatePresence>
 
