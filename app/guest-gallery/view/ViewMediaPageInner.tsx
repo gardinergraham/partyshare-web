@@ -4,7 +4,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { API_BASE_URL } from "@/lib/api";
-import { ChevronLeft, ChevronRight, ArrowLeft, Loader2, X , Trash2 } from "lucide-react";
+import { ChevronLeft, ChevronRight, ArrowLeft, Loader2, X, Trash2 } from "lucide-react";
 
 function cn(...classes: (string | boolean | undefined)[]) {
   return classes.filter(Boolean).join(" ");
@@ -23,89 +23,82 @@ export default function ViewMediaPageInner() {
   const [loading, setLoading] = useState(true);
   const [imageLoaded, setImageLoaded] = useState(false);
 
-useEffect(() => {
-  async function load() {
-    try {
-      setLoading(true);
+  useEffect(() => {
+    async function load() {
+      try {
+        setLoading(true);
 
-      const res = await fetch(
-        `${API_BASE_URL}/api/media/guest-space/${spaceId}?guest_pin=${encodeURIComponent(pin)}`
-      );
+        const res = await fetch(
+          `${API_BASE_URL}/api/media/guest-space/${spaceId}?guest_pin=${encodeURIComponent(pin)}`
+        );
 
-      if (!res.ok) {
-        console.error("Failed to fetch media:", res.status);
+        if (!res.ok) {
+          console.error("Failed to fetch media:", res.status);
+          setMedia([]);
+          return;
+        }
+
+        const data = await res.json();
+        const mediaItems = Array.isArray(data?.media) ? data.media : [];
+
+        setMedia(mediaItems);
+        setCurrent(index < mediaItems.length ? index : 0);
+      } catch (err) {
+        console.error("Failed to load media:", err);
         setMedia([]);
-        return;
+      } finally {
+        setLoading(false);
       }
+    }
 
-      const data = await res.json();
+    if (spaceId && pin) load();
+  }, [spaceId, pin, index]);
 
-      // ✅ THIS IS THE KEY LINE
-      const mediaItems = Array.isArray(data?.media) ? data.media : [];
+  async function handleDelete() {
+    if (!confirm("Delete this upload?")) return;
 
-      setMedia(mediaItems);
-      setCurrent(index < mediaItems.length ? index : 0);
-    } catch (err) {
-      console.error("Failed to load media:", err);
-      setMedia([]);
-    } finally {
-      setLoading(false);
+    const item = media[current];
+
+    const res = await fetch(
+      `${API_BASE_URL}/api/media/guest/${item.id}?guest_pin=${encodeURIComponent(
+        pin
+      )}&party_name=${encodeURIComponent(
+        params.get("party_name") ?? ""
+      )}&guest_name=${encodeURIComponent(
+        params.get("guest_name") ?? ""
+      )}`,
+      { method: "DELETE" }
+    );
+
+    if (!res.ok) {
+      alert("❌ You can only delete your own uploads");
+      return;
+    }
+
+    const updated = media.filter((_, i) => i !== current);
+    setMedia(updated);
+
+    if (updated.length === 0) {
+      router.back();
+    } else {
+      setCurrent((c) => Math.max(0, c - 1));
     }
   }
 
-  if (spaceId && pin) load();
-}, [spaceId, pin, index]);
+  const guestNameParam = (params.get("guest_name") ?? "").trim().toLowerCase();
 
+  const isOwnMedia = (item: any) => {
+    if (!guestNameParam) return false;
 
+    if (
+      item.guest_name?.trim().toLowerCase() === guestNameParam ||
+      item.uploader_name?.trim().toLowerCase() === guestNameParam
+    ) {
+      return true;
+    }
 
- async function handleDelete() {
-  if (!confirm("Delete this upload?")) return;
-
-  const item = media[current];
-
-  const res = await fetch(
-    `${API_BASE_URL}/api/media/guest/${item.id}?guest_pin=${encodeURIComponent(
-      pin
-    )}&party_name=${encodeURIComponent(
-      params.get("party_name") ?? ""
-    )}&guest_name=${encodeURIComponent(
-      params.get("guest_name") ?? ""
-    )}`,
-    { method: "DELETE" }
-  );
-
-  if (!res.ok) {
-    alert("❌ You can only delete your own uploads");
-    return;
-  }
-
-  // ✅ only remove locally if backend confirms
-  const updated = media.filter((_, i) => i !== current);
-  setMedia(updated);
-
-  if (updated.length === 0) {
-    router.back();
-  } else {
-    setCurrent((c) => Math.max(0, c - 1));
-  }
-}
-
-
-  const guestNameParam =
-  (params.get("guest_name") ?? "").trim().toLowerCase();
-
-const isOwnMedia = (item: any) => {
-  if (!guestNameParam) return false;
-
-  if (
-    item.guest_name?.trim().toLowerCase() === guestNameParam ||
-    item.uploader_name?.trim().toLowerCase() === guestNameParam
-  ) {
-    return true;
-  }
-
-  return item.uploaded_by === `guest_${pin}`;
-};
+    return item.uploaded_by === `guest_${pin}`;
+  };
 
   // Reset image loaded state when changing media
   useEffect(() => {
@@ -130,6 +123,11 @@ const isOwnMedia = (item: any) => {
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [next, prev, router]);
+
+  // Get display name for media
+  const getUploaderName = (item: any) => {
+    return item.uploader_name || item.guest_name || "Guest";
+  };
 
   if (loading) {
     return (
@@ -161,18 +159,18 @@ const isOwnMedia = (item: any) => {
   const item = media[current];
 
   return (
-    <div className="fixed inset-0 bg-black">
+    <div className="fixed inset-0 bg-black flex flex-col overflow-hidden">
       {/* Ambient Background */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
         <div className="absolute inset-0 bg-gradient-to-br from-purple-950/20 via-black to-pink-950/20" />
       </div>
 
-      {/* Top Navigation Bar */}
-      <div className="absolute top-0 left-0 right-0 z-20 flex items-center justify-between p-4 bg-gradient-to-b from-black/80 to-transparent">
+      {/* Top Navigation Bar - Fixed Height */}
+      <div className="relative z-20 flex items-center justify-between p-3 sm:p-4 bg-black/90 backdrop-blur-sm border-b border-white/10 shrink-0">
         {/* Back Button */}
         <button
           onClick={() => router.back()}
-          className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white font-medium transition-all duration-300 border border-white/10 hover:border-white/20"
+          className="flex items-center gap-2 px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white font-medium transition-all duration-300 border border-white/10 hover:border-white/20"
         >
           <ArrowLeft size={18} />
           <span className="hidden sm:inline">Back</span>
@@ -180,16 +178,16 @@ const isOwnMedia = (item: any) => {
 
         {/* Navigation Controls */}
         {media.length > 1 && (
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             <button
               onClick={prev}
-              className="p-3 rounded-xl bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white transition-all duration-300 border border-white/10 hover:border-white/20"
+              className="p-2 sm:p-3 rounded-xl bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white transition-all duration-300 border border-white/10 hover:border-white/20"
             >
-              <ChevronLeft size={20} />
+              <ChevronLeft size={18} className="sm:w-5 sm:h-5" />
             </button>
 
             {/* Counter */}
-            <div className="px-4 py-2 rounded-xl bg-white/10 backdrop-blur-sm text-white font-medium border border-white/10">
+            <div className="px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl bg-white/10 backdrop-blur-sm text-white font-medium border border-white/10 text-sm sm:text-base">
               <span className="text-pink-400">{current + 1}</span>
               <span className="text-gray-400 mx-1">/</span>
               <span className="text-gray-300">{media.length}</span>
@@ -197,33 +195,37 @@ const isOwnMedia = (item: any) => {
 
             <button
               onClick={next}
-              className="p-3 rounded-xl bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white transition-all duration-300 border border-white/10 hover:border-white/20"
+              className="p-2 sm:p-3 rounded-xl bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white transition-all duration-300 border border-white/10 hover:border-white/20"
             >
-              <ChevronRight size={20} />
+              <ChevronRight size={18} className="sm:w-5 sm:h-5" />
             </button>
           </div>
         )}
-        {/* Delete Button (only if uploader is current guest) */}
-         {isOwnMedia(item) && (
-          <button
-            onClick={handleDelete}
-            className="p-3 rounded-xl bg-red-500/80 hover:bg-red-500 text-white transition-all duration-300 border border-red-400/30 hover:border-red-400"
-          >
-            <Trash2 size={20} />
-          </button>
-        )}
 
-        {/* Close Button */}
-        <button
-          onClick={() => router.back()}
-          className="p-3 rounded-xl bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white transition-all duration-300 border border-white/10 hover:border-white/20"
-        >
-          <X size={20} />
-        </button>
+        {/* Right Side Buttons */}
+        <div className="flex items-center gap-2">
+          {/* Delete Button (only if uploader is current guest) */}
+          {isOwnMedia(item) && (
+            <button
+              onClick={handleDelete}
+              className="p-2 sm:p-3 rounded-xl bg-red-500/80 hover:bg-red-500 text-white transition-all duration-300 border border-red-400/30 hover:border-red-400"
+            >
+              <Trash2 size={18} className="sm:w-5 sm:h-5" />
+            </button>
+          )}
+
+          {/* Close Button */}
+          <button
+            onClick={() => router.back()}
+            className="p-2 sm:p-3 rounded-xl bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white transition-all duration-300 border border-white/10 hover:border-white/20"
+          >
+            <X size={18} className="sm:w-5 sm:h-5" />
+          </button>
+        </div>
       </div>
 
-      {/* Main Media Area */}
-      <div className="absolute inset-0 flex items-center justify-center p-4 pt-20 pb-4">
+      {/* Main Media Area - Takes Remaining Space */}
+      <div className="relative z-10 flex-1 flex items-center justify-center p-2 sm:p-4 min-h-0 overflow-hidden">
         <AnimatePresence mode="wait">
           <motion.div
             key={current}
@@ -231,7 +233,7 @@ const isOwnMedia = (item: any) => {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="max-w-[95vw] max-h-[85vh] flex items-center justify-center"
+            className="w-full h-full flex items-center justify-center"
           >
             {item.file_type?.startsWith("video") ? (
               <video
@@ -239,10 +241,11 @@ const isOwnMedia = (item: any) => {
                 controls
                 playsInline
                 autoPlay
-                className="max-h-[85vh] max-w-full object-contain rounded-2xl shadow-2xl"
+                className="max-w-full max-h-full object-contain rounded-2xl shadow-2xl"
+                style={{ maxHeight: "calc(100vh - 160px)" }}
               />
             ) : (
-              <div className="relative">
+              <div className="relative flex items-center justify-center w-full h-full">
                 {/* Loading Spinner for Image */}
                 {!imageLoaded && (
                   <div className="absolute inset-0 flex items-center justify-center">
@@ -252,9 +255,10 @@ const isOwnMedia = (item: any) => {
                 <img
                   src={item.file_url}
                   className={cn(
-                    "max-h-[85vh] max-w-full object-contain rounded-2xl shadow-2xl select-none transition-opacity duration-300",
+                    "max-w-full max-h-full object-contain rounded-2xl shadow-2xl select-none transition-opacity duration-300",
                     imageLoaded ? "opacity-100" : "opacity-0"
                   )}
+                  style={{ maxHeight: "calc(100vh - 160px)" }}
                   alt=""
                   draggable={false}
                   onLoad={() => setImageLoaded(true)}
@@ -263,36 +267,33 @@ const isOwnMedia = (item: any) => {
             )}
           </motion.div>
         </AnimatePresence>
+
+        {/* Side Navigation Buttons (Desktop) */}
+        {media.length > 1 && (
+          <>
+            <button
+              onClick={prev}
+              className="hidden md:flex absolute left-4 top-1/2 -translate-y-1/2 z-10 p-4 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white transition-all duration-300 border border-white/10 hover:border-white/20 hover:scale-110"
+            >
+              <ChevronLeft size={28} />
+            </button>
+            <button
+              onClick={next}
+              className="hidden md:flex absolute right-4 top-1/2 -translate-y-1/2 z-10 p-4 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white transition-all duration-300 border border-white/10 hover:border-white/20 hover:scale-110"
+            >
+              <ChevronRight size={28} />
+            </button>
+          </>
+        )}
       </div>
 
-      {/* Side Navigation Buttons (Desktop) */}
-      {media.length > 1 && (
-        <>
-          <button
-            onClick={prev}
-            className="hidden md:flex absolute left-4 top-1/2 -translate-y-1/2 z-10 p-4 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white transition-all duration-300 border border-white/10 hover:border-white/20 hover:scale-110"
-          >
-            <ChevronLeft size={28} />
-          </button>
-          <button
-            onClick={next}
-            className="hidden md:flex absolute right-4 top-1/2 -translate-y-1/2 z-10 p-4 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white transition-all duration-300 border border-white/10 hover:border-white/20 hover:scale-110"
-          >
-            <ChevronRight size={28} />
-          </button>
-        </>
-      )}
-
-      {/* Uploader Info */}
-      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-30">
-        <div className="px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm text-white text-sm border border-white/10">
+      {/* Bottom Uploader Info - Fixed Height */}
+      <div className="relative z-20 flex justify-center p-3 sm:p-4 bg-black/90 backdrop-blur-sm border-t border-white/10 shrink-0">
+        <div className="px-4 sm:px-5 py-2 sm:py-2.5 rounded-full bg-white/10 backdrop-blur-sm text-white text-sm border border-white/10">
           Uploaded by{" "}
-          <span className="text-pink-400 font-medium">
-            {item.uploader_name ||
-            item.guest_name ||
-            "Guest"}
+          <span className="text-pink-400 font-semibold">
+            {getUploaderName(item)}
           </span>
-
         </div>
       </div>
     </div>
