@@ -186,6 +186,12 @@ export default function GuestGalleryPage() {
     setMessageText("");
     fetchGuestbook();
   }
+  
+// Get display name for media
+  const getUploaderName = (item: any) => {
+    return item.uploader_name || item.guest_name || "Guest";
+  };
+
 
   async function handleEditMessage() {
     if (!editing) return;
@@ -431,16 +437,11 @@ export default function GuestGalleryPage() {
                         {/* Gradient Overlay */}
                         <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
                       {/* Uploader Name */}
-                        <div className="absolute bottom-0 left-0 right-0 z-20 p-3 pointer-events-none">
-                          <p className="inline-block text-xs font-semibold text-white bg-black/85 backdrop-blur-md px-3 py-1.5 rounded-lg shadow-lg">
-                            {item.uploader_name?.trim() ||
-                              item.guest_name?.trim() ||
-                              item.uploaded_by?.replace("guest_", "") ||
-                              "Guest"}
-                          </p>
-                        </div>
-
-
+                      <div className="absolute bottom-0 left-0 right-0 z-20 p-3 pointer-events-none">
+                      <p className="inline-block text-xs font-semibold text-white bg-black/90 px-3 py-1.5 rounded-lg shadow-lg">
+                        {getUploaderName(item)}
+                      </p>
+                    </div>
                         {/* Delete Button */}
                         {isOwnMedia(item) && (
                           <button
