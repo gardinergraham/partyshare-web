@@ -58,12 +58,12 @@ useEffect(() => {
 
 
 
-  async function handleDelete() {
+ async function handleDelete() {
   if (!confirm("Delete this upload?")) return;
 
   const item = media[current];
 
-  await fetch(
+  const res = await fetch(
     `${API_BASE_URL}/api/media/guest/${item.id}?guest_pin=${encodeURIComponent(
       pin
     )}&party_name=${encodeURIComponent(
@@ -74,7 +74,12 @@ useEffect(() => {
     { method: "DELETE" }
   );
 
-  // remove from local state
+  if (!res.ok) {
+    alert("❌ You can only delete your own uploads");
+    return;
+  }
+
+  // ✅ only remove locally if backend confirms
   const updated = media.filter((_, i) => i !== current);
   setMedia(updated);
 
@@ -84,6 +89,7 @@ useEffect(() => {
     setCurrent((c) => Math.max(0, c - 1));
   }
 }
+
 
   const guestNameParam =
   (params.get("guest_name") ?? "").trim().toLowerCase();
@@ -278,7 +284,7 @@ const isOwnMedia = (item: any) => {
       )}
 
       {/* Uploader Info */}
-      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10">
+      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-30">
         <div className="px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm text-white text-sm border border-white/10">
           Uploaded by{" "}
           <span className="text-pink-400 font-medium">
