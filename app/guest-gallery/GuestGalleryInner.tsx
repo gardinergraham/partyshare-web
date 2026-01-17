@@ -54,13 +54,19 @@ export default function GuestGalleryPage() {
 
       if (!res.ok) {
         console.error("Guest media fetch failed:", res.status);
+        setMedia([]);
+        setLoadingMedia(false);
         return;
-      }
+         }
+
 
       const data = await res.json();
 
       setMedia(Array.isArray(data.media) ? data.media : []);
-      setUploadWindowActive(Boolean(data.upload_window_active));
+     if (typeof data.upload_window_active === "boolean") {
+     setUploadWindowActive(data.upload_window_active);
+     }
+     console.log("UPLOAD WINDOW:", data.upload_window_active);
     } catch (err) {
       console.error("Failed to fetch media:", err);
     } finally {
@@ -87,16 +93,20 @@ export default function GuestGalleryPage() {
     }
   }
 
-  useEffect(() => {
-    if (!spaceId) return;
-    fetchMedia();
-    fetchGuestbook();
-    const interval = setInterval(() => {
+    useEffect(() => {
+      if (!spaceId || !pin) return;
+
       fetchMedia();
       fetchGuestbook();
-    }, 60000);
-    return () => clearInterval(interval);
-  }, [spaceId]);
+
+      const interval = setInterval(() => {
+        fetchMedia();
+        fetchGuestbook();
+      }, 60000);
+
+      return () => clearInterval(interval);
+    }, [spaceId, pin]);
+
 
   async function handleUpload(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
