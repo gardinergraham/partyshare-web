@@ -23,23 +23,39 @@ export default function ViewMediaPageInner() {
   const [loading, setLoading] = useState(true);
   const [imageLoaded, setImageLoaded] = useState(false);
 
-  useEffect(() => {
-    async function load() {
-      try {
-        setLoading(true);
-        const res = await fetch(
-          `${API_BASE_URL}/api/media/guest-space/${spaceId}?guest_pin=${pin}`
-        );
-        const data = await res.json();
-        setMedia(Array.isArray(data) ? data : data?.media ?? []);
-      } catch (err) {
-        console.error("Failed to load media:", err);
-      } finally {
-        setLoading(false);
+useEffect(() => {
+  async function load() {
+    try {
+      setLoading(true);
+
+      const res = await fetch(
+        `${API_BASE_URL}/api/media/guest-space/${spaceId}?guest_pin=${encodeURIComponent(pin)}`
+      );
+
+      if (!res.ok) {
+        console.error("Failed to fetch media:", res.status);
+        setMedia([]);
+        return;
       }
+
+      const data = await res.json();
+
+      // ✅ THIS IS THE KEY LINE
+      const mediaItems = Array.isArray(data?.media) ? data.media : [];
+
+      setMedia(mediaItems);
+      setCurrent(index < mediaItems.length ? index : 0);
+    } catch (err) {
+      console.error("Failed to load media:", err);
+      setMedia([]);
+    } finally {
+      setLoading(false);
     }
-    load();
-  }, [spaceId, pin]);
+  }
+
+  if (spaceId && pin) load();
+}, [spaceId, pin, index]);
+
 
 
   async function handleDelete() {
@@ -69,6 +85,21 @@ export default function ViewMediaPageInner() {
   }
 }
 
+  const guestNameParam =
+  (params.get("guest_name") ?? "").trim().toLowerCase();
+
+const isOwnMedia = (item: any) => {
+  if (!guestNameParam) return false;
+
+  if (
+    item.guest_name?.trim().toLowerCase() === guestNameParam ||
+    item.uploader_name?.trim().toLowerCase() === guestNameParam
+  ) {
+    return true;
+  }
+
+  return item.uploaded_by === `guest_${pin}`;
+};
 
   // Reset image loaded state when changing media
   useEffect(() => {
@@ -167,15 +198,14 @@ export default function ViewMediaPageInner() {
           </div>
         )}
         {/* Delete Button (only if uploader is current guest) */}
-          {item.uploader_name?.trim().toLowerCase() ===
-            (params.get("guest_name") ?? "").trim().toLowerCase() && (
-            <button
-              onClick={handleDelete}
-              className="p-3 rounded-xl bg-red-500/80 hover:bg-red-500 text-white transition-all duration-300 border border-red-400/30 hover:border-red-400"
-            >
-              <Trash2 size={20} />
-            </button>
-          )}
+         {isOwnMedia(item) && (
+          <button
+            onClick={handleDelete}
+            className="p-3 rounded-xl bg-red-500/80 hover:bg-red-500 text-white transition-all duration-300 border border-red-400/30 hover:border-red-400"
+          >
+            <Trash2 size={20} />
+          </button>
+        )}
 
         {/* Close Button */}
         <button
@@ -253,10 +283,10 @@ export default function ViewMediaPageInner() {
           Uploaded by{" "}
           <span className="text-pink-400 font-medium">
             {item.uploader_name ||
-              item.guest_name ||
-              item.uploaded_by?.replace("guest_", "") ||
-              "Guest"}
+            item.guest_name ||
+            "Guest"}
           </span>
+
         </div>
       </div>
     </div>
