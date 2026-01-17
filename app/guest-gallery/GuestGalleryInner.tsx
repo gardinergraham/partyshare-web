@@ -210,6 +210,17 @@ export default function GuestGalleryPage() {
     fetchGuestbook();
   }
 
+  const isOwnMedia = (item: any) => {
+  const uploader =
+    item.uploader_name ||
+    item.guest_name ||
+    item.uploaded_by?.replace("guest_", "") ||
+    "";
+
+  return uploader.trim().toLowerCase() === guestName.trim().toLowerCase();
+};
+
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-950/20 to-slate-950 text-white">
       {/* Ambient Background Effects */}
@@ -220,7 +231,7 @@ export default function GuestGalleryPage() {
       </div>
 
       {/* Fixed Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl bg-slate-950/80 border-b border-white/10">
+    <header className="sticky top-0 z-40 backdrop-blur-xl bg-slate-950/90 border-b border-white/10">
         <div className="w-full max-w-6xl mx-auto px-4 py-4">
           {/* Party Name with Icon */}
           <div className="flex items-center justify-center gap-3 mb-5">
@@ -394,30 +405,44 @@ export default function GuestGalleryPage() {
                         )}
 
                         {/* Gradient Overlay */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-
-                        {/* Uploader Name */}
-                        <div className="absolute bottom-0 left-0 right-0 p-3">
-                          <p className="text-xs font-medium text-white/90 bg-black/50 backdrop-blur-sm px-2 py-1 rounded-full inline-block">
-                            {item.uploader_name ||
-                              item.guest_name ||
-                              item.uploaded_by?.replace("guest_", "") ||
-                              "Guest"}
-                          </p>
-                        </div>
+                        <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+                      {/* Uploader Name */}
+                      <div className="absolute bottom-0 left-0 right-0 z-20 p-3 pointer-events-none">
+                        <p className="inline-block text-xs font-medium text-white bg-black/70 backdrop-blur px-2.5 py-1.5 rounded-lg shadow">
+                          {item.uploader_name ||
+                            item.guest_name ||
+                            item.uploaded_by?.replace("guest_", "") ||
+                            "Guest"}
+                        </p>
+                      </div>
 
                         {/* Delete Button */}
-                        {item.uploader_name?.trim().toLowerCase() === guestName?.trim().toLowerCase() && (
+                        {isOwnMedia(item) && (
                           <button
                             onClick={(e) => {
                               e.stopPropagation();
                               handleDeleteMedia(item.id);
                             }}
-                            className="absolute top-2 right-2 p-2 rounded-full bg-red-500/80 hover:bg-red-500 text-white opacity-0 group-hover:opacity-100 transition-all duration-300 backdrop-blur-sm"
+                            className="
+                              absolute
+                              top-2
+                              right-2
+                              z-30
+                              p-2.5
+                              rounded-full
+                              bg-red-500
+                              hover:bg-red-600
+                              text-white
+                              shadow-lg
+                              transition
+                              active:scale-95
+                            "
+                            title="Delete your upload"
                           >
                             <Trash2 size={14} />
                           </button>
                         )}
+
                       </motion.div>
                     ))}
                   </div>

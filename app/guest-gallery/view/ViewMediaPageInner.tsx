@@ -304,8 +304,7 @@ return (
             {item.file_type?.startsWith("video") ? (
             <div className="relative w-full h-full flex items-center justify-center">
               {/* Letterbox background */}
-              <div className="absolute inset-0 bg-black rounded-2xl" />
-
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black to-black/40 rounded-2xl" />
               <video
                 src={item.file_url}
                 controls
