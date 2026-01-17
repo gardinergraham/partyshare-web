@@ -76,7 +76,7 @@ export default function GuestGalleryPage() {
       );
       if (!res.ok) return;
       const data = await res.json();
-      setMessages(Array.isArray(data) ? data : []);
+       setMedia(Array.isArray(data) ? data : data?.media ?? []);
     } catch (err) {
       console.error("Failed to fetch guestbook:", err);
     } finally {
