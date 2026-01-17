@@ -51,7 +51,7 @@ export default function GuestGalleryPage() {
       );
       if (!res.ok) return;
       const data = await res.json();
-      setMedia(Array.isArray(data) ? data : []);
+      setMedia(Array.isArray(data) ? data : data?.media ?? []);
     } catch (err) {
       console.error("Failed to fetch media:", err);
     } finally {
