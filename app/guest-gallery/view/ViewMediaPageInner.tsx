@@ -4,7 +4,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { API_BASE_URL } from "@/lib/api";
-import { ChevronLeft, ChevronRight, ArrowLeft, Loader2, X } from "lucide-react";
+import { ChevronLeft, ChevronRight, ArrowLeft, Loader2, X , Trash2 } from "lucide-react";
 
 function cn(...classes: (string | boolean | undefined)[]) {
   return classes.filter(Boolean).join(" ");
@@ -31,7 +31,7 @@ export default function ViewMediaPageInner() {
           `${API_BASE_URL}/api/media/guest-space/${spaceId}?guest_pin=${pin}`
         );
         const data = await res.json();
-        setMedia(Array.isArray(data) ? data : []);
+        setMedia(Array.isArray(data) ? data : data?.media ?? []);
       } catch (err) {
         console.error("Failed to load media:", err);
       } finally {
@@ -40,6 +40,35 @@ export default function ViewMediaPageInner() {
     }
     load();
   }, [spaceId, pin]);
+
+
+  async function handleDelete() {
+  if (!confirm("Delete this upload?")) return;
+
+  const item = media[current];
+
+  await fetch(
+    `${API_BASE_URL}/api/media/guest/${item.id}?guest_pin=${encodeURIComponent(
+      pin
+    )}&party_name=${encodeURIComponent(
+      params.get("party_name") ?? ""
+    )}&guest_name=${encodeURIComponent(
+      params.get("guest_name") ?? ""
+    )}`,
+    { method: "DELETE" }
+  );
+
+  // remove from local state
+  const updated = media.filter((_, i) => i !== current);
+  setMedia(updated);
+
+  if (updated.length === 0) {
+    router.back();
+  } else {
+    setCurrent((c) => Math.max(0, c - 1));
+  }
+}
+
 
   // Reset image loaded state when changing media
   useEffect(() => {
@@ -137,6 +166,16 @@ export default function ViewMediaPageInner() {
             </button>
           </div>
         )}
+        {/* Delete Button (only if uploader is current guest) */}
+          {item.uploader_name?.trim().toLowerCase() ===
+            (params.get("guest_name") ?? "").trim().toLowerCase() && (
+            <button
+              onClick={handleDelete}
+              className="p-3 rounded-xl bg-red-500/80 hover:bg-red-500 text-white transition-all duration-300 border border-red-400/30 hover:border-red-400"
+            >
+              <Trash2 size={20} />
+            </button>
+          )}
 
         {/* Close Button */}
         <button
