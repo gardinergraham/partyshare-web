@@ -31,6 +31,7 @@ export default function GuestGalleryPage() {
   const guestName = params.get("guest_name") ?? "";
   const pin = params.get("pin") ?? "";
   const partyName = params.get("party_name") ?? "";
+  const [uploadWindowActive, setUploadWindowActive] = useState(true);
 
   const [media, setMedia] = useState<any[]>([]);
   const [messages, setMessages] = useState<any[]>([]);
@@ -59,7 +60,7 @@ export default function GuestGalleryPage() {
       const data = await res.json();
 
       setMedia(Array.isArray(data.media) ? data.media : []);
-     
+      setUploadWindowActive(Boolean(data.upload_window_active));
     } catch (err) {
       console.error("Failed to fetch media:", err);
     } finally {
@@ -259,15 +260,21 @@ export default function GuestGalleryPage() {
               ) : (
                 <Upload className="w-6 h-6 text-emerald-400 group-hover:scale-110 transition-transform" />
               )}
-              <span className="text-sm text-emerald-100">
-                {uploading ? "Uploading..." : "Upload Media"}
-              </span>
+              <span className="text-sm text-cyan-100">              
+                  {!uploadWindowActive
+                    ? "Uploads closed"
+                    : uploading
+                    ? "Uploading..."
+                    : "Upload Media"}
+                </span>
+
               <input
                 type="file"
                 onChange={handleUpload}
                 accept="image/*,video/*"
                 className="hidden"
-                disabled={uploading}
+                disabled={uploading || !uploadWindowActive}
+
               />
             </label>
 
@@ -286,16 +293,23 @@ export default function GuestGalleryPage() {
               ) : (
                 <Camera className="w-6 h-6 text-cyan-400 group-hover:scale-110 transition-transform" />
               )}
-              <span className="text-sm text-cyan-100">
-                {uploading ? "Uploading..." : "Take Photo"}
-              </span>
+             <span className="text-sm text-cyan-100">
+              {!uploadWindowActive
+                ? "Uploads closed"
+                : uploading
+                ? "Uploading..."
+                : "Take Photo"}
+            </span>
+
+
               <input
                 type="file"
                 accept="image/*,video/*"
                 capture="environment"
                 onChange={handleUpload}
                 className="hidden"
-                disabled={uploading}
+                disabled={uploading || !uploadWindowActive}
+
               />
             </label>
 
@@ -333,7 +347,7 @@ export default function GuestGalleryPage() {
       </header>
 
       {/* Main Content */}
-      <main className="relative z-10 pt-[220px] md:pt-[200px] pb-24 px-4">
+      <main className="relative z-10 flex-1 px-4 py-6">
         <div className="max-w-6xl mx-auto">
           <AnimatePresence mode="wait">
             {/* Gallery View */}
@@ -407,14 +421,15 @@ export default function GuestGalleryPage() {
                         {/* Gradient Overlay */}
                         <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
                       {/* Uploader Name */}
-                      <div className="absolute bottom-0 left-0 right-0 z-20 p-3 pointer-events-none">
-                        <p className="inline-block text-xs font-medium text-white bg-black/70 backdrop-blur px-2.5 py-1.5 rounded-lg shadow">
-                          {item.uploader_name ||
-                            item.guest_name ||
-                            item.uploaded_by?.replace("guest_", "") ||
-                            "Guest"}
-                        </p>
-                      </div>
+                        <div className="absolute bottom-0 left-0 right-0 z-20 p-3 pointer-events-none">
+                          <p className="inline-block text-xs font-semibold text-white bg-black/85 backdrop-blur-md px-3 py-1.5 rounded-lg shadow-lg">
+                            {item.uploader_name?.trim() ||
+                              item.guest_name?.trim() ||
+                              item.uploaded_by?.replace("guest_", "") ||
+                              "Guest"}
+                          </p>
+                        </div>
+
 
                         {/* Delete Button */}
                         {isOwnMedia(item) && (
