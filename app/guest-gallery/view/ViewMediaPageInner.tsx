@@ -178,7 +178,7 @@ export default function ViewMediaPageInner() {
 
         {/* Navigation Controls */}
         {media.length > 1 && (
-          <div className="flex items-center gap-2 sm:gap-3">
+          <div className="flex items-center gap-5 sm:gap-6">
             <button
               onClick={prev}
               className="p-2 sm:p-3 rounded-xl bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white transition-all duration-300 border border-white/10 hover:border-white/20"
