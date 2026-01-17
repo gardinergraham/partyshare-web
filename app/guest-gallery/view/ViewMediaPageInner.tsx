@@ -187,14 +187,23 @@ export default function ViewMediaPageInner() {
             </button>
 
             {/* Counter */}
-           <div className="px-3 sm:px-4 py-1.5 sm:py-2
-                mx-2 sm:mx-3
-                rounded-xl bg-white/10 backdrop-blur-sm
-                text-white font-medium border border-white/10
-                text-sm sm:text-base">
+            <div
+              className="
+                px-4 py-2
+                w-[64px] sm:w-[72px]
+                flex-shrink-0
+                text-center
+                rounded-xl
+                bg-white/10 backdrop-blur-sm
+                text-white font-medium
+                border border-white/10
+              "
+            >
+              <span className="text-pink-400">{current + 1}</span>
               <span className="text-gray-400 mx-1">/</span>
               <span className="text-gray-300">{media.length}</span>
             </div>
+
 
             <button
               onClick={next}
