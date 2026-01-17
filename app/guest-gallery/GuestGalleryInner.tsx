@@ -69,12 +69,19 @@ export default function GuestGalleryPage() {
   async function fetchGuestbook() {
     try {
       setLoadingMessages(true);
+
       const res = await fetch(
-      `${API_BASE_URL}/api/guestbook/${spaceId}?guest_pin=${encodeURIComponent(
-        pin
-      )}&party_name=${encodeURIComponent(partyName)}`
-    );
-      if (!res.ok) return;
+        `${API_BASE_URL}/api/guestbook/${spaceId}` +
+        `?guest_pin=${encodeURIComponent(pin)}` +
+        `&party_name=${encodeURIComponent(partyName || "")}` +
+        `&guest_name=${encodeURIComponent(guestName || "")}`
+      );
+
+      if (!res.ok) {
+        console.error("Guestbook fetch failed:", res.status);
+        return;
+      }
+
       const data = await res.json();
       setMessages(Array.isArray(data) ? data : []);
     } catch (err) {
@@ -84,16 +91,6 @@ export default function GuestGalleryPage() {
     }
   }
 
-  useEffect(() => {
-    if (!spaceId) return;
-    fetchMedia();
-    fetchGuestbook();
-    const interval = setInterval(() => {
-      fetchMedia();
-      fetchGuestbook();
-    }, 60000);
-    return () => clearInterval(interval);
-  }, [spaceId]);
 
   async function handleUpload(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
