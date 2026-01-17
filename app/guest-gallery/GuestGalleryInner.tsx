@@ -46,18 +46,27 @@ export default function GuestGalleryPage() {
   async function fetchMedia() {
     try {
       setLoadingMedia(true);
+
       const res = await fetch(
         `${API_BASE_URL}/api/media/guest-space/${spaceId}?guest_pin=${encodeURIComponent(pin)}`
       );
-      if (!res.ok) return;
+
+      if (!res.ok) {
+        console.error("Guest media fetch failed:", res.status);
+        return;
+      }
+
       const data = await res.json();
-      setMedia(Array.isArray(data) ? data : []);
+
+      setMedia(Array.isArray(data.media) ? data.media : []);
+     
     } catch (err) {
       console.error("Failed to fetch media:", err);
     } finally {
       setLoadingMedia(false);
     }
   }
+
 
   async function fetchGuestbook() {
     try {
