@@ -158,86 +158,90 @@ export default function ViewMediaPageInner() {
 
   const item = media[current];
 
-  return (
-    <div className="fixed inset-0 bg-black flex flex-col overflow-hidden">
-      {/* Ambient Background */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-purple-950/20 via-black to-pink-950/20" />
-      </div>
+return (
+  <div className="fixed inset-0 bg-black flex justify-center overflow-hidden">
+    {/* Ambient Background */}
+    <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+      <div className="absolute inset-0 bg-gradient-to-br from-purple-950/20 via-black to-pink-950/20" />
+    </div>
 
-      {/* Top Navigation Bar - Fixed Height */}
-      <div className="relative z-20 flex items-center justify-between p-3 sm:p-4 bg-black/90 backdrop-blur-sm border-b border-white/10 shrink-0">
-        {/* Back Button */}
-        <button
-          onClick={() => router.back()}
-          className="flex items-center gap-2 px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white font-medium transition-all duration-300 border border-white/10 hover:border-white/20"
-        >
-          <ArrowLeft size={18} />
-          <span className="hidden sm:inline">Back</span>
-        </button>
+    {/* CENTER RAIL */}
+    <div className="relative z-10 w-full max-w-5xl flex flex-col">
 
-        {/* Navigation Controls */}
-        {media.length > 1 && (
-          <div className="flex items-center gap-5 sm:gap-6">
+      {/* HEADER */}
+      <div className="z-20 shrink-0 bg-black/90 backdrop-blur-sm border-b border-white/10">
+        <div className="flex justify-center p-3 sm:p-4">
+          <div className="flex items-center gap-4 sm:gap-5">
+
+            {/* Back */}
             <button
-              onClick={prev}
-              className="p-2 sm:p-3 rounded-xl bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white transition-all duration-300 border border-white/10 hover:border-white/20"
+              onClick={() => router.back()}
+              className="flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white transition-all border border-white/10"
             >
-              <ChevronLeft size={18} className="sm:w-5 sm:h-5" />
+              <ArrowLeft size={18} />
+              <span className="hidden sm:inline">Back</span>
             </button>
 
-            {/* Counter */}
-            <div
-              className="
-                px-4 py-2
-                w-[64px] sm:w-[72px]
-                flex-shrink-0
-                text-center
-                rounded-xl
-                bg-white/10 backdrop-blur-sm
-                text-white font-medium
-                border border-white/10
-              "
-            >
-              <span className="text-pink-400">{current + 1}</span>
-              <span className="text-gray-400 mx-1">/</span>
-              <span className="text-gray-300">{media.length}</span>
-            </div>
+            {/* Nav controls */}
+            {media.length > 1 && (
+              <>
+                <button
+                  onClick={prev}
+                  className="p-2 sm:p-3 rounded-xl bg-white/10 hover:bg-white/20 text-white border border-white/10"
+                >
+                  <ChevronLeft size={18} />
+                </button>
 
+                <div
+                  className="
+                    px-4 py-2
+                    w-[64px] sm:w-[72px]
+                    flex-shrink-0
+                    text-center
+                    rounded-xl
+                    bg-white/10
+                    text-white font-medium
+                    border border-white/10
+                  "
+                >
+                  <span className="text-pink-400">{current + 1}</span>
+                  <span className="text-gray-400 mx-1">/</span>
+                  <span className="text-gray-300">{media.length}</span>
+                </div>
 
+                <button
+                  onClick={next}
+                  className="p-2 sm:p-3 rounded-xl bg-white/10 hover:bg-white/20 text-white border border-white/10"
+                >
+                  <ChevronRight size={18} />
+                </button>
+              </>
+            )}
+
+            {/* Delete */}
+            {isOwnMedia(item) && (
+              <button
+                onClick={handleDelete}
+                className="p-2 sm:p-3 rounded-xl bg-red-500/80 hover:bg-red-500 text-white border border-red-400/30"
+              >
+                <Trash2 size={18} />
+              </button>
+            )}
+
+            {/* Close */}
             <button
-              onClick={next}
-              className="p-2 sm:p-3 rounded-xl bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white transition-all duration-300 border border-white/10 hover:border-white/20"
+              onClick={() => router.back()}
+              className="p-2 sm:p-3 rounded-xl bg-white/10 hover:bg-white/20 text-white border border-white/10"
             >
-              <ChevronRight size={18} className="sm:w-5 sm:h-5" />
+              <X size={18} />
             </button>
+
           </div>
-        )}
-
-        {/* Right Side Buttons */}
-        <div className="flex items-center gap-2">
-          {/* Delete Button (only if uploader is current guest) */}
-          {isOwnMedia(item) && (
-            <button
-              onClick={handleDelete}
-              className="p-2 sm:p-3 rounded-xl bg-red-500/80 hover:bg-red-500 text-white transition-all duration-300 border border-red-400/30 hover:border-red-400"
-            >
-              <Trash2 size={18} className="sm:w-5 sm:h-5" />
-            </button>
-          )}
-
-          {/* Close Button */}
-          <button
-            onClick={() => router.back()}
-            className="p-2 sm:p-3 rounded-xl bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white transition-all duration-300 border border-white/10 hover:border-white/20"
-          >
-            <X size={18} className="sm:w-5 sm:h-5" />
-          </button>
         </div>
       </div>
 
-      {/* Main Media Area - Takes Remaining Space */}
-      <div className="relative z-10 flex-1 flex items-center justify-center p-2 sm:p-4 min-h-0 overflow-hidden">
+      {/* MEDIA VIEW */}
+      <div className="relative flex-1 flex items-center justify-center p-2 sm:p-4 min-h-0">
         <AnimatePresence mode="wait">
           <motion.div
             key={current}
@@ -254,44 +258,30 @@ export default function ViewMediaPageInner() {
                 playsInline
                 autoPlay
                 className="max-w-full max-h-full object-contain rounded-2xl shadow-2xl"
-                style={{ maxHeight: "calc(100vh - 160px)" }}
               />
             ) : (
-              <div className="relative flex items-center justify-center w-full h-full">
-                {/* Loading Spinner for Image */}
-                {!imageLoaded && (
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <Loader2 className="w-8 h-8 text-pink-400 animate-spin" />
-                  </div>
-                )}
-                <img
-                  src={item.file_url}
-                  className={cn(
-                    "max-w-full max-h-full object-contain rounded-2xl shadow-2xl select-none transition-opacity duration-300",
-                    imageLoaded ? "opacity-100" : "opacity-0"
-                  )}
-                  style={{ maxHeight: "calc(100vh - 160px)" }}
-                  alt=""
-                  draggable={false}
-                  onLoad={() => setImageLoaded(true)}
-                />
-              </div>
+              <img
+                src={item.file_url}
+                className="max-w-full max-h-full object-contain rounded-2xl shadow-2xl select-none"
+                alt=""
+                draggable={false}
+              />
             )}
           </motion.div>
         </AnimatePresence>
 
-        {/* Side Navigation Buttons (Desktop) */}
+        {/* Desktop side arrows stay screen-relative */}
         {media.length > 1 && (
           <>
             <button
               onClick={prev}
-              className="hidden md:flex absolute left-4 top-1/2 -translate-y-1/2 z-10 p-4 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white transition-all duration-300 border border-white/10 hover:border-white/20 hover:scale-110"
+              className="hidden md:flex absolute left-4 top-1/2 -translate-y-1/2 z-20 p-4 rounded-full bg-white/10 hover:bg-white/20 text-white"
             >
               <ChevronLeft size={28} />
             </button>
             <button
               onClick={next}
-              className="hidden md:flex absolute right-4 top-1/2 -translate-y-1/2 z-10 p-4 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white transition-all duration-300 border border-white/10 hover:border-white/20 hover:scale-110"
+              className="hidden md:flex absolute right-4 top-1/2 -translate-y-1/2 z-20 p-4 rounded-full bg-white/10 hover:bg-white/20 text-white"
             >
               <ChevronRight size={28} />
             </button>
@@ -299,15 +289,18 @@ export default function ViewMediaPageInner() {
         )}
       </div>
 
-      {/* Bottom Uploader Info - Fixed Height */}
-      <div className="relative z-20 flex justify-center p-3 sm:p-4 bg-black/90 backdrop-blur-sm border-t border-white/10 shrink-0">
-        <div className="px-4 sm:px-5 py-2 sm:py-2.5 rounded-full bg-white/10 backdrop-blur-sm text-white text-sm border border-white/10">
+      {/* FOOTER */}
+      <div className="z-20 shrink-0 bg-black/90 backdrop-blur-sm border-t border-white/10 p-3 sm:p-4 flex justify-center">
+        <div className="px-5 py-2 rounded-full bg-white/10 text-white text-sm border border-white/10">
           Uploaded by{" "}
           <span className="text-pink-400 font-semibold">
             {getUploaderName(item)}
           </span>
         </div>
       </div>
+
     </div>
-  );
+  </div>
+);
+
 }
