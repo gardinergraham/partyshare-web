@@ -2,9 +2,9 @@ import TikTokStore from "./tiktok";
 
 export const metadata = {
   title: "Download PartyShare",
-  description: "Get Party Share on the App Store and Google Play",
+  description: "Get PartyShare on the App Store and Google Play",
 };
 
-export default function Page() {
+export default function TikTokPage() {
   return <TikTokStore />;
 }
