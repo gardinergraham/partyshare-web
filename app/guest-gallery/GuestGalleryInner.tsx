@@ -44,35 +44,36 @@ export default function GuestGalleryPage() {
 
   const router = useRouter();
 
-  async function fetchMedia() {
-    try {
-      setLoadingMedia(true);
+ async function fetchMedia() {
+  try {
+    setLoadingMedia(true);
 
-      const res = await fetch(
-        `${API_BASE_URL}/api/media/guest-space/${spaceId}?guest_pin=${encodeURIComponent(pin)}`
-      );
+    const res = await fetch(
+      `${API_BASE_URL}/api/media/guest-space/${spaceId}?guest_pin=${encodeURIComponent(pin)}`
+    );
 
-      if (!res.ok) {
-        console.error("Guest media fetch failed:", res.status);
-        setMedia([]);
-        setLoadingMedia(false);
-        return;
-         }
-
-
-      const data = await res.json();
-
-      setMedia(Array.isArray(data.media) ? data.media : []);
-     if (typeof data.upload_window_active === "boolean") {
-     setUploadWindowActive(data.upload_window_active);
-     }
-     console.log("UPLOAD WINDOW:", data.upload_window_active);
-    } catch (err) {
-      console.error("Failed to fetch media:", err);
-    } finally {
+    if (!res.ok) {
+      console.error("Guest media fetch failed:", res.status);
+      setMedia([]);
       setLoadingMedia(false);
+      return;
     }
+
+    const data = await res.json();
+
+    setMedia(Array.isArray(data.media) ? data.media : []);
+
+    if (typeof data.upload_window_active === "boolean") {
+      setUploadWindowActive(data.upload_window_active);
+    }
+
+    console.log("UPLOAD WINDOW:", data.upload_window_active);
+  } catch (err) {
+    console.error("Failed to fetch media:", err);
+  } finally {
+    setLoadingMedia(false);
   }
+}
 
 
   async function fetchGuestbook() {
