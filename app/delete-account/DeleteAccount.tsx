@@ -48,4 +48,40 @@ export default function DeleteAccount() {
           </div>
 
           <p className="text-gray-400 text-sm mt-3">
-            For security, we ca
+            For security, we can only process deletion requests sent from the email
+            address associated with your PartyShare account.
+          </p>
+        </section>
+
+        {/* Guests */}
+        <section className="mb-8">
+          <h2 className="text-xl font-semibold text-[#e94560] mb-2">
+            What about guests?
+          </h2>
+          <p className="text-gray-300">
+            Guests do not have permanent accounts. Any photos, videos, or messages uploaded
+            by guests are automatically deleted when the event owner deletes their event or
+            their account.
+          </p>
+        </section>
+
+        {/* Processing time */}
+        <section>
+          <h2 className="text-xl font-semibold text-[#e94560] mb-2">
+            How long does it take?
+          </h2>
+          <p className="text-gray-300">
+            We process all deletion requests within <strong>30 days</strong>, in line with data
+            protection regulations.
+          </p>
+        </section>
+
+        {/* Footer */}
+        <div className="text-center text-gray-500 text-sm mt-10">
+          If you have questions, contact{" "}
+          <span className="text-[#e94560]">support@party-share.uk</span>
+        </div>
+      </div>
+    </div>
+  );
+}
