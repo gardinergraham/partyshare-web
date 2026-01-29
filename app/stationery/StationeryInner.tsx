@@ -61,7 +61,7 @@ const stationeryItems: StationeryItem[] = [
       "Custom messages supported",
       "1 or 2 per page layouts"
     ],
-    image: "/images/IMG_3605.webp",
+    image: "/images/invite.png",
     icon: <Mail className="w-6 h-6" />,
   },
   {
@@ -122,19 +122,19 @@ const giftBoxSteps = [
     step: 4,
     title: "Fold All Panels Inward",
     description: "Fold each panel along the scored lines, creasing firmly. The printed design should be on the outside of the box.",
-    tip: "Fold and unfold a few times to loosen the creases.",
+    tip: "Add a little glue along the seam .",
   },
   {
     step: 5,
     title: "Assemble the Base",
-    description: "Apply glue or double-sided tape to the tabs and press firmly to create the box base. Hold for 10 seconds.",
+    description: "The base simply interlocks to form a neat closing.",
     tip: "Work on one side at a time for better control.",
   },
   {
     step: 6,
-    title: "Add Your QR Card & Close",
-    description: "Place your QR card inside, then fold the lid panels to close. Your gift box is ready to delight your guests!",
-    tip: "Add a small ribbon or sticker seal for an extra special touch.",
+    title: "Add Your Gift & Close",
+    description: "Take the two halves of the butterfly and interlock them to form a whole butterfly and now it is ready to delight your guests!",
+    tip: "Place a chocolate or a trinket inside your gift box.",
   },
 ];
 
@@ -291,7 +291,7 @@ export default function StationeryPage() {
 
             <div className="text-center">
               <p className="text-sm text-gray-400">
-                💡 Pro tip: Upload your own theme in the app for completely custom stationery
+                💡 Pro tip: Select the same theme for each stationery item to keep stationery unique and elegant.
               </p>
             </div>
           </div>
@@ -471,30 +471,30 @@ export default function StationeryPage() {
               Don't have the app yet?
             </p>
 
-            <div className="flex items-center justify-center gap-4 mt-4">
-              <a
-                href="https://apps.apple.com/gb/app/partyshare-events/id6755305083"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <img
-                  src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
-                  alt="Download on the App Store"
-                  className="h-10 w-auto"
-                />
-              </a>
-              <a
-                href="https://play.google.com/store/apps/details?id=com.grahamgardiner.partyshare"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <img
-                  src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
-                  alt="Get it on Google Play"
-                  className="h-10 w-auto"
-                />
-              </a>
-            </div>
+             <div className="flex items-center justify-center gap-4">
+            <a
+              href="https://apps.apple.com/gb/app/partyshare-events/id6755305083"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
+                alt="Download on the App Store"
+                className="h-12 w-[165px] object-contain"
+              />
+            </a>
+            <a
+              href="https://play.google.com/store/apps/details?id=com.grahamgardiner.partyshare"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
+                alt="Get it on Google Play"
+                className="h-12 w-[180px] object-contain"
+              />
+            </a>
+          </div>
           </div>
         </section>
 
