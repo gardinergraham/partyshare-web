@@ -37,7 +37,7 @@ const stationeryItems: StationeryItem[] = [
       "Guest names auto-populated",
       "Multiple layout options"
     ],
-    image: "/images/IMG_3605.webp",
+    image: "/images/tabledata.png",
     icon: <Table className="w-6 h-6" />,
   },
   {
@@ -85,7 +85,7 @@ const stationeryItems: StationeryItem[] = [
       "Event details at a glance",
       "Themed backgrounds"
     ],
-    image: "/images/IMG_3605.webp",
+    image: "/images/poster.png",
     icon: <FileText className="w-6 h-6" />,
   },
 ];
