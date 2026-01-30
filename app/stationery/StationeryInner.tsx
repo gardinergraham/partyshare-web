@@ -16,7 +16,10 @@ import {
   Palette,
   Table,
   Mail,
-  ClipboardList
+  ClipboardList,
+  Smartphone,
+  Layout,
+  UserCheck
 } from "lucide-react";
 
 type StationeryItem = {
@@ -37,7 +40,7 @@ const stationeryItems: StationeryItem[] = [
       "Guest names auto-populated",
       "Multiple layout options"
     ],
-    image: "/images/tabledata.png",
+    image: "https://customer-assets.emergentagent.com/job_invite-samples/artifacts/d7cmwt4k_table_layout.webp",
     icon: <Table className="w-6 h-6" />,
   },
   {
@@ -49,7 +52,7 @@ const stationeryItems: StationeryItem[] = [
       "Check-in boxes for arrival",
       "Table assignments included"
     ],
-    image: "/images/IMG_3605.webp",
+    image: "https://customer-assets.emergentagent.com/job_event-hub-172/artifacts/lrmo14ud_guestchecklist.webp",
     icon: <ClipboardList className="w-6 h-6" />,
   },
   {
@@ -61,7 +64,7 @@ const stationeryItems: StationeryItem[] = [
       "Custom messages supported",
       "1 or 2 per page layouts"
     ],
-    image: "/images/invite.png",
+    image: "https://customer-assets.emergentagent.com/job_event-hub-172/artifacts/bnpndtgf_invitation.webp",
     icon: <Mail className="w-6 h-6" />,
   },
   {
@@ -73,7 +76,7 @@ const stationeryItems: StationeryItem[] = [
       "Your event branding",
       "Custom welcome message"
     ],
-    image: "/images/IMG_3605.webp",
+    image: "https://customer-assets.emergentagent.com/job_invite-samples/artifacts/6nehjmet_tabletalkers.webp",
     icon: <QrCode className="w-6 h-6" />,
   },
   {
@@ -85,8 +88,44 @@ const stationeryItems: StationeryItem[] = [
       "Event details at a glance",
       "Themed backgrounds"
     ],
-    image: "/images/poster.png",
+    image: "https://customer-assets.emergentagent.com/job_event-hub-172/artifacts/sh36ctg4_poster.webp",
     icon: <FileText className="w-6 h-6" />,
+  },
+  {
+    title: "Place Cards",
+    description: "Personalised name cards for each guest seat, featuring elegant designs with optional QR codes.",
+    features: [
+      "Guest name in elegant fonts",
+      "Table number included",
+      "Optional QR code",
+      "Multiple design themes"
+    ],
+    image: "https://customer-assets.emergentagent.com/job_invite-samples/artifacts/602gqaq7_tablenamecard.webp",
+    icon: <UserCheck className="w-6 h-6" />,
+  },
+];
+
+// App screenshots for the "See It In Action" section
+const appScreenshots = [
+  {
+    title: "Print Stationery",
+    description: "Choose your theme and select which items to print",
+    image: "https://customer-assets.emergentagent.com/job_invite-samples/artifacts/2dfj9i6p_stationerylist.webp",
+  },
+  {
+    title: "Table Layout Editor",
+    description: "Design your seating arrangement with drag-and-drop",
+    image: "https://customer-assets.emergentagent.com/job_invite-samples/artifacts/d7cmwt4k_table_layout.webp",
+  },
+  {
+    title: "Event Checklist",
+    description: "Track all your event tasks in one place",
+    image: "https://customer-assets.emergentagent.com/job_invite-samples/artifacts/qaxqeh5z_todolist.webp",
+  },
+  {
+    title: "Guest Management",
+    description: "Manage RSVPs and table assignments",
+    image: "https://customer-assets.emergentagent.com/job_event-hub-172/artifacts/rlurvegz_guestmanage.webp",
   },
 ];
 
@@ -143,7 +182,6 @@ export default function StationeryPage() {
   const [activeStep, setActiveStep] = useState(1);
 
   const handleBackToApp = () => {
-    // Deep link back to the app's stationery dashboard
     window.location.href = "partyshare://stationery";
   };
 
@@ -152,7 +190,7 @@ export default function StationeryPage() {
       {/* Background */}
       <div className="absolute inset-0 -z-20">
         <Image
-          src="/images/rosesWhite.webp"
+          src="https://customer-assets.emergentagent.com/job_event-hub-172/artifacts/f3j4jx8s_goldfloralblue.webp"
           alt="Soft floral background"
           fill
           priority
@@ -256,6 +294,45 @@ export default function StationeryPage() {
           </div>
         </section>
 
+        {/* ================= APP SCREENSHOTS SECTION ================= */}
+        <section className="mb-24">
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center gap-2 rounded-full bg-[#4CAF50]/20 px-4 py-2 text-xs uppercase tracking-[0.25em] text-[#4CAF50] mb-4">
+              <Smartphone className="w-4 h-4" />
+              <span>See It In Action</span>
+            </div>
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4">
+              Powerful Features, Simple Interface
+            </h2>
+            <p className="text-gray-300 max-w-2xl mx-auto">
+              Party Share makes it easy to manage your entire event from your phone. 
+              Here's a glimpse of what you can do.
+            </p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {appScreenshots.map((screenshot, index) => (
+              <div
+                key={index}
+                className="group rounded-2xl bg-[#1a1a2e] border border-white/10 overflow-hidden hover:border-[#4CAF50]/50 transition-all"
+              >
+                <div className="relative aspect-[9/16] bg-[#12121f]">
+                  <Image
+                    src={screenshot.image}
+                    alt={screenshot.title}
+                    fill
+                    className="object-contain p-2 group-hover:scale-105 transition-transform duration-500"
+                  />
+                </div>
+                <div className="p-4 border-t border-white/5">
+                  <h3 className="font-semibold mb-1">{screenshot.title}</h3>
+                  <p className="text-gray-400 text-sm">{screenshot.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
         {/* ================= THEME SHOWCASE ================= */}
         <section className="mb-24">
           <div className="rounded-3xl bg-gradient-to-br from-[#1a1a2e] to-[#0f0f23] border border-white/10 p-8 sm:p-12">
@@ -315,27 +392,23 @@ export default function StationeryPage() {
 
           {/* Step-by-step guide */}
           <div className="grid lg:grid-cols-2 gap-12 items-start">
-            {/* Left: Visual placeholder */}
+            {/* Left: Visual */}
             <div className="relative">
               <div className="aspect-square rounded-3xl bg-gradient-to-br from-[#1a1a2e] to-[#2a1730] border border-white/10 overflow-hidden">
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-center p-8">
-                    <Gift className="w-24 h-24 mx-auto mb-6 text-[#ffd700] opacity-50" />
-                    <p className="text-gray-400 text-sm">
-                      Step {activeStep} Preview
-                    </p>
-                    <h3 className="text-xl font-semibold mt-2">
-                      {giftBoxSteps[activeStep - 1].title}
-                    </h3>
-                  </div>
-                </div>
-                {/* Placeholder for actual step images */}
                 <Image
-                  src="/images/IMG_3605.webp"
+                  src="https://customer-assets.emergentagent.com/job_event-hub-172/artifacts/ke53572p_giftboxPrint.webp"
                   alt={`Gift box step ${activeStep}`}
                   fill
-                  className="object-cover opacity-30"
+                  className="object-contain p-6"
                 />
+                <div className="absolute bottom-4 left-4 right-4 bg-black/60 backdrop-blur-sm rounded-xl p-4">
+                  <p className="text-gray-400 text-sm">
+                    Step {activeStep}
+                  </p>
+                  <h3 className="text-lg font-semibold">
+                    {giftBoxSteps[activeStep - 1].title}
+                  </h3>
+                </div>
               </div>
 
               {/* Step indicators */}
@@ -471,30 +544,30 @@ export default function StationeryPage() {
               Don't have the app yet?
             </p>
 
-             <div className="flex items-center justify-center gap-4">
-            <a
-              href="https://apps.apple.com/gb/app/partyshare-events/id6755305083"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <img
-                src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
-                alt="Download on the App Store"
-                className="h-12 w-[165px] object-contain"
-              />
-            </a>
-            <a
-              href="https://play.google.com/store/apps/details?id=com.grahamgardiner.partyshare"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <img
-                src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
-                alt="Get it on Google Play"
-                className="h-12 w-[180px] object-contain"
-              />
-            </a>
-          </div>
+            <div className="flex items-center justify-center gap-4 mt-4">
+              <a
+                href="https://apps.apple.com/gb/app/partyshare-events/id6755305083"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img
+                  src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
+                  alt="Download on the App Store"
+                  className="h-12 w-[165px] object-contain"
+                />
+              </a>
+              <a
+                href="https://play.google.com/store/apps/details?id=com.grahamgardiner.partyshare"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img
+                  src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
+                  alt="Get it on Google Play"
+                  className="h-12 w-[180px] object-contain"
+                />
+              </a>
+            </div>
           </div>
         </section>
 
@@ -546,7 +619,6 @@ function StationeryCard({
       onClick={onClick}
       className="group cursor-pointer rounded-2xl bg-[#1a1a2e] border border-white/10 overflow-hidden hover:border-[#e94560]/50 transition-all hover:scale-[1.02]"
     >
-      {/* Image container with fixed height and contain */}
       <div className="relative h-48 sm:h-56 bg-[#12121f] flex items-center justify-center p-4">
         <div className="relative w-full h-full">
           <Image
@@ -558,7 +630,6 @@ function StationeryCard({
         </div>
       </div>
       
-      {/* Content below image */}
       <div className="p-4 border-t border-white/5">
         <div className="flex items-center gap-2 text-[#ffd6e8] mb-2">
           {item.icon}
@@ -570,6 +641,7 @@ function StationeryCard({
     </div>
   );
 }
+
 function StationeryModal({
   item,
   onClose,
@@ -586,12 +658,12 @@ function StationeryModal({
         className="bg-[#1a1a2e] rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto border border-white/10"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="relative aspect-video">
+        <div className="relative aspect-video bg-[#12121f]">
           <Image
             src={item.image}
             alt={item.title}
             fill
-            className="object-cover rounded-t-3xl"
+            className="object-contain p-4"
           />
           <button
             onClick={onClose}
