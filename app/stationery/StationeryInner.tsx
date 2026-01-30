@@ -544,31 +544,32 @@ function StationeryCard({
   return (
     <div
       onClick={onClick}
-      className="group cursor-pointer rounded-2xl bg-white/5 border border-white/10 overflow-hidden hover:border-[#e94560]/50 transition-all hover:scale-[1.02]"
+      className="group cursor-pointer rounded-2xl bg-[#1a1a2e] border border-white/10 overflow-hidden hover:border-[#e94560]/50 transition-all hover:scale-[1.02]"
     >
-      <div className="relative aspect-[4/3]">
-        <Image
-          src={item.image}
-          alt={item.title}
-          fill
-          className="object-cover group-hover:scale-105 transition-transform duration-500"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-        <div className="absolute bottom-4 left-4 right-4">
-          <div className="flex items-center gap-2 text-[#ffd6e8] mb-1">
-            {item.icon}
-            <span className="text-xs uppercase tracking-wider">Printable</span>
-          </div>
-          <h3 className="text-xl font-bold">{item.title}</h3>
+      {/* Image container with fixed height and contain */}
+      <div className="relative h-48 sm:h-56 bg-[#12121f] flex items-center justify-center p-4">
+        <div className="relative w-full h-full">
+          <Image
+            src={item.image}
+            alt={item.title}
+            fill
+            className="object-contain group-hover:scale-105 transition-transform duration-500"
+          />
         </div>
       </div>
-      <div className="p-4">
+      
+      {/* Content below image */}
+      <div className="p-4 border-t border-white/5">
+        <div className="flex items-center gap-2 text-[#ffd6e8] mb-2">
+          {item.icon}
+          <span className="text-xs uppercase tracking-wider">Printable</span>
+        </div>
+        <h3 className="text-lg font-bold mb-2">{item.title}</h3>
         <p className="text-gray-400 text-sm line-clamp-2">{item.description}</p>
       </div>
     </div>
   );
 }
-
 function StationeryModal({
   item,
   onClose,
