@@ -108,6 +108,11 @@ const stationeryItems: StationeryItem[] = [
 // App screenshots for the "See It In Action" section
 const appScreenshots = [
   {
+    title: "Create the wow factor!",
+    description: "All your stationery need and event management in one simple application",
+    image: "/images/elegantTable.webp",
+  },
+  {
     title: "Dashboard",
     description: "Dashboard with event progress and reminders",
     image: "/images/progressbardash.webp",
@@ -166,11 +171,6 @@ const appScreenshots = [
     title: "Event Posters",
     description: "Print event posters with all the details of your special day include a message to make it personalised",
     image: "/images/poster.webp",
-  },
-  {
-    title: "Create the wow factor!",
-    description: "All your stationery need and event management in one simple application",
-    image: "/images/elegantTable.webp",
   },
   {
     title: "Place settings",
