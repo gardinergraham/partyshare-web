@@ -123,6 +123,11 @@ const appScreenshots = [
     image: "/images/table_layout.webp",
   },
   {
+    title: "Guest list manager",
+    description: "Guest list easy to read simle to understand",
+    image: "/images/guests.webp",
+  },
+  {
     title: "Event Checklist",
     description: "Track all your event tasks in one place",
     image: "/images/todolist.webp",
@@ -133,9 +138,44 @@ const appScreenshots = [
     image: "/images/guestmanage.webp",
   },
   {
+    title: "Guest invitations",
+    description: "From the very begining everything is taken care of including invitations",
+    image: "/images/invite.webp",
+  },
+  {
     title: "Guest checklist",
     description: "Guest list with check boxes and table management on arrival",
     image: "/images/guestchecklist.webp",
+  },
+  {
+    title: "Printed Table plan",
+    description: "Table manager with seating plan and guest numbers",
+    image: "/images/tabledata.webp",
+  },
+  {
+    title: "Guest Place names",
+    description: "Simple and elegant print out your guest names ready for your big day",
+    image: "/images/namecards2.webp",
+  },
+   {
+    title: "Table Talkers",
+    description: "Keeping with your theme table talkers with QR code for guests to share their media with you",
+    image: "/images/TableTalk.webp",
+  },
+  {
+    title: "Event Posters",
+    description: "Print event posters with all the details of your special day include a message to make it personalised",
+    image: "/images/poster.webp",
+  },
+  {
+    title: "Create the wow factor!",
+    description: "All your stationery need and event management in one simple application",
+    image: "/images/elegantTable.webp",
+  },
+  {
+    title: "Place settings",
+    description: "Create a theme and use it throughout your event",
+    image: "/images/IMG_3604.webp",
   },
 ];
 
@@ -341,50 +381,50 @@ export default function StationeryPage() {
           </div>
         </section>
 
-        {/* ================= THEME SHOWCASE ================= */}
-        <section className="mb-24">
-          <div className="rounded-3xl bg-gradient-to-br from-[#1a1a2e] to-[#0f0f23] border border-white/10 p-8 sm:p-12">
-            <div className="text-center mb-10">
-              <p className="text-xs uppercase tracking-[0.25em] text-[#ffd6e8] mb-3">
-                Customisation
-              </p>
-              <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-                Choose Your Theme
-              </h2>
-              <p className="text-gray-300 max-w-2xl mx-auto">
-                Select from our beautiful built-in themes or upload your own custom 
-                background for a truly personal touch.
-              </p>
-            </div>
+      {/* ================= THEME SHOWCASE ================= */}
+    <section className="mb-24">
+      <div className="rounded-3xl bg-gradient-to-br from-[#1a1a2e] to-[#0f0f23] border border-white/10 p-8 sm:p-12">
+        <div className="text-center mb-10">
+          <p className="text-xs uppercase tracking-[0.25em] text-[#ffd6e8] mb-3">
+            Customisation
+          </p>
+          <h2 className="text-3xl sm:text-4xl font-bold mb-4">
+            Choose Your Theme
+          </h2>
+          <p className="text-gray-300 max-w-2xl mx-auto">
+            Select from our beautiful built-in themes for a truly personal touch.
+          </p>
+        </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
-              {themes.map((theme, index) => (
-                <div
-                  key={index}
-                  className="group cursor-pointer"
-                >
-                  <div className="relative aspect-[3/4] rounded-xl border-2 border-transparent group-hover:border-[#e94560] transition-all shadow-lg group-hover:scale-105 overflow-hidden">
-                    <Image
-                      src={theme.image}
-                      alt={theme.name}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                  <p className="text-xs text-center mt-2 text-gray-400 group-hover:text-white transition">
-                    {theme.name}
-                  </p>
-                </div>
-              ))}
-            </div>
-
-            <div className="text-center">
-              <p className="text-sm text-gray-400">
-                Pro tip: Select the same theme for each stationery item to keep stationery unique and elegant.
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
+          {themes.map((theme, index) => (
+            <div
+              key={index}
+              className="group cursor-pointer"
+            >
+              <div className="relative aspect-[3/4] rounded-xl border-2 border-transparent group-hover:border-[#e94560] transition-all shadow-lg group-hover:scale-105 overflow-hidden bg-[#12121f]">
+                <Image
+                  src={theme.image}
+                  alt={theme.name}
+                  fill
+                  sizes="(max-width: 640px) 50vw, 25vw"
+                  className="object-contain"
+                />
+              </div>
+              <p className="text-xs text-center mt-2 text-gray-400 group-hover:text-white transition">
+                {theme.name}
               </p>
             </div>
-          </div>
-        </section>
+          ))}
+        </div>
+
+        <div className="text-center">
+          <p className="text-sm text-gray-400">
+            Pro tip: Select the same theme for each stationery item to keep stationery unique and elegant.
+          </p>
+        </div>
+      </div>
+    </section>
 
         {/* ================= GIFT BOX TUTORIAL ================= */}
         <section id="gift-box" className="mb-24 scroll-mt-20">
