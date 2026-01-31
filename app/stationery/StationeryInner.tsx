@@ -40,7 +40,7 @@ const stationeryItems: StationeryItem[] = [
       "Guest names auto-populated",
       "Multiple layout options"
     ],
-    image: "https://customer-assets.emergentagent.com/job_invite-samples/artifacts/d7cmwt4k_table_layout.webp",
+    image: "/images/table_layout.webp",
     icon: <Table className="w-6 h-6" />,
   },
   {
@@ -52,7 +52,7 @@ const stationeryItems: StationeryItem[] = [
       "Check-in boxes for arrival",
       "Table assignments included"
     ],
-    image: "https://customer-assets.emergentagent.com/job_event-hub-172/artifacts/lrmo14ud_guestchecklist.webp",
+    image: "/images/guestchecklist.webp",
     icon: <ClipboardList className="w-6 h-6" />,
   },
   {
@@ -64,7 +64,7 @@ const stationeryItems: StationeryItem[] = [
       "Custom messages supported",
       "1 or 2 per page layouts"
     ],
-    image: "https://customer-assets.emergentagent.com/job_event-hub-172/artifacts/bnpndtgf_invitation.webp",
+    image: "/images/invitation.webp",
     icon: <Mail className="w-6 h-6" />,
   },
   {
@@ -76,7 +76,7 @@ const stationeryItems: StationeryItem[] = [
       "Your event branding",
       "Custom welcome message"
     ],
-    image: "https://customer-assets.emergentagent.com/job_invite-samples/artifacts/6nehjmet_tabletalkers.webp",
+    image: "/images/tabletalkers.webp",
     icon: <QrCode className="w-6 h-6" />,
   },
   {
@@ -88,7 +88,7 @@ const stationeryItems: StationeryItem[] = [
       "Event details at a glance",
       "Themed backgrounds"
     ],
-    image: "https://customer-assets.emergentagent.com/job_event-hub-172/artifacts/sh36ctg4_poster.webp",
+    image: "/images/poster.webp",
     icon: <FileText className="w-6 h-6" />,
   },
   {
@@ -100,7 +100,7 @@ const stationeryItems: StationeryItem[] = [
       "Optional QR code",
       "Multiple design themes"
     ],
-    image: "https://customer-assets.emergentagent.com/job_invite-samples/artifacts/602gqaq7_tablenamecard.webp",
+    image: "/images/tablenamecard.webp",
     icon: <UserCheck className="w-6 h-6" />,
   },
 ];
@@ -110,22 +110,22 @@ const appScreenshots = [
   {
     title: "Print Stationery",
     description: "Choose your theme and select which items to print",
-    image: "https://customer-assets.emergentagent.com/job_invite-samples/artifacts/2dfj9i6p_stationerylist.webp",
+    image: "/images/stationerylist.webp",
   },
   {
     title: "Table Layout Editor",
     description: "Design your seating arrangement with drag-and-drop",
-    image: "https://customer-assets.emergentagent.com/job_invite-samples/artifacts/d7cmwt4k_table_layout.webp",
+    image: "/images/table_layout.webp",
   },
   {
     title: "Event Checklist",
     description: "Track all your event tasks in one place",
-    image: "https://customer-assets.emergentagent.com/job_invite-samples/artifacts/qaxqeh5z_todolist.webp",
+    image: "/images/todolist.webp",
   },
   {
     title: "Guest Management",
     description: "Manage RSVPs and table assignments",
-    image: "https://customer-assets.emergentagent.com/job_event-hub-172/artifacts/rlurvegz_guestmanage.webp",
+    image: "/images/guestmanage.webp",
   },
 ];
 
@@ -190,7 +190,7 @@ export default function StationeryPage() {
       {/* Background */}
       <div className="absolute inset-0 -z-20">
         <Image
-          src="https://customer-assets.emergentagent.com/job_event-hub-172/artifacts/f3j4jx8s_goldfloralblue.webp"
+          src="/images/namecard_modern.webp"
           alt="Soft floral background"
           fill
           priority
@@ -396,7 +396,7 @@ export default function StationeryPage() {
             <div className="relative">
               <div className="aspect-square rounded-3xl bg-gradient-to-br from-[#1a1a2e] to-[#2a1730] border border-white/10 overflow-hidden">
                 <Image
-                  src="https://customer-assets.emergentagent.com/job_event-hub-172/artifacts/ke53572p_giftboxPrint.webp"
+                  src="/images/giftboxPrint.webp"
                   alt={`Gift box step ${activeStep}`}
                   fill
                   className="object-contain p-6"
