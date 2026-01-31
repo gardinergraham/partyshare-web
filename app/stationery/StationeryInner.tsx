@@ -29,6 +29,7 @@ type StationeryItem = {
   image: string;
   icon: React.ReactNode;
 };
+
 const stationeryItems: StationeryItem[] = [
   {
     title: "Table Plans",
@@ -129,12 +130,10 @@ const appScreenshots = [
 ];
 
 const themes = [
-  { name: "Roses White", color: "#fff5f5", accent: "#e94560" },
-  { name: "Roses Cream", color: "#fef9e7", accent: "#d4a574" },
-  { name: "Gold Floral", color: "#ffd700", accent: "#1a1a2e" },
-  { name: "Classic", color: "#f5f5f5", accent: "#333" },
-  { name: "Modern", color: "#1a1a2e", accent: "#e94560" },
-  { name: "Minimal Love", color: "#fce4ec", accent: "#c2185b" },
+  { name: "Roses White", color: "#fff5f5", accent: "#e94560", image: "/images/rosesWhite.webp" },
+  { name: "Roses Cream", color: "#fef9e7", accent: "#d4a574", image: "/images/rosesCream.webp" },
+  { name: "Gold Floral", color: "#ffd700", accent: "#1a1a2e", image: "/images/goldfloralblue.webp" },
+  { name: "Flowers Centre", color: "#f5f5f5", accent: "#333", image: "/images/flowerscentreopen.webp" },
 ];
 
 const giftBoxSteps = [
@@ -160,7 +159,7 @@ const giftBoxSteps = [
     step: 4,
     title: "Fold All Panels Inward",
     description: "Fold each panel along the scored lines, creasing firmly. The printed design should be on the outside of the box.",
-    tip: "Add a little glue along the seam .",
+    tip: "Add a little glue along the seam.",
   },
   {
     step: 5,
@@ -305,7 +304,7 @@ export default function StationeryPage() {
             </h2>
             <p className="text-gray-300 max-w-2xl mx-auto">
               Party Share makes it easy to manage your entire event from your phone. 
-              Here's a glimpse of what you can do.
+              Here&apos;s a glimpse of what you can do.
             </p>
           </div>
 
@@ -348,16 +347,20 @@ export default function StationeryPage() {
               </p>
             </div>
 
-            <div className="grid grid-cols-3 sm:grid-cols-6 gap-4 mb-8">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
               {themes.map((theme, index) => (
                 <div
                   key={index}
                   className="group cursor-pointer"
                 >
-                  <div
-                    className="aspect-square rounded-xl border-2 border-transparent group-hover:border-[#e94560] transition-all shadow-lg group-hover:scale-105"
-                    style={{ backgroundColor: theme.color }}
-                  />
+                  <div className="relative aspect-[3/4] rounded-xl border-2 border-transparent group-hover:border-[#e94560] transition-all shadow-lg group-hover:scale-105 overflow-hidden">
+                    <Image
+                      src={theme.image}
+                      alt={theme.name}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
                   <p className="text-xs text-center mt-2 text-gray-400 group-hover:text-white transition">
                     {theme.name}
                   </p>
@@ -367,7 +370,7 @@ export default function StationeryPage() {
 
             <div className="text-center">
               <p className="text-sm text-gray-400">
-                💡 Pro tip: Select the same theme for each stationery item to keep stationery unique and elegant.
+                Pro tip: Select the same theme for each stationery item to keep stationery unique and elegant.
               </p>
             </div>
           </div>
@@ -393,7 +396,7 @@ export default function StationeryPage() {
           <div className="grid lg:grid-cols-2 gap-12 items-start">
             {/* Left: Visual */}
             <div className="relative">
-              <div className="aspect-square rounded-3xl bg-gradient-to-br from-[#1a1a2e] to-[#2a1730] border border-white/10 overflow-hidden">
+              <div className="relative aspect-square rounded-3xl bg-gradient-to-br from-[#1a1a2e] to-[#2a1730] border border-white/10 overflow-hidden">
                 <Image
                   src="/images/giftboxPrint.webp"
                   alt={`Gift box step ${activeStep}`}
@@ -454,7 +457,7 @@ export default function StationeryPage() {
                         {step.description}
                       </p>
                       <p className="text-xs text-[#ffd700]">
-                        💡 {step.tip}
+                        {step.tip}
                       </p>
                     </div>
                   </div>
@@ -467,7 +470,7 @@ export default function StationeryPage() {
           <div className="mt-12 p-6 rounded-2xl bg-white/5 border border-white/10">
             <h3 className="font-semibold text-lg mb-4 flex items-center gap-2">
               <CheckCircle className="w-5 h-5 text-[#4CAF50]" />
-              What You'll Need
+              What You&apos;ll Need
             </h3>
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {[
@@ -540,7 +543,7 @@ export default function StationeryPage() {
             </button>
 
             <p className="mt-6 text-sm text-gray-400">
-              Don't have the app yet?
+              Don&apos;t have the app yet?
             </p>
 
             <div className="flex items-center justify-center gap-4 mt-4">
@@ -618,17 +621,17 @@ function StationeryCard({
       onClick={onClick}
       className="group cursor-pointer rounded-2xl bg-[#1a1a2e] border border-white/10 overflow-hidden hover:border-[#e94560]/50 transition-all hover:scale-[1.02]"
     >
-      <div className="relative h-48 sm:h-56 bg-[#12121f] flex items-center justify-center p-4">
-        <div className="relative w-full h-full">
-          <Image
-            src={item.image}
-            alt={item.title}
-            fill
-            className="object-contain group-hover:scale-105 transition-transform duration-500"
-          />
-        </div>
+      {/* Image container - simplified structure */}
+      <div className="relative h-48 sm:h-56 bg-[#12121f]">
+        <Image
+          src={item.image}
+          alt={item.title}
+          fill
+          className="object-contain p-4 group-hover:scale-105 transition-transform duration-500"
+        />
       </div>
       
+      {/* Content below image */}
       <div className="p-4 border-t border-white/5">
         <div className="flex items-center gap-2 text-[#ffd6e8] mb-2">
           {item.icon}
@@ -657,16 +660,16 @@ function StationeryModal({
         className="bg-[#1a1a2e] rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto border border-white/10"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="relative aspect-video bg-[#12121f]">
+        <div className="relative aspect-video bg-[#12121f] rounded-t-3xl">
           <Image
             src={item.image}
             alt={item.title}
             fill
-            className="object-contain p-4"
+            className="object-contain p-4 rounded-t-3xl"
           />
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 w-10 h-10 rounded-full bg-black/50 flex items-center justify-center hover:bg-black/70 transition"
+            className="absolute top-4 right-4 w-10 h-10 rounded-full bg-black/50 flex items-center justify-center hover:bg-black/70 transition z-10"
           >
             ✕
           </button>
