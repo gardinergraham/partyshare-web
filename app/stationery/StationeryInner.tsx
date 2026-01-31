@@ -29,7 +29,6 @@ type StationeryItem = {
   image: string;
   icon: React.ReactNode;
 };
-
 const stationeryItems: StationeryItem[] = [
   {
     title: "Table Plans",
@@ -40,7 +39,7 @@ const stationeryItems: StationeryItem[] = [
       "Guest names auto-populated",
       "Multiple layout options"
     ],
-    src= "/images/table_layout.webp",
+    image: "/images/table_layout.webp",
     icon: <Table className="w-6 h-6" />,
   },
   {
@@ -52,7 +51,7 @@ const stationeryItems: StationeryItem[] = [
       "Check-in boxes for arrival",
       "Table assignments included"
     ],
-    src= "/images/guestchecklist.webp",
+    image: "/images/guestchecklist.webp",
     icon: <ClipboardList className="w-6 h-6" />,
   },
   {
@@ -64,7 +63,7 @@ const stationeryItems: StationeryItem[] = [
       "Custom messages supported",
       "1 or 2 per page layouts"
     ],
-    src= "/images/invitation.webp",
+    image: "/images/invitation.webp",
     icon: <Mail className="w-6 h-6" />,
   },
   {
@@ -76,7 +75,7 @@ const stationeryItems: StationeryItem[] = [
       "Your event branding",
       "Custom welcome message"
     ],
-    src= "/images/tabletalkers.webp",
+    image: "/images/tabletalkers.webp",
     icon: <QrCode className="w-6 h-6" />,
   },
   {
@@ -88,7 +87,7 @@ const stationeryItems: StationeryItem[] = [
       "Event details at a glance",
       "Themed backgrounds"
     ],
-    src= "/images/poster.webp",
+    image: "/images/poster.webp",
     icon: <FileText className="w-6 h-6" />,
   },
   {
@@ -100,7 +99,7 @@ const stationeryItems: StationeryItem[] = [
       "Optional QR code",
       "Multiple design themes"
     ],
-    src= "/images/tablenamecard.webp",
+    image: "/images/tablenamecard.webp",
     icon: <UserCheck className="w-6 h-6" />,
   },
 ];
