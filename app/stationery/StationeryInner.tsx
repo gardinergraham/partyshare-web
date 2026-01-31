@@ -129,7 +129,7 @@ const appScreenshots = [
   },
   {
     title: "Guest list manager",
-    description: "Guest list easy to read simle to understand",
+    description: "Guest list easy to read simple to understand",
     image: "/images/guests.webp",
   },
   {
