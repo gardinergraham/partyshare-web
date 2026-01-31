@@ -108,6 +108,11 @@ const stationeryItems: StationeryItem[] = [
 // App screenshots for the "See It In Action" section
 const appScreenshots = [
   {
+    title: "Dashboard",
+    description: "Dashboard with event progress and reminders",
+    image: "/images/progressbardash.webp",
+  },
+  {
     title: "Print Stationery",
     description: "Choose your theme and select which items to print",
     image: "/images/stationerylist.webp",
@@ -126,6 +131,11 @@ const appScreenshots = [
     title: "Guest Management",
     description: "Manage RSVPs and table assignments",
     image: "/images/guestmanage.webp",
+  },
+  {
+    title: "Guest checklist",
+    description: "Guest list with check boxes and table management on arrival",
+    image: "/images/guestchecklist.webp",
   },
 ];
 
