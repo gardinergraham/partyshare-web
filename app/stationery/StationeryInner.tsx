@@ -53,7 +53,7 @@ const stationeryItems: StationeryItem[] = [
       "Your event branding",
       "Custom welcome message"
     ],
-    image: "/images/tabletalkers.webp",
+    image: "/images/TableTalk.webp",
     icon: <QrCode className="w-6 h-6" />,
   },
   {
@@ -649,24 +649,23 @@ function StationeryCard({
       onClick={onClick}
       className="group cursor-pointer rounded-2xl bg-[#1a1a2e] border border-white/10 overflow-hidden hover:border-[#e94560]/50 transition-all hover:scale-[1.02]"
     >
-      {/* Image container - same format as appScreenshots */}
-      <div className="relative aspect-[9/16] bg-[#12121f]">
-        <Image
-          src={item.image}
-          alt={item.title}
-          fill
-          className="object-contain p-2 group-hover:scale-105 transition-transform duration-500"
-        />
-      </div>
-      
-      {/* Content below image */}
-      <div className="p-4 border-t border-white/5">
+      {/* Content ABOVE image */}
+      <div className="p-4 border-b border-white/5">
         <div className="flex items-center gap-2 text-[#ffd6e8] mb-2">
           {item.icon}
           <span className="text-xs uppercase tracking-wider">Printable</span>
         </div>
-        <h3 className="text-lg font-bold mb-2">{item.title}</h3>
+        <h3 className="text-lg font-bold mb-1">{item.title}</h3>
         <p className="text-gray-400 text-sm line-clamp-2">{item.description}</p>
+      </div>
+
+      {/* Image container - adapts to image size */}
+      <div className="bg-[#12121f] p-4">
+        <img
+          src={item.image}
+          alt={item.title}
+          className="w-full h-auto rounded-lg group-hover:scale-105 transition-transform duration-500"
+        />
       </div>
     </div>
   );
