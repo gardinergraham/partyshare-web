@@ -250,383 +250,405 @@ export default function StationeryPage() {
       {/* Floating Back to App Button */}
       <button
         onClick={handleBackToApp}
-        className="fixed top-6 left-6 z-50 flex items-center gap-2 px-4 py-2 rounded-full bg-[#e94560] hover:bg-[#ff5b74] text-white font-medium shadow-lg shadow-[#e94560]/40 transition-all hover:scale-105"
+        className="fixed top-12 left-6 z-50 flex items-center gap-2 px-4 py-2 rounded-full bg-[#e94560] hover:bg-[#ff5b74] text-white font-medium shadow-lg shadow-[#e94560]/40 transition-all hover:scale-105"
       >
         <ArrowLeft className="w-4 h-4" />
         Back to App
       </button>
 
-      <main className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 py-16">
-        
-        {/* ================= HERO ================= */}
-        <section className="text-center mb-20 pt-12">
-          <div className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#e94560]/20 to-[#ffd700]/20 px-5 py-2 text-xs uppercase tracking-[0.25em] text-[#ffd6e8] mb-6 border border-white/10">
-            <Sparkles className="w-4 h-4" />
-            <span>Premium Event Stationery</span>
-            <Sparkles className="w-4 h-4" />
-          </div>
+   <main className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 py-16">
+  
+  {/* ================= HERO ================= */}
+  <section className="text-center mb-20 pt-12">
+    <div className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#e94560]/20 to-[#ffd700]/20 px-5 py-2 text-xs uppercase tracking-[0.25em] text-[#ffd6e8] mb-6 border border-white/10">
+      <Sparkles className="w-4 h-4" />
+      <span>Premium Event Stationery</span>
+      <Sparkles className="w-4 h-4" />
+    </div>
 
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-white via-[#ffd6e8] to-[#ffd700] bg-clip-text text-transparent">
-            Stationery That Makes
-            <br />
-            Your Event Unforgettable
-          </h1>
+    <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-white via-[#ffd6e8] to-[#ffd700] bg-clip-text text-transparent">
+      Stationery That Makes
+      <br />
+      Your Event Unforgettable
+    </h1>
 
-          <p className="text-lg sm:text-xl text-gray-300 max-w-3xl mx-auto mb-8">
-            From elegant table plans to QR-powered invitations — Party Share generates 
-            beautiful, print-ready stationery that matches your event theme perfectly.
-          </p>
+    <p className="text-lg sm:text-xl text-gray-300 max-w-3xl mx-auto mb-8">
+      From elegant table plans to QR-powered invitations — Party Share generates 
+      beautiful, print-ready stationery that matches your event theme perfectly.
+    </p>
 
-          <div className="flex flex-wrap justify-center gap-4">
-            <a
-              href="#stationery-gallery"
-              className="px-8 py-3 rounded-2xl bg-[#e94560] hover:bg-[#ff5b74] font-semibold text-base shadow-lg shadow-[#e94560]/40 transition flex items-center gap-2"
-            >
-              <Printer className="w-5 h-5" />
-              Explore Stationery
-            </a>
-            <a
-              href="#gift-box"
-              className="px-8 py-3 rounded-2xl border border-white/30 font-medium hover:bg-white/10 transition flex items-center gap-2"
-            >
-              <Gift className="w-5 h-5" />
-              Build a Gift Box
-            </a>
-          </div>
-        </section>
+    <div className="flex flex-wrap justify-center gap-4">
+      <a
+        href="#stationery-gallery"
+        className="px-8 py-3 rounded-2xl bg-[#e94560] hover:bg-[#ff5b74] font-semibold text-base shadow-lg shadow-[#e94560]/40 transition flex items-center gap-2"
+      >
+        <Printer className="w-5 h-5" />
+        Explore Stationery
+      </a>
+      <a
+        href="#gift-box"
+        className="px-8 py-3 rounded-2xl border border-white/30 font-medium hover:bg-white/10 transition flex items-center gap-2"
+      >
+        <Gift className="w-5 h-5" />
+        Build a Gift Box
+      </a>
+    </div>
+  </section>
 
-        {/* ================= WHY STATIONERY MATTERS ================= */}
-        <section className="mb-24">
-          <div className="grid lg:grid-cols-3 gap-8">
-            <FeatureCard
-              icon={<Palette className="w-8 h-8 text-[#e94560]" />}
-              title="Perfectly Themed"
-              description="Every piece of stationery automatically matches your chosen event theme — from elegant roses to modern minimalist."
+  {/* ================= HERO IMAGE ================= */}
+  <section className="mb-24">
+    <div className="relative aspect-video rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
+      <Image
+        src="/images/elegantTable.webp"
+        alt="Create the wow factor with Party Share stationery"
+        fill
+        priority
+        className="object-cover"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#0f0f23]/80 via-transparent to-transparent" />
+      <div className="absolute bottom-6 left-6 right-6">
+        <p className="text-white text-xl sm:text-2xl font-semibold">
+          Create the wow factor!
+        </p>
+        <p className="text-gray-300 text-sm sm:text-base mt-1">
+          All your stationery needs and event management in one simple application
+        </p>
+      </div>
+    </div>
+  </section>
+
+  {/* ================= STATIONERY GALLERY ================= */}
+  <section id="stationery-gallery" className="mb-24 scroll-mt-20">
+    <div className="text-center mb-12">
+      <p className="text-xs uppercase tracking-[0.25em] text-[#ffd6e8] mb-3">
+        Your Complete Toolkit
+      </p>
+      <h2 className="text-3xl sm:text-4xl font-bold mb-4">
+        Everything You Need to Print
+      </h2>
+      <p className="text-gray-300 max-w-2xl mx-auto">
+        Each stationery item is designed to work together, creating a cohesive 
+        look across your entire event.
+      </p>
+    </div>
+
+    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {stationeryItems.map((item, index) => (
+        <StationeryCard
+          key={index}
+          item={item}
+          onClick={() => setSelectedItem(item)}
+        />
+      ))}
+    </div>
+  </section>
+
+  {/* ================= APP SCREENSHOTS SECTION ================= */}
+  <section className="mb-24">
+    <div className="text-center mb-12">
+      <div className="inline-flex items-center gap-2 rounded-full bg-[#4CAF50]/20 px-4 py-2 text-xs uppercase tracking-[0.25em] text-[#4CAF50] mb-4">
+        <Smartphone className="w-4 h-4" />
+        <span>See It In Action</span>
+      </div>
+      <h2 className="text-3xl sm:text-4xl font-bold mb-4">
+        Powerful Features, Simple Interface
+      </h2>
+      <p className="text-gray-300 max-w-2xl mx-auto">
+        Party Share makes it easy to manage your entire event from your phone. 
+        Here&apos;s a glimpse of what you can do.
+      </p>
+    </div>
+
+    <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      {appScreenshots.map((screenshot, index) => (
+        <div
+          key={index}
+          className="group rounded-2xl bg-[#1a1a2e] border border-white/10 overflow-hidden hover:border-[#4CAF50]/50 transition-all"
+        >
+          <div className="relative aspect-[9/16] bg-[#12121f]">
+            <Image
+              src={screenshot.image}
+              alt={screenshot.title}
+              fill
+              className="object-contain p-2 group-hover:scale-105 transition-transform duration-500"
             />
-            <FeatureCard
-              icon={<Download className="w-8 h-8 text-[#ffd700]" />}
-              title="Instant PDF Download"
-              description="Generate and download print-ready PDFs in seconds. No design skills needed — we handle the formatting."
-            />
-            <FeatureCard
-              icon={<QrCode className="w-8 h-8 text-[#4CAF50]" />}
-              title="QR Code Integration"
-              description="Every piece includes your unique QR code so guests can instantly join your event and start sharing photos."
-            />
           </div>
-        </section>
-
-        {/* ================= STATIONERY GALLERY ================= */}
-        <section id="stationery-gallery" className="mb-24 scroll-mt-20">
-          <div className="text-center mb-12">
-            <p className="text-xs uppercase tracking-[0.25em] text-[#ffd6e8] mb-3">
-              Your Complete Toolkit
-            </p>
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-              Everything You Need to Print
-            </h2>
-            <p className="text-gray-300 max-w-2xl mx-auto">
-              Each stationery item is designed to work together, creating a cohesive 
-              look across your entire event.
-            </p>
+          <div className="p-4 border-t border-white/5">
+            <h3 className="font-semibold mb-1">{screenshot.title}</h3>
+            <p className="text-gray-400 text-sm">{screenshot.description}</p>
           </div>
+        </div>
+      ))}
+    </div>
+  </section>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {stationeryItems.map((item, index) => (
-              <StationeryCard
-                key={index}
-                item={item}
-                onClick={() => setSelectedItem(item)}
+  {/* ================= THEME SHOWCASE ================= */}
+  <section className="mb-24">
+    <div className="rounded-3xl bg-gradient-to-br from-[#1a1a2e] to-[#0f0f23] border border-white/10 p-8 sm:p-12">
+      <div className="text-center mb-10">
+        <p className="text-xs uppercase tracking-[0.25em] text-[#ffd6e8] mb-3">
+          Customisation
+        </p>
+        <h2 className="text-3xl sm:text-4xl font-bold mb-4">
+          Choose Your Theme
+        </h2>
+        <p className="text-gray-300 max-w-2xl mx-auto">
+          Select from our beautiful built-in themes for a truly personal touch.
+        </p>
+      </div>
+
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
+        {themes.map((theme, index) => (
+          <div
+            key={index}
+            className="group cursor-pointer"
+          >
+            <div className="relative aspect-[3/4] rounded-xl border-2 border-transparent group-hover:border-[#e94560] transition-all shadow-lg group-hover:scale-105 overflow-hidden bg-[#12121f]">
+              <Image
+                src={theme.image}
+                alt={theme.name}
+                fill
+                sizes="(max-width: 640px) 50vw, 25vw"
+                className="object-contain"
               />
-            ))}
-          </div>
-        </section>
-
-        {/* ================= APP SCREENSHOTS SECTION ================= */}
-        <section className="mb-24">
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 rounded-full bg-[#4CAF50]/20 px-4 py-2 text-xs uppercase tracking-[0.25em] text-[#4CAF50] mb-4">
-              <Smartphone className="w-4 h-4" />
-              <span>See It In Action</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-              Powerful Features, Simple Interface
-            </h2>
-            <p className="text-gray-300 max-w-2xl mx-auto">
-              Party Share makes it easy to manage your entire event from your phone. 
-              Here&apos;s a glimpse of what you can do.
+            <p className="text-xs text-center mt-2 text-gray-400 group-hover:text-white transition">
+              {theme.name}
             </p>
           </div>
+        ))}
+      </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {appScreenshots.map((screenshot, index) => (
-              <div
-                key={index}
-                className="group rounded-2xl bg-[#1a1a2e] border border-white/10 overflow-hidden hover:border-[#4CAF50]/50 transition-all"
-              >
-                <div className="relative aspect-[9/16] bg-[#12121f]">
-                  <Image
-                    src={screenshot.image}
-                    alt={screenshot.title}
-                    fill
-                    className="object-contain p-2 group-hover:scale-105 transition-transform duration-500"
-                  />
-                </div>
-                <div className="p-4 border-t border-white/5">
-                  <h3 className="font-semibold mb-1">{screenshot.title}</h3>
-                  <p className="text-gray-400 text-sm">{screenshot.description}</p>
-                </div>
-              </div>
-            ))}
+      <div className="text-center">
+        <p className="text-sm text-gray-400">
+          Pro tip: Select the same theme for each stationery item to keep stationery unique and elegant.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  {/* ================= WHY STATIONERY MATTERS ================= */}
+  <section className="mb-24">
+    <div className="grid lg:grid-cols-3 gap-8">
+      <FeatureCard
+        icon={<Palette className="w-8 h-8 text-[#e94560]" />}
+        title="Perfectly Themed"
+        description="Every piece of stationery automatically matches your chosen event theme — from elegant roses to modern minimalist."
+      />
+      <FeatureCard
+        icon={<Download className="w-8 h-8 text-[#ffd700]" />}
+        title="Instant PDF Download"
+        description="Generate and download print-ready PDFs in seconds. No design skills needed — we handle the formatting."
+      />
+      <FeatureCard
+        icon={<QrCode className="w-8 h-8 text-[#4CAF50]" />}
+        title="QR Code Integration"
+        description="Every piece includes your unique QR code so guests can instantly join your event and start sharing photos."
+      />
+    </div>
+  </section>
+
+  {/* ================= GIFT BOX TUTORIAL ================= */}
+  <section id="gift-box" className="mb-24 scroll-mt-20">
+    <div className="text-center mb-12">
+      <div className="inline-flex items-center gap-2 rounded-full bg-[#ffd700]/20 px-4 py-2 text-xs uppercase tracking-[0.25em] text-[#ffd700] mb-4">
+        <Gift className="w-4 h-4" />
+        <span>DIY Tutorial</span>
+      </div>
+      <h2 className="text-3xl sm:text-4xl font-bold mb-4">
+        Build Your Own Gift Box
+      </h2>
+      <p className="text-gray-300 max-w-2xl mx-auto">
+        Create stunning gift boxes featuring your event QR code. Perfect as 
+        table favours or welcome gifts for your guests.
+      </p>
+    </div>
+
+    {/* Step-by-step guide */}
+    <div className="grid lg:grid-cols-2 gap-12 items-start">
+      {/* Left: Visual */}
+      <div className="relative">
+        <div className="relative aspect-square rounded-3xl bg-gradient-to-br from-[#1a1a2e] to-[#2a1730] border border-white/10 overflow-hidden">
+          <Image
+            src="/images/giftboxPrint.webp"
+            alt={`Gift box step ${activeStep}`}
+            fill
+            className="object-contain p-6"
+          />
+          <div className="absolute bottom-4 left-4 right-4 bg-black/60 backdrop-blur-sm rounded-xl p-4">
+            <p className="text-gray-400 text-sm">
+              Step {activeStep}
+            </p>
+            <h3 className="text-lg font-semibold">
+              {giftBoxSteps[activeStep - 1].title}
+            </h3>
           </div>
-        </section>
-
-      {/* ================= THEME SHOWCASE ================= */}
-    <section className="mb-24">
-      <div className="rounded-3xl bg-gradient-to-br from-[#1a1a2e] to-[#0f0f23] border border-white/10 p-8 sm:p-12">
-        <div className="text-center mb-10">
-          <p className="text-xs uppercase tracking-[0.25em] text-[#ffd6e8] mb-3">
-            Customisation
-          </p>
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-            Choose Your Theme
-          </h2>
-          <p className="text-gray-300 max-w-2xl mx-auto">
-            Select from our beautiful built-in themes for a truly personal touch.
-          </p>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
-          {themes.map((theme, index) => (
-            <div
+        {/* Step indicators */}
+        <div className="flex justify-center gap-2 mt-6">
+          {giftBoxSteps.map((_, index) => (
+            <button
               key={index}
-              className="group cursor-pointer"
-            >
-              <div className="relative aspect-[3/4] rounded-xl border-2 border-transparent group-hover:border-[#e94560] transition-all shadow-lg group-hover:scale-105 overflow-hidden bg-[#12121f]">
-                <Image
-                  src={theme.image}
-                  alt={theme.name}
-                  fill
-                  sizes="(max-width: 640px) 50vw, 25vw"
-                  className="object-contain"
-                />
-              </div>
-              <p className="text-xs text-center mt-2 text-gray-400 group-hover:text-white transition">
-                {theme.name}
-              </p>
-            </div>
+              onClick={() => setActiveStep(index + 1)}
+              className={`w-3 h-3 rounded-full transition-all ${
+                activeStep === index + 1
+                  ? "bg-[#ffd700] scale-125"
+                  : "bg-white/30 hover:bg-white/50"
+              }`}
+            />
           ))}
         </div>
-
-        <div className="text-center">
-          <p className="text-sm text-gray-400">
-            Pro tip: Select the same theme for each stationery item to keep stationery unique and elegant.
-          </p>
-        </div>
       </div>
-    </section>
 
-        {/* ================= GIFT BOX TUTORIAL ================= */}
-        <section id="gift-box" className="mb-24 scroll-mt-20">
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 rounded-full bg-[#ffd700]/20 px-4 py-2 text-xs uppercase tracking-[0.25em] text-[#ffd700] mb-4">
-              <Gift className="w-4 h-4" />
-              <span>DIY Tutorial</span>
-            </div>
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-              Build Your Own Gift Box
-            </h2>
-            <p className="text-gray-300 max-w-2xl mx-auto">
-              Create stunning gift boxes featuring your event QR code. Perfect as 
-              table favours or welcome gifts for your guests.
-            </p>
-          </div>
-
-          {/* Step-by-step guide */}
-          <div className="grid lg:grid-cols-2 gap-12 items-start">
-            {/* Left: Visual */}
-            <div className="relative">
-              <div className="relative aspect-square rounded-3xl bg-gradient-to-br from-[#1a1a2e] to-[#2a1730] border border-white/10 overflow-hidden">
-                <Image
-                  src="/images/giftboxPrint.webp"
-                  alt={`Gift box step ${activeStep}`}
-                  fill
-                  className="object-contain p-6"
-                />
-                <div className="absolute bottom-4 left-4 right-4 bg-black/60 backdrop-blur-sm rounded-xl p-4">
-                  <p className="text-gray-400 text-sm">
-                    Step {activeStep}
-                  </p>
-                  <h3 className="text-lg font-semibold">
-                    {giftBoxSteps[activeStep - 1].title}
-                  </h3>
-                </div>
+      {/* Right: Step list */}
+      <div className="space-y-4">
+        {giftBoxSteps.map((step) => (
+          <div
+            key={step.step}
+            onClick={() => setActiveStep(step.step)}
+            className={`p-5 rounded-2xl border cursor-pointer transition-all ${
+              activeStep === step.step
+                ? "bg-[#ffd700]/10 border-[#ffd700]/50"
+                : "bg-white/5 border-white/10 hover:bg-white/10"
+            }`}
+          >
+            <div className="flex items-start gap-4">
+              <div
+                className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg shrink-0 ${
+                  activeStep === step.step
+                    ? "bg-[#ffd700] text-black"
+                    : "bg-white/10 text-white"
+                }`}
+              >
+                {step.step}
               </div>
-
-              {/* Step indicators */}
-              <div className="flex justify-center gap-2 mt-6">
-                {giftBoxSteps.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setActiveStep(index + 1)}
-                    className={`w-3 h-3 rounded-full transition-all ${
-                      activeStep === index + 1
-                        ? "bg-[#ffd700] scale-125"
-                        : "bg-white/30 hover:bg-white/50"
-                    }`}
-                  />
-                ))}
+              <div>
+                <h4 className="font-semibold text-lg mb-1">{step.title}</h4>
+                <p className="text-gray-400 text-sm mb-2">
+                  {step.description}
+                </p>
+                <p className="text-xs text-[#ffd700]">
+                  {step.tip}
+                </p>
               </div>
             </div>
-
-            {/* Right: Step list */}
-            <div className="space-y-4">
-              {giftBoxSteps.map((step) => (
-                <div
-                  key={step.step}
-                  onClick={() => setActiveStep(step.step)}
-                  className={`p-5 rounded-2xl border cursor-pointer transition-all ${
-                    activeStep === step.step
-                      ? "bg-[#ffd700]/10 border-[#ffd700]/50"
-                      : "bg-white/5 border-white/10 hover:bg-white/10"
-                  }`}
-                >
-                  <div className="flex items-start gap-4">
-                    <div
-                      className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg shrink-0 ${
-                        activeStep === step.step
-                          ? "bg-[#ffd700] text-black"
-                          : "bg-white/10 text-white"
-                      }`}
-                    >
-                      {step.step}
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-lg mb-1">{step.title}</h4>
-                      <p className="text-gray-400 text-sm mb-2">
-                        {step.description}
-                      </p>
-                      <p className="text-xs text-[#ffd700]">
-                        {step.tip}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
           </div>
+        ))}
+      </div>
+    </div>
 
-          {/* Materials needed */}
-          <div className="mt-12 p-6 rounded-2xl bg-white/5 border border-white/10">
-            <h3 className="font-semibold text-lg mb-4 flex items-center gap-2">
-              <CheckCircle className="w-5 h-5 text-[#4CAF50]" />
-              What You&apos;ll Need
-            </h3>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              {[
-                "A4 Card Stock (250gsm)",
-                "Scissors or Craft Knife",
-                "Ruler & Cutting Mat",
-                "Glue or Double-sided Tape",
-              ].map((item, index) => (
-                <div
-                  key={index}
-                  className="flex items-center gap-2 text-gray-300"
-                >
-                  <span className="w-2 h-2 rounded-full bg-[#e94560]" />
-                  {item}
-                </div>
-              ))}
-            </div>
+    {/* Materials needed */}
+    <div className="mt-12 p-6 rounded-2xl bg-white/5 border border-white/10">
+      <h3 className="font-semibold text-lg mb-4 flex items-center gap-2">
+        <CheckCircle className="w-5 h-5 text-[#4CAF50]" />
+        What You&apos;ll Need
+      </h3>
+      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {[
+          "A4 Card Stock (250gsm)",
+          "Scissors or Craft Knife",
+          "Ruler & Cutting Mat",
+          "Glue or Double-sided Tape",
+        ].map((item, index) => (
+          <div
+            key={index}
+            className="flex items-center gap-2 text-gray-300"
+          >
+            <span className="w-2 h-2 rounded-full bg-[#e94560]" />
+            {item}
           </div>
-        </section>
+        ))}
+      </div>
+    </div>
+  </section>
 
-        {/* ================= STATIONERY TIPS ================= */}
-        <section className="mb-24">
-          <div className="rounded-3xl bg-gradient-to-r from-[#2a1730] via-[#17162c] to-[#12202f] border border-white/10 p-8 sm:p-12">
-            <h2 className="text-2xl sm:text-3xl font-bold mb-8 text-center">
-              Pro Tips for Perfect Prints
-            </h2>
+  {/* ================= STATIONERY TIPS ================= */}
+  <section className="mb-24">
+    <div className="rounded-3xl bg-gradient-to-r from-[#2a1730] via-[#17162c] to-[#12202f] border border-white/10 p-8 sm:p-12">
+      <h2 className="text-2xl sm:text-3xl font-bold mb-8 text-center">
+        Pro Tips for Perfect Prints
+      </h2>
 
-            <div className="grid md:grid-cols-2 gap-6">
-              <TipCard
-                number="01"
-                title="Use Quality Paper"
-                description="For best results, print on 160-250gsm card stock. Standard printer paper works but feels less premium."
-              />
-              <TipCard
-                number="02"
-                title="Check Print Settings"
-                description="Always select 'Actual Size' or '100%' in your print settings. 'Fit to Page' will shrink your designs."
-              />
-              <TipCard
-                number="03"
-                title="Test Print First"
-                description="Print one copy on regular paper first to check alignment and colours before using expensive card stock."
-              />
-              <TipCard
-                number="04"
-                title="Let Ink Dry"
-                description="Give prints 2-3 minutes to dry before handling, especially on glossy paper. This prevents smudging."
-              />
-            </div>
-          </div>
-        </section>
+      <div className="grid md:grid-cols-2 gap-6">
+        <TipCard
+          number="01"
+          title="Use Quality Paper"
+          description="For best results, print on 160-250gsm card stock. Standard printer paper works but feels less premium."
+        />
+        <TipCard
+          number="02"
+          title="Check Print Settings"
+          description="Always select 'Actual Size' or '100%' in your print settings. 'Fit to Page' will shrink your designs."
+        />
+        <TipCard
+          number="03"
+          title="Test Print First"
+          description="Print one copy on regular paper first to check alignment and colours before using expensive card stock."
+        />
+        <TipCard
+          number="04"
+          title="Let Ink Dry"
+          description="Give prints 2-3 minutes to dry before handling, especially on glossy paper. This prevents smudging."
+        />
+      </div>
+    </div>
+  </section>
 
-        {/* ================= CTA ================= */}
-        <section className="text-center mb-16">
-          <div className="rounded-3xl bg-gradient-to-br from-[#e94560]/20 to-[#ffd700]/20 border border-white/10 p-10 sm:p-14">
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-              Ready to Create Magic?
-            </h2>
-            <p className="text-gray-300 max-w-xl mx-auto mb-8">
-              Head back to the Party Share app to generate your personalised 
-              stationery in seconds.
-            </p>
+  {/* ================= CTA ================= */}
+  <section className="text-center mb-16">
+    <div className="rounded-3xl bg-gradient-to-br from-[#e94560]/20 to-[#ffd700]/20 border border-white/10 p-10 sm:p-14">
+      <h2 className="text-3xl sm:text-4xl font-bold mb-4">
+        Ready to Create Magic?
+      </h2>
+      <p className="text-gray-300 max-w-xl mx-auto mb-8">
+        Head back to the Party Share app to generate your personalised 
+        stationery in seconds.
+      </p>
 
-            <button
-              onClick={handleBackToApp}
-              className="px-10 py-4 rounded-2xl bg-[#e94560] hover:bg-[#ff5b74] font-bold text-lg shadow-lg shadow-[#e94560]/40 transition-all hover:scale-105 flex items-center gap-3 mx-auto"
-            >
-              <ArrowLeft className="w-5 h-5" />
-              Open Party Share App
-            </button>
+      <button
+        onClick={handleBackToApp}
+        className="px-10 py-4 rounded-2xl bg-[#e94560] hover:bg-[#ff5b74] font-bold text-lg shadow-lg shadow-[#e94560]/40 transition-all hover:scale-105 flex items-center gap-3 mx-auto"
+      >
+        <ArrowLeft className="w-5 h-5" />
+        Open Party Share App
+      </button>
 
-            <p className="mt-6 text-sm text-gray-400">
-              Don&apos;t have the app yet?
-            </p>
+      <p className="mt-6 text-sm text-gray-400">
+        Don&apos;t have the app yet?
+      </p>
 
-            <div className="flex items-center justify-center gap-4 mt-4">
-              <a
-                href="https://apps.apple.com/gb/app/partyshare-events/id6755305083"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <img
-                  src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
-                  alt="Download on the App Store"
-                  className="h-12 w-[165px] object-contain"
-                />
-              </a>
-              <a
-                href="https://play.google.com/store/apps/details?id=com.grahamgardiner.partyshare"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <img
-                  src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
-                  alt="Get it on Google Play"
-                  className="h-12 w-[180px] object-contain"
-                />
-              </a>
-            </div>
-          </div>
-        </section>
+      <div className="flex items-center justify-center gap-4 mt-4">
+        <a
+          href="https://apps.apple.com/gb/app/partyshare-events/id6755305083"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <img
+            src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
+            alt="Download on the App Store"
+            className="h-12 w-[165px] object-contain"
+          />
+        </a>
+        <a
+          href="https://play.google.com/store/apps/details?id=com.grahamgardiner.partyshare"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
+            alt="Get it on Google Play"
+            className="h-12 w-[180px] object-contain"
+          />
+        </a>
+      </div>
+    </div>
+  </section>
 
-        <footer className="py-6 text-center text-xs text-gray-500">
-          © {new Date().getFullYear()} Party Share. All rights reserved.
-        </footer>
-      </main>
+  <footer className="py-6 text-center text-xs text-gray-500">
+    © {new Date().getFullYear()} Party Share. All rights reserved.
+  </footer>
+</main>
 
       {/* ================= MODAL ================= */}
       {selectedItem && (
