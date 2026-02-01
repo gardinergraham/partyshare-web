@@ -258,64 +258,54 @@ export default function StationeryPage() {
 
    <main className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 py-16">
   
-  {/* ================= HERO ================= */}
-  <section className="text-center mb-20 pt-12">
-    <div className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#e94560]/20 to-[#ffd700]/20 px-5 py-2 text-xs uppercase tracking-[0.25em] text-[#ffd6e8] mb-6 border border-white/10">
-      <Sparkles className="w-4 h-4" />
-      <span>Premium Event Stationery</span>
-      <Sparkles className="w-4 h-4" />
-    </div>
+{/* ================= HERO ================= */}
+<section className="text-center mb-20 pt-12">
+  <div className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#e94560]/20 to-[#ffd700]/20 px-5 py-2 text-xs uppercase tracking-[0.25em] text-[#ffd6e8] mb-6 border border-white/10">
+    <Sparkles className="w-4 h-4" />
+    <span>Premium Event Stationery</span>
+    <Sparkles className="w-4 h-4" />
+  </div>
 
-    <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-white via-[#ffd6e8] to-[#ffd700] bg-clip-text text-transparent">
-      Stationery That Makes
-      <br />
-      Your Event Unforgettable
-    </h1>
+  <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-white via-[#ffd6e8] to-[#ffd700] bg-clip-text text-transparent">
+    Stationery That Makes
+    <br />
+    Your Event Unforgettable
+  </h1>
 
-    <p className="text-lg sm:text-xl text-gray-300 max-w-3xl mx-auto mb-8">
-      From elegant table plans to QR-powered invitations — Party Share generates 
-      beautiful, print-ready stationery that matches your event theme perfectly.
-    </p>
+  <p className="text-lg sm:text-xl text-gray-300 max-w-3xl mx-auto mb-8">
+    From elegant table plans to QR-powered invitations — Party Share generates 
+    beautiful, print-ready stationery that matches your event theme perfectly.
+  </p>
 
-    <div className="flex flex-wrap justify-center gap-4">
-      <a
-        href="#stationery-gallery"
-        className="px-8 py-3 rounded-2xl bg-[#e94560] hover:bg-[#ff5b74] font-semibold text-base shadow-lg shadow-[#e94560]/40 transition flex items-center gap-2"
-      >
-        <Printer className="w-5 h-5" />
-        Explore Stationery
-      </a>
-      <a
-        href="#gift-box"
-        className="px-8 py-3 rounded-2xl border border-white/30 font-medium hover:bg-white/10 transition flex items-center gap-2"
-      >
-        <Gift className="w-5 h-5" />
-        Build a Gift Box
-      </a>
-    </div>
-  </section>
+  <div className="flex flex-wrap justify-center gap-4 mb-12">
+    <a
+      href="#stationery-gallery"
+      className="px-8 py-3 rounded-2xl bg-[#e94560] hover:bg-[#ff5b74] font-semibold text-base shadow-lg shadow-[#e94560]/40 transition flex items-center gap-2"
+    >
+      <Printer className="w-5 h-5" />
+      Explore Stationery
+    </a>
+    <a
+      href="#gift-box"
+      className="px-8 py-3 rounded-2xl border border-white/30 font-medium hover:bg-white/10 transition flex items-center gap-2"
+    >
+      <Gift className="w-5 h-5" />
+      Build a Gift Box
+    </a>
+  </div>
 
-  {/* ================= HERO IMAGE ================= */}
-  <section className="mb-24">
-    <div className="relative aspect-video rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
-      <Image
-        src="/images/elegantTable.webp"
-        alt="Create the wow factor with Party Share stationery"
-        fill
-        priority
-        className="object-cover"
-      />
-      <div className="absolute inset-0 bg-gradient-to-t from-[#0f0f23]/80 via-transparent to-transparent" />
-      <div className="absolute bottom-6 left-6 right-6">
-        <p className="text-white text-xl sm:text-2xl font-semibold">
-          Create the wow factor!
-        </p>
-        <p className="text-gray-300 text-sm sm:text-base mt-1">
-          All your stationery needs and event management in one simple application
-        </p>
-      </div>
-    </div>
-  </section>
+  {/* Hero Image */}
+  <div className="relative aspect-video max-w-4xl mx-auto rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
+    <Image
+      src="/images/elegantTable.webp"
+      alt="Create the wow factor with Party Share stationery"
+      fill
+      priority
+      className="object-cover"
+    />
+    <div className="absolute inset-0 bg-gradient-to-t from-[#0f0f23]/60 via-transparent to-transparent" />
+  </div>
+</section>
 
   {/* ================= STATIONERY GALLERY ================= */}
   <section id="stationery-gallery" className="mb-24 scroll-mt-20">
