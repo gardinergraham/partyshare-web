@@ -295,17 +295,17 @@ export default function StationeryPage() {
   </div>
 
   {/* Hero Image */}
-  <div className="relative aspect-video max-w-4xl mx-auto rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
+  <div className="relative aspect-video max-w-4xl mx-auto rounded-3xl overflow-hidden border border-white/10 shadow-2xl bg-[#12121f]">
     <Image
       src="/images/elegantTable.webp"
       alt="Create the wow factor with Party Share stationery"
       fill
-      priority
+      sizes="(max-width: 768px) 100vw, 896px"
       className="object-cover"
     />
     <div className="absolute inset-0 bg-gradient-to-t from-[#0f0f23]/60 via-transparent to-transparent" />
   </div>
-</section>
+  </section>
 
   {/* ================= STATIONERY GALLERY ================= */}
   <section id="stationery-gallery" className="mb-24 scroll-mt-20">
