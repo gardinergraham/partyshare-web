@@ -32,15 +32,63 @@ type StationeryItem = {
 
 const stationeryItems: StationeryItem[] = [
   {
+    title: "Invitations",
+    description: "Stunning digital and printable invitations with all your event details and a QR code for instant access.",
+    features: [
+      "Event date, time & venue",
+      "QR code for instant joining",
+      "Custom messages supported",
+      "1 or 2 per page layouts"
+    ],
+    image: "/images/invitation.webp",
+    icon: <Mail className="w-6 h-6" />,
+  },
+   {
+    title: "Table Talkers",
+    description: "Elegant tent cards with QR codes that sit on each table, inviting guests to scan and share their photos.",
+    features: [
+      "Foldable tent card design",
+      "Large scannable QR code",
+      "Your event branding",
+      "Custom welcome message"
+    ],
+    image: "/images/tabletalkers.webp",
+    icon: <QrCode className="w-6 h-6" />,
+  },
+  {
+    title: "Place Cards",
+    description: "Personalised name cards for each guest seat, featuring elegant designs with QR codes.",
+    features: [
+      "Guest name in elegant fonts",
+      "Table number included",
+      "Event media sharing QR code",
+      "Multiple design themes"
+    ],
+    image: "/images/tablenamecard.webp",
+    icon: <UserCheck className="w-6 h-6" />,
+  },
+  {
+    title: "Event Posters",
+    description: "Eye-catching A4 posters perfect for display at your venue entrance.",
+    features: [
+      "Bold event title display",
+      "Large QR code for scanning",
+      "Event details at a glance",
+      "Themed backgrounds"
+    ],
+    image: "/images/poster.webp",
+    icon: <FileText className="w-6 h-6" />,
+  },
+  {
     title: "Table Plans",
-    description: "Beautiful visual seating arrangements that help guests find their seats instantly. Fully themed to match your event style.",
+    description: "Printed table manager, Easy to read simple and without any confusion.",
     features: [
       "Drag-and-drop table arrangement",
       "Round & rectangular table support", 
       "Guest names auto-populated",
       "Multiple layout options"
     ],
-    image: "/images/table_layout.webp",
+    image: "/images/tabledata.webp",
     icon: <Table className="w-6 h-6" />,
   },
   {
@@ -55,63 +103,12 @@ const stationeryItems: StationeryItem[] = [
     image: "/images/guestchecklist.webp",
     icon: <ClipboardList className="w-6 h-6" />,
   },
-  {
-    title: "Invitations",
-    description: "Stunning digital and printable invitations with all your event details and a QR code for instant access.",
-    features: [
-      "Event date, time & venue",
-      "QR code for instant joining",
-      "Custom messages supported",
-      "1 or 2 per page layouts"
-    ],
-    image: "/images/invitation.webp",
-    icon: <Mail className="w-6 h-6" />,
-  },
-  {
-    title: "Table Talkers",
-    description: "Elegant tent cards with QR codes that sit on each table, inviting guests to scan and share their photos.",
-    features: [
-      "Foldable tent card design",
-      "Large scannable QR code",
-      "Your event branding",
-      "Custom welcome message"
-    ],
-    image: "/images/tabletalkers.webp",
-    icon: <QrCode className="w-6 h-6" />,
-  },
-  {
-    title: "Event Posters",
-    description: "Eye-catching A4 posters perfect for display at your venue entrance or photo stations.",
-    features: [
-      "Bold event title display",
-      "Large QR code for scanning",
-      "Event details at a glance",
-      "Themed backgrounds"
-    ],
-    image: "/images/poster.webp",
-    icon: <FileText className="w-6 h-6" />,
-  },
-  {
-    title: "Place Cards",
-    description: "Personalised name cards for each guest seat, featuring elegant designs with optional QR codes.",
-    features: [
-      "Guest name in elegant fonts",
-      "Table number included",
-      "Optional QR code",
-      "Multiple design themes"
-    ],
-    image: "/images/tablenamecard.webp",
-    icon: <UserCheck className="w-6 h-6" />,
-  },
+  
+  
 ];
 
 // App screenshots for the "See It In Action" section
 const appScreenshots = [
-  {
-    title: "Create the wow factor!",
-    description: "All your stationery need and event management in one simple application",
-    image: "/images/elegantTable.webp",
-  },
   {
     title: "Dashboard",
     description: "Dashboard with event progress and reminders",
@@ -141,36 +138,6 @@ const appScreenshots = [
     title: "Guest Management",
     description: "Manage RSVPs and table assignments",
     image: "/images/guestmanage.webp",
-  },
-  {
-    title: "Guest invitations",
-    description: "From the very begining everything is taken care of including invitations",
-    image: "/images/invite.webp",
-  },
-  {
-    title: "Guest checklist",
-    description: "Guest list with check boxes and table management on arrival",
-    image: "/images/guestchecklist.webp",
-  },
-  {
-    title: "Printed Table plan",
-    description: "Table manager with seating plan and guest numbers",
-    image: "/images/tabledata.webp",
-  },
-  {
-    title: "Guest Place names",
-    description: "Simple and elegant print out your guest names ready for your big day",
-    image: "/images/namecards2.webp",
-  },
-   {
-    title: "Table Talkers",
-    description: "Keeping with your theme table talkers with QR code for guests to share their media with you",
-    image: "/images/TableTalk.webp",
-  },
-  {
-    title: "Event Posters",
-    description: "Print event posters with all the details of your special day include a message to make it personalised",
-    image: "/images/poster.webp",
   },
   {
     title: "Place settings",
