@@ -22,7 +22,88 @@ import {
   UserCheck
 } from "lucide-react";
 
+type StationeryItem = {
+  title: string;
+  description: string;
+  features: string[];
+  image: string;
+  icon: React.ReactNode;
+};
 
+const stationeryItems: StationeryItem[] = [
+  {
+    title: "Table Plans",
+    description: "Beautiful visual seating arrangements that help guests find their seats instantly. Fully themed to match your event style.",
+    features: [
+      "Drag-and-drop table arrangement",
+      "Round & rectangular table support", 
+      "Guest names auto-populated",
+      "Multiple layout options"
+    ],
+    image: "/images/table_layout.webp",
+    icon: <Table className="w-6 h-6" />,
+  },
+  {
+    title: "Guest Checklist",
+    description: "Track arrivals, RSVPs, and dietary requirements all in one elegant printable document.",
+    features: [
+      "RSVP status tracking",
+      "Dietary requirements column",
+      "Check-in boxes for arrival",
+      "Table assignments included"
+    ],
+    image: "/images/guestchecklist.webp",
+    icon: <ClipboardList className="w-6 h-6" />,
+  },
+  {
+    title: "Invitations",
+    description: "Stunning digital and printable invitations with all your event details and a QR code for instant access.",
+    features: [
+      "Event date, time & venue",
+      "QR code for instant joining",
+      "Custom messages supported",
+      "1 or 2 per page layouts"
+    ],
+    image: "/images/invitation.webp",
+    icon: <Mail className="w-6 h-6" />,
+  },
+  {
+    title: "Table Talkers",
+    description: "Elegant tent cards with QR codes that sit on each table, inviting guests to scan and share their photos.",
+    features: [
+      "Foldable tent card design",
+      "Large scannable QR code",
+      "Your event branding",
+      "Custom welcome message"
+    ],
+    image: "/images/tabletalkers.webp",
+    icon: <QrCode className="w-6 h-6" />,
+  },
+  {
+    title: "Event Posters",
+    description: "Eye-catching A4 posters perfect for display at your venue entrance or photo stations.",
+    features: [
+      "Bold event title display",
+      "Large QR code for scanning",
+      "Event details at a glance",
+      "Themed backgrounds"
+    ],
+    image: "/images/poster.webp",
+    icon: <FileText className="w-6 h-6" />,
+  },
+  {
+    title: "Place Cards",
+    description: "Personalised name cards for each guest seat, featuring elegant designs with optional QR codes.",
+    features: [
+      "Guest name in elegant fonts",
+      "Table number included",
+      "Optional QR code",
+      "Multiple design themes"
+    ],
+    image: "/images/tablenamecard.webp",
+    icon: <UserCheck className="w-6 h-6" />,
+  },
+];
 
 // App screenshots for the "See It In Action" section
 const appScreenshots = [
@@ -578,6 +659,40 @@ function FeatureCard({
   );
 }
 
+function StationeryCard({
+  item,
+  onClick,
+}: {
+  item: StationeryItem;
+  onClick: () => void;
+}) {
+  return (
+    <div
+      onClick={onClick}
+      className="group cursor-pointer rounded-2xl bg-[#1a1a2e] border border-white/10 overflow-hidden hover:border-[#e94560]/50 transition-all hover:scale-[1.02]"
+    >
+      {/* Image container - same format as appScreenshots */}
+      <div className="relative aspect-[9/16] bg-[#12121f]">
+        <Image
+          src={item.image}
+          alt={item.title}
+          fill
+          className="object-contain p-2 group-hover:scale-105 transition-transform duration-500"
+        />
+      </div>
+      
+      {/* Content below image */}
+      <div className="p-4 border-t border-white/5">
+        <div className="flex items-center gap-2 text-[#ffd6e8] mb-2">
+          {item.icon}
+          <span className="text-xs uppercase tracking-wider">Printable</span>
+        </div>
+        <h3 className="text-lg font-bold mb-2">{item.title}</h3>
+        <p className="text-gray-400 text-sm line-clamp-2">{item.description}</p>
+      </div>
+    </div>
+  );
+}
 
 function StationeryModal({
   item,
