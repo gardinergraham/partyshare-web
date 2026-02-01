@@ -23,11 +23,12 @@ import {
 } from "lucide-react";
 
 type StationeryItem = {
+  image: string;
+  icon: React.ReactNode;
   title: string;
   description: string;
   features: string[];
-  image: string;
-  icon: React.ReactNode;
+ 
 };
 
 const stationeryItems: StationeryItem[] = [
@@ -217,7 +218,7 @@ export default function StationeryPage() {
       {/* Floating Back to App Button */}
       <button
         onClick={handleBackToApp}
-        className="fixed top-12 left-6 z-50 flex items-center gap-2 px-4 py-2 rounded-full bg-[#e94560] hover:bg-[#ff5b74] text-white font-medium shadow-lg shadow-[#e94560]/40 transition-all hover:scale-105"
+        className="fixed top-22 left-6 z-50 flex items-center gap-2 px-4 py-2 rounded-full bg-[#e94560] hover:bg-[#ff5b74] text-white font-medium shadow-lg shadow-[#e94560]/40 transition-all hover:scale-105"
       >
         <ArrowLeft className="w-4 h-4" />
         Back to App
