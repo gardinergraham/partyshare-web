@@ -33,8 +33,15 @@ export default function DownloadContent() {
       <div style={{ margin: '30px 0' }}>
         <h2>Get the App</h2>
         
-        <div style={{ display: 'flex', gap: 20, justifyContent: 'center', flexWrap: 'wrap' }}>
-           <a
+        {/* --- App Promo --- */}
+        <section className="mt-10 bg-[#0f0f23] rounded-2xl p-6 text-center">
+          <h3 className="text-lg font-bold mb-2">Love Party Share?</h3>
+          <p className="text-gray-300 mb-4">
+            Get the full experience on our mobile app.
+          </p>
+
+          <div className="flex items-center justify-center gap-4">
+            <a
               href="https://apps.apple.com/gb/app/partyshare-events/id6755305083"
               target="_blank"
               rel="noopener noreferrer"
@@ -46,7 +53,7 @@ export default function DownloadContent() {
               />
             </a>
             <a
-              href="https://play.google.com"
+              href="https://play.google.com/store/apps/details?id=com.grahamgardiner.partyshare"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -56,9 +63,8 @@ export default function DownloadContent() {
                 className="h-12 w-[180px] object-contain"
               />
             </a>
-        </div>
-      </div>
-
+          </div>
+        </section>
       <p style={{ color: '#666', marginTop: 30 }}>
         After installing the app, it will automatically detect your partner PIN and guide you through setup.
       </p>
