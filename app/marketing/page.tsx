@@ -70,7 +70,7 @@ export default function MarketingPage() {
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
                 <span
                   className="inline-block bg-gradient-to-r from-white via-white to-gray-300 bg-clip-text text-transparent"
-                  style={{ WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}
+                  style={{ WebkitBackgroundClip: "text" }}
                 >
                   Every Photo.
                 </span>
@@ -84,7 +84,7 @@ export default function MarketingPage() {
                 <br />
                 <span
                   className="inline-block bg-gradient-to-r from-white via-white to-gray-300 bg-clip-text text-transparent"
-                  style={{ WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}
+                  style={{ WebkitBackgroundClip: "text" }}
                 >
                   One Place.
                 </span>
