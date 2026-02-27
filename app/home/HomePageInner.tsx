@@ -60,16 +60,20 @@ export default function HomePage() {
     );
 
   return (
-    <div className="min-h-screen bg-[#0f0f23] text-white relative overflow-visible">
-        <section className="relative py-18 px-6 sm:px-10 lg:px-16">
-              <div className="relative w-20 h-20">
-              <img
-                src="/images/iconweb.webp"
-                alt="Place Card Mockup"
-                className="w-full rounded-2xl shadow-2xl rotate-[-2deg] mb-8"
-            />
-            </div>
-        </section>
+      <div className="min-h-screen bg-[#0f0f23] text-white relative overflow-visible">
+      <section className="relative py-18 px-6 sm:px-10 lg:px-16 flex justify-center items-center">
+
+        <div className="w-1/4 max-w-[220px]">
+          <img
+            src="/images/iconweb.webp"
+            alt="App Icon"
+            className="w-full h-auto rounded-2xl shadow-2xl mx-auto"
+          />
+        </div>
+
+      </section>
+    </div>
+            </section>
 
            {/* ================= FLOATING EVENT PHOTOS ================= */}
      <section className="relative py-24 mt-20">

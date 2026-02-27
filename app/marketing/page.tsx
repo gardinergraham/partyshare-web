@@ -36,6 +36,20 @@ export default function MarketingPage() {
     <div className="min-h-screen bg-[#0f0f23] text-white overflow-hidden">
       
       {/* ================= HERO ================= */}
+        <div className="min-h-screen bg-[#0f0f23] text-white relative overflow-visible">
+          <section className="relative py-18 px-6 sm:px-10 lg:px-16 flex justify-center items-center">
+
+            <div className="w-1/4 max-w-[220px]">
+              <img
+                src="/images/iconweb.webp"
+                alt="App Icon"
+                className="w-full h-auto rounded-2xl shadow-2xl mx-auto"
+              />
+            </div>
+
+          </section>
+        </div>
+
       <section className="relative min-h-[100vh] flex items-center justify-center px-6 py-20">
         {/* Background */}
         <div className="absolute inset-0 -z-10">
