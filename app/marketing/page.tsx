@@ -74,21 +74,20 @@ export default function MarketingPage() {
               <Star className="w-4 h-4 fill-[#ffd700] text-[#ffd700]" />
             </div>
 
-            {/* Headline */}
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-            <span className="bg-gradient-to-r from-white via-white to-gray-300 bg-clip-text text-transparent">
-              Every Photo.
-            </span>
-            <br />
-            <span className="bg-gradient-to-r from-[#e94560] via-[#ff6b8a] to-[#ffd700] bg-clip-text text-transparent">
-              Every Memory.
-            </span>
-            <br />
-            <span className="bg-gradient-to-r from-white via-white to-gray-300 bg-clip-text text-transparent">
-              One Place.
-            </span>
-          </h1>
-
+              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+                <span className="inline-block bg-gradient-to-r from-white via-white to-gray-300 bg-clip-text text-transparent">
+                  Every Photo.
+                </span>
+                <br />
+                <span className="inline-block bg-gradient-to-r from-[#e94560] via-[#ff6b8a] to-[#ffd700] bg-clip-text text-transparent">
+                  Every Memory.
+                </span>
+                <br />
+                <span className="inline-block bg-gradient-to-r from-white via-white to-gray-300 bg-clip-text text-transparent">
+                  One Place.
+                </span>
+              </h1>
+              
           <p className="text-xl sm:text-2xl text-gray-300 max-w-2xl mx-auto mb-10">
             Your guests scan a QR code. Their photos appear instantly in your private gallery. 
             It's that simple.
