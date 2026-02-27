@@ -5,7 +5,7 @@ export const metadata = {
   title: "PartyShare Guest Portal",
   description: "Access events and guestbooks easily with PartyShare",
   icons: {
-    icon: "/icon.png", // or "/icon.png"
+    icon: "/icon.png", 
   },
 };
 

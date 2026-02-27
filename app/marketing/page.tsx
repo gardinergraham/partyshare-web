@@ -25,6 +25,12 @@ const PLAY_STORE_LINK =
   "https://play.google.com/store/apps/details?id=com.grahamgardiner.partyshare";
 
 export default function MarketingPage() {
+
+    const clipText = {
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+            } as React.CSSProperties;
+
  
 
   return (
@@ -66,30 +72,20 @@ export default function MarketingPage() {
               <span>The #1 Event Photo Sharing App</span>
               <Star className="w-4 h-4 fill-[#ffd700] text-[#ffd700]" />
             </div>
-
+          
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-                <span
-                  className="inline-block bg-gradient-to-r from-white via-white to-gray-300 bg-clip-text text-transparent"
-                  style={{ WebkitBackgroundClip: "text" }}
-                >
-                  Every Photo.
-                </span>
-                <br />
-                <span
-                  className="inline-block bg-gradient-to-r from-[#e94560] via-[#ff6b8a] to-[#ffd700] bg-clip-text text-transparent"
-                  style={{ WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}
-                >
-                  Every Memory.
-                </span>
-                <br />
-                <span
-                  className="inline-block bg-gradient-to-r from-white via-white to-gray-300 bg-clip-text text-transparent"
-                  style={{ WebkitBackgroundClip: "text" }}
-                >
-                  One Place.
-                </span>
-              </h1>
-
+              <span className="inline-block bg-gradient-to-r from-white via-white to-gray-300 bg-clip-text text-transparent" style={clipText}>
+                Every Photo.
+              </span>
+              <br />
+              <span className="inline-block bg-gradient-to-r from-[#e94560] via-[#ff6b8a] to-[#ffd700] bg-clip-text text-transparent" style={clipText}>
+                Every Memory.
+              </span>
+              <br />
+              <span className="inline-block bg-gradient-to-r from-white via-white to-gray-300 bg-clip-text text-transparent" style={clipText}>
+                One Place.
+              </span>
+            </h1>
           <p className="text-xl sm:text-2xl text-gray-300 max-w-2xl mx-auto mb-10">
             Your guests scan a QR code. Their photos appear instantly in your private gallery. 
             It's that simple.
@@ -147,28 +143,50 @@ export default function MarketingPage() {
       </section>
 
       {/* ================= SOCIAL PROOF BAR ================= */}
-      <section className="bg-gradient-to-r from-[#1a1a2e] to-[#0f0f23] py-8 border-y border-white/10">
+    <section className="bg-gradient-to-r from-[#1a1a2e] to-[#0f0f23] py-12 border-y border-white/10">
         <div className="max-w-6xl mx-auto px-6">
-          <div className="flex flex-wrap items-center justify-center gap-8 sm:gap-16">
-            <div className="text-center">
-              <p className="text-3xl sm:text-4xl font-bold text-[#ffd700]">10,000+</p>
-              <p className="text-sm text-gray-400">Photos Shared</p>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-y-10 gap-x-12 text-center">
+
+            <div className="space-y-2">
+              <p className="text-3xl sm:text-4xl font-bold text-[#ffd700]">
+                10,000+
+              </p>
+              <p className="text-sm text-gray-400 tracking-wide">
+                Photos Shared
+              </p>
             </div>
-            <div className="text-center">
-              <p className="text-3xl sm:text-4xl font-bold text-[#e94560]">500+</p>
-              <p className="text-sm text-gray-400">Events Created</p>
+
+            <div className="space-y-2">
+              <p className="text-3xl sm:text-4xl font-bold text-[#e94560]">
+                500+
+              </p>
+              <p className="text-sm text-gray-400 tracking-wide">
+                Events Created
+              </p>
             </div>
-            <div className="text-center">
-              <div className="flex items-center justify-center gap-1 text-3xl sm:text-4xl font-bold text-white">
-                4.9 <Star className="w-6 h-6 fill-[#ffd700] text-[#ffd700]" />
+
+            <div className="space-y-2">
+              <div className="flex items-center justify-center gap-2 text-3xl sm:text-4xl font-bold text-white">
+                4.9
+                <Star className="w-6 h-6 fill-[#ffd700] text-[#ffd700]" />
               </div>
-              <p className="text-sm text-gray-400">App Store Rating</p>
+              <p className="text-sm text-gray-400 tracking-wide">
+                App Store Rating
+              </p>
             </div>
-            <div className="text-center">
-              <p className="text-3xl sm:text-4xl font-bold text-[#4CAF50]">100%</p>
-              <p className="text-sm text-gray-400">Free to Try</p>
+
+            <div className="space-y-2">
+              <p className="text-3xl sm:text-4xl font-bold text-[#4CAF50]">
+                100%
+              </p>
+              <p className="text-sm text-gray-400 tracking-wide">
+                Free to Try
+              </p>
             </div>
+
           </div>
+
         </div>
       </section>
 
