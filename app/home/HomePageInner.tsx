@@ -58,42 +58,38 @@ const testimonials: Testimonial[] = [
             i === 0 ? testimonials.length - 1 : i - 1
           );
 
-        return (
-          <div className="min-h-screen bg-[#0f0f23] text-white relative overflow-visible">
+     return (
+  <div className="min-h-screen bg-[#0f0f23] text-white relative overflow-visible">
+    {/* LOGO HERO */}
+    <section className="relative py-18 px-6 sm:px-10 lg:px-16 flex justify-center items-center">
+      <div className="w-1/4 max-w-[220px]">
+        <img
+          src="/images/iconweb.webp"
+          alt="App Icon"
+          className="w-full h-auto rounded-2xl shadow-2xl mx-auto"
+        />
+      </div>
+    </section>
 
-            {/* LOGO HERO */}
-            <section className="relative py-18 px-6 sm:px-10 lg:px-16 flex justify-center items-center">
-              <div className="w-1/4 max-w-[220px]">
-                <img
-                  src="/images/iconweb.webp"
-                  alt="App Icon"
-                  className="w-full h-auto rounded-2xl shadow-2xl mx-auto"
-                />
-              </div>
-            </section>
+    {/* ================= FLOATING EVENT PHOTOS ================= */}
+    <section className="relative py-24 mt-20">
+      <h2 className="text-center text-3xl sm:text-4xl font-bold text-white mb-12">
+        Your Event, Captured Beautifully
+      </h2>
+      <FloatingCollage />
+    </section>
 
-            {/* ================= FLOATING EVENT PHOTOS ================= */}
-            <section className="relative py-24 mt-20">
-              <h2 className="text-center text-3xl sm:text-4xl font-bold text-white mb-12">
-                Your Event, Captured Beautifully
-              </h2>
-
-              <FloatingCollage />
-            </section>
-
-            {/* Background image */}
-            <div className="absolute inset-0 -z-20">
-              <Image
-                src="/images/rosesWhite.webp"
-                alt="Soft floral background"
-                fill
-                priority
-                className="object-cover opacity-40"
-              />
-              <div className="absolute inset-0 bg-[#0f0f23]/70" />
-            </div>
-
-          </div>
+    {/* Background image */}
+    <div className="absolute inset-0 -z-20">
+      <Image
+        src="/images/rosesWhite.webp"
+        alt="Soft floral background"
+        fill
+        priority
+        className="object-cover opacity-40"
+      />
+      <div className="absolute inset-0 bg-[#0f0f23]/70" />
+    </div>
        
 
       <main className="relative z-10 max-w-6xl mx-auto px-6 lg:px-8 py-12 lg:py-16">
@@ -179,7 +175,7 @@ const testimonials: Testimonial[] = [
                 highlight
             />
             <PhoneMockup
-                className="absolute left-12/14 top-0 -translate-x-9/10 rotate-[7deg] sm:scale-[1.05] shadow-2xl z-20"
+                className="absolute left-1/2 top-24 -translate-x-1/2 rotate-[7deg] sm:scale-[1.05] shadow-2xl z-20"
                 src="/images/IMG_3588.webp"
                 alt="PartyShare host dashboard"
                 label="Hosts stay in control"
