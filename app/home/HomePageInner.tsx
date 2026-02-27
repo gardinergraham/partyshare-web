@@ -179,7 +179,7 @@ const testimonials: Testimonial[] = [
 
                 {/* Right phone */}
                 <PhoneMockup
-                  className="absolute left-1/2 top-20 translate-x-[65%] rotate-[7deg] sm:scale-[1.05] shadow-2xl z-10"
+                  className="absolute left-1/2 top-20 translate-x-[65%] rotate-[10deg] sm:scale-[1.05] shadow-2xl z-10"
                   src="/images/IMG_3588.webp"
                   alt="PartyShare host dashboard"
                   label="Hosts stay in control"
