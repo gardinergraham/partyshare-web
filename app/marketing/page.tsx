@@ -20,26 +20,32 @@ import {
 
 const APP_STORE_LINK = "https://apps.apple.com/gb/app/partyshare-events/id6755305083";
 const PLAY_STORE_LINK = "https://play.google.com/store/apps/details?id=com.grahamgardiner.partyshare";
-
-export default function MarketingPage() {
-  const [activeFeature, setActiveFeature] = useState(0);
-
-  // Auto-rotate features
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setActiveFeature((prev) => (prev + 1) % features.length);
-    }, 4000);
-    return () => clearInterval(timer);
-  }, []);
-
   return (
     <div className="min-h-screen bg-[#0f0f23] text-white overflow-hidden">
-      
       {/* ================= HERO ================= */}
-        <div className="min-h-screen bg-[#0f0f23] text-white relative overflow-visible">
-          <section className="relative py-18 px-6 sm:px-10 lg:px-16 flex justify-center items-center">
+        <section className="relative min-h-[100vh] flex items-center justify-center px-6 py-20">
 
-            <div className="w-1/4 max-w-[220px]">
+          {/* Background */}
+          <div className="absolute inset-0 -z-10">
+            <Image
+              src="/images/rosesWhite.webp"
+              alt="Background"
+              fill
+              priority
+              className="object-cover opacity-20"
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-[#0f0f23]/50 via-[#0f0f23]/80 to-[#0f0f23]" />
+          </div>
+
+          {/* Floating elements */}
+          <div className="absolute top-20 left-10 w-72 h-72 bg-[#e94560]/20 rounded-full blur-[100px]" />
+          <div className="absolute bottom-20 right-10 w-96 h-96 bg-[#ffd700]/10 rounded-full blur-[120px]" />
+
+          {/* Content */}
+          <div className="w-full max-w-5xl mx-auto flex flex-col items-center text-center relative z-10">
+
+            {/* Logo */}
+            <div className="w-1/4 max-w-[220px] mb-8">
               <img
                 src="/images/iconweb.webp"
                 alt="App Icon"
@@ -47,36 +53,15 @@ export default function MarketingPage() {
               />
             </div>
 
-          </section>
-        </div>
+            {/* Badge */}
+            <div className="inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur-sm px-5 py-2 text-sm text-[#ffd6e8] mb-8 border border-white/20">
+              <Star className="w-4 h-4 fill-[#ffd700] text-[#ffd700]" />
+              <span>The #1 Event Photo Sharing App</span>
+              <Star className="w-4 h-4 fill-[#ffd700] text-[#ffd700]" />
+            </div>
 
-      <section className="relative min-h-[100vh] flex items-center justify-center px-6 py-20">
-        {/* Background */}
-        <div className="absolute inset-0 -z-10">
-          <Image
-            src="/images/rosesWhite.webp"
-            alt="Background"
-            fill
-            priority
-            className="object-cover opacity-20"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#0f0f23]/50 via-[#0f0f23]/80 to-[#0f0f23]" />
-        </div>
-
-        {/* Floating elements */}
-        <div className="absolute top-20 left-10 w-72 h-72 bg-[#e94560]/20 rounded-full blur-[100px]" />
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-[#ffd700]/10 rounded-full blur-[120px]" />
-
-        <div className="max-w-6xl mx-auto text-center relative z-10">
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur-sm px-5 py-2 text-sm text-[#ffd6e8] mb-8 border border-white/20">
-            <Star className="w-4 h-4 fill-[#ffd700] text-[#ffd700]" />
-            <span>The #1 Event Photo Sharing App</span>
-            <Star className="w-4 h-4 fill-[#ffd700] text-[#ffd700]" />
-          </div>
-
-          {/* Main Headline */}
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+            {/* Headline */}
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
             <span className="bg-gradient-to-r from-white via-white to-gray-300 bg-clip-text text-transparent">
               Every Photo.
             </span>
