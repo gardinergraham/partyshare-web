@@ -87,7 +87,7 @@ export default function MarketingPage() {
                   One Place.
                 </span>
               </h1>
-              
+
           <p className="text-xl sm:text-2xl text-gray-300 max-w-2xl mx-auto mb-10">
             Your guests scan a QR code. Their photos appear instantly in your private gallery. 
             It's that simple.
@@ -170,242 +170,6 @@ export default function MarketingPage() {
         </div>
       </section>
 
-      {/* ================= HOW IT WORKS ================= */}
-      <section id="how-it-works" className="py-24 px-6 scroll-mt-20">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <p className="text-sm uppercase tracking-[0.3em] text-[#ffd6e8] mb-4">
-              Simple as 1-2-3
-            </p>
-            <h2 className="text-4xl sm:text-5xl font-bold mb-6">
-              How Party Share Works
-            </h2>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                step: "1",
-                icon: <Smartphone className="w-8 h-8" />,
-                title: "Create Your Event",
-                description: "Open the app and create your event in seconds. Get your unique QR code instantly.",
-                color: "#e94560"
-              },
-              {
-                step: "2",
-                icon: <QrCode className="w-8 h-8" />,
-                title: "Guests Scan & Share",
-                description: "Guests scan the QR code — no app download or account needed. They just start uploading!",
-                color: "#ffd700"
-              },
-              {
-                step: "3",
-                icon: <Heart className="w-8 h-8" />,
-                title: "Enjoy Your Memories",
-                description: "Watch photos appear in real-time. Download everything as a zip when you're ready.",
-                color: "#4CAF50"
-              }
-            ].map((item, index) => (
-              <div
-                key={index}
-                className="relative bg-white/5 border border-white/10 rounded-3xl p-8 hover:bg-white/10 transition-all group"
-              >
-                <div
-                  className="absolute -top-4 -left-4 w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold"
-                  style={{ backgroundColor: item.color }}
-                >
-                  {item.step}
-                </div>
-                <div className="mb-6 text-gray-300 group-hover:text-white transition">
-                  {item.icon}
-                </div>
-                <h3 className="text-xl font-bold mb-3">{item.title}</h3>
-                <p className="text-gray-400">{item.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ================= PHONE SHOWCASE ================= */}
-      <section id="photos" className="py-24 px-6 bg-gradient-to-b from-transparent via-[#1a1a2e]/50 to-transparent scroll-mt-20">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Left: Phone mockups */}
-            <div className="relative h-[500px] sm:h-[600px]">
-              <div className="absolute inset-0 bg-gradient-to-tr from-[#e94560]/30 via-transparent to-[#ffd700]/20 blur-3xl" />
-              
-              <PhoneMockup
-                className="absolute left-0 top-20 rotate-[-12deg] z-10"
-                src="/images/IMG_3586.webp"
-                alt="Party Share event screen"
-              />
-              <PhoneMockup
-                className="absolute left-1/2 -translate-x-1/2 top-0 rotate-[2deg] z-20 scale-110"
-                src="/images/IMG_3591.webp"
-                alt="Party Share gallery"
-                highlight
-              />
-              <PhoneMockup
-                className="absolute right-0 top-24 rotate-[10deg] z-10"
-                src="/images/IMG_3588.webp"
-                alt="Party Share dashboard"
-              />
-            </div>
-
-            {/* Right: Features */}
-            <div>
-              <p className="text-sm uppercase tracking-[0.3em] text-[#e94560] mb-4">
-                Photo Sharing
-              </p>
-              <h2 className="text-4xl sm:text-5xl font-bold mb-6">
-                Capture Every Moment Together
-              </h2>
-              <p className="text-xl text-gray-300 mb-8">
-                No more chasing guests for photos after the event. With Party Share, 
-                every photo lands in one beautiful gallery — automatically.
-              </p>
-
-              <ul className="space-y-4 mb-8">
-                {[
-                  "Instant QR code scanning — no app needed for guests",
-                  "Real-time photo gallery updates",
-                  "Download all photos as a ZIP file",
-                  "Digital guestbook with heartfelt messages",
-                  "Works with any smartphone"
-                ].map((feature, index) => (
-                  <li key={index} className="flex items-start gap-3">
-                    <CheckCircle className="w-6 h-6 text-[#4CAF50] shrink-0 mt-0.5" />
-                    <span className="text-gray-300">{feature}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <DownloadButtons />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ================= STATIONERY SHOWCASE ================= */}
-      <section id="stationery" className="py-24 px-6 scroll-mt-20">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Left: Features */}
-            <div className="order-2 lg:order-1">
-              <p className="text-sm uppercase tracking-[0.3em] text-[#ffd700] mb-4">
-                Print-Ready Stationery
-              </p>
-              <h2 className="text-4xl sm:text-5xl font-bold mb-6">
-                Beautiful Stationery, Auto-Generated
-              </h2>
-              <p className="text-xl text-gray-300 mb-8">
-                Create stunning table plans, name cards, and QR posters that match 
-                your event theme — all in just a few taps.
-              </p>
-
-              <div className="grid grid-cols-2 gap-4 mb-8">
-                {[
-                  { icon: <Users className="w-5 h-5" />, label: "Table Plans" },
-                  { icon: <QrCode className="w-5 h-5" />, label: "QR Posters" },
-                  { icon: <Printer className="w-5 h-5" />, label: "Name Cards" },
-                  { icon: <Camera className="w-5 h-5" />, label: "Invitations" },
-                ].map((item, index) => (
-                  <div
-                    key={index}
-                    className="flex items-center gap-3 bg-white/5 border border-white/10 rounded-xl p-4"
-                  >
-                    <div className="text-[#ffd700]">{item.icon}</div>
-                    <span className="font-medium">{item.label}</span>
-                  </div>
-                ))}
-              </div>
-
-              <DownloadButtons />
-            </div>
-
-            {/* Right: Stationery images */}
-            <div className="relative order-1 lg:order-2">
-              <div className="grid grid-cols-2 gap-4">
-                <img
-                  src="/images/IMG_3604.webp"
-                  alt="Place cards"
-                  className="w-full rounded-2xl shadow-2xl rotate-[-3deg] hover:rotate-0 transition-transform"
-                />
-                <img
-                  src="/images/IMG_3605.webp"
-                  alt="Table talkers"
-                  className="w-full rounded-2xl shadow-2xl rotate-[3deg] hover:rotate-0 transition-transform mt-8"
-                />
-                <img
-                  src="/images/poster.webp"
-                  alt="Event poster"
-                  className="w-full rounded-2xl shadow-2xl rotate-[2deg] hover:rotate-0 transition-transform"
-                />
-                <img
-                  src="/images/invitation.webp"
-                  alt="Invitation"
-                  className="w-full rounded-2xl shadow-2xl rotate-[-2deg] hover:rotate-0 transition-transform mt-8"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ================= TESTIMONIALS ================= */}
-      <section className="py-24 px-6 bg-gradient-to-b from-transparent via-[#2a1730]/30 to-transparent">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <p className="text-sm uppercase tracking-[0.3em] text-[#ffd6e8] mb-4">
-              Loved by Hosts
-            </p>
-            <h2 className="text-4xl sm:text-5xl font-bold mb-6">
-              What Our Users Say
-            </h2>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            {[
-              {
-                quote: "Our guests loved how easy it was to share photos. We had hundreds of memories in one place before the night even ended.",
-                name: "Hannah & James",
-                event: "Wedding in the Cotswolds",
-                rating: 5
-              },
-              {
-                quote: "No more chasing people for photos after the party. The QR on the tables just worked. Brilliant!",
-                name: "Tom & Priya",
-                event: "Joint 30th Birthday",
-                rating: 5
-              },
-              {
-                quote: "The table plans and printable name cards saved us hours. Everything felt connected and on-brand.",
-                name: "Sarah M.",
-                event: "Corporate Summer Party",
-                rating: 5
-              }
-            ].map((testimonial, index) => (
-              <div
-                key={index}
-                className="bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition"
-              >
-                <div className="flex gap-1 mb-4">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="w-5 h-5 fill-[#ffd700] text-[#ffd700]" />
-                  ))}
-                </div>
-                <p className="text-gray-300 mb-6 italic">"{testimonial.quote}"</p>
-                <div>
-                  <p className="font-semibold">{testimonial.name}</p>
-                  <p className="text-sm text-gray-500">{testimonial.event}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* ================= FINAL CTA ================= */}
       <section className="py-24 px-6">
         <div className="max-w-4xl mx-auto">
@@ -466,20 +230,16 @@ export default function MarketingPage() {
       {/* ================= FOOTER ================= */}
       <footer className="py-8 px-6 border-t border-white/10">
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
-            <img
-              src="/images/iconweb.webp"
-              alt="Party Share"
-              className="w-10 h-10 rounded-xl"
-            />
-            <span className="font-semibold">Party Share</span>
-          </div>
+        
           
           <p className="text-sm text-gray-500">
             © {new Date().getFullYear()} Party Share. All rights reserved.
           </p>
 
           <div className="flex items-center gap-4">
+            <a href="/home" className="text-sm text-gray-400 hover:text-white transition">
+              Home
+            </a>
             <a href="/privacy" className="text-sm text-gray-400 hover:text-white transition">
               Privacy
             </a>
@@ -489,40 +249,6 @@ export default function MarketingPage() {
           </div>
         </div>
       </footer>
-    </div>
-  );
-}
-
-/* ============ COMPONENTS ============ */
-
-function PhoneMockup({
-  src,
-  alt,
-  className = "",
-  highlight,
-}: {
-  src: string;
-  alt: string;
-  className?: string;
-  highlight?: boolean;
-}) {
-  return (
-    <div
-      className={`w-[160px] sm:w-[180px] h-[320px] sm:h-[360px] rounded-[32px] bg-black border-2 ${
-        highlight ? "border-[#e94560]" : "border-white/20"
-      } overflow-hidden shadow-2xl ${className}`}
-    >
-      <div className="h-6 flex items-center justify-center bg-black">
-        <div className="w-16 h-1.5 bg-gray-700 rounded-full" />
-      </div>
-      <div className="relative flex-1 h-[calc(100%-24px)]">
-        <Image
-          src={src}
-          alt={alt}
-          fill
-          className="object-cover"
-        />
-      </div>
     </div>
   );
 }
@@ -557,10 +283,3 @@ function DownloadButtons() {
     </div>
   );
 }
-
-const features = [
-  { title: "Photo Sharing", description: "Guests scan & share instantly" },
-  { title: "Table Plans", description: "Drag-and-drop seating" },
-  { title: "Stationery", description: "Print-ready designs" },
-  { title: "Guestbook", description: "Collect messages & memories" },
-];
