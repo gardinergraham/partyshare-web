@@ -162,7 +162,7 @@ const testimonials: Testimonial[] = [
 
             {/* Left phone */}
             <PhoneMockup
-                className="absolute left-4 top-10 rotate-[-12deg] sm:scale-[0.95] shadow-2xl"
+                className="absolute left-4 top-10 rotate-[-12deg] sm:scale-[1.05] shadow-2xl"
                 src="/images/IMG_3586.webp"
                 alt="PartyShare login screen"
                 label="Create or join your event"
@@ -175,7 +175,7 @@ const testimonials: Testimonial[] = [
                 highlight
             />
             <PhoneMockup
-                className="absolute left-10 top-24 -translate-x-1/2 rotate-[7deg] sm:scale-[1.05] shadow-2xl z-20"
+                className="absolute left-2 top-24 -translate-x-1/2 rotate-[7deg] sm:scale-[1.05] shadow-2xl z-20"
                 src="/images/IMG_3588.webp"
                 alt="PartyShare host dashboard"
                 label="Hosts stay in control"
