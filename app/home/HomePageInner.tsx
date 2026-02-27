@@ -161,25 +161,29 @@ const testimonials: Testimonial[] = [
             <div className="absolute inset-0 bg-gradient-to-tr from-[#ff8bb7]/30 via-transparent to-[#ffd56f]/20 blur-3xl"></div>
 
             {/* Left phone */}
-            <PhoneMockup
-                className="absolute left-4 top-10 rotate-[-12deg] sm:scale-[1.05] shadow-2xl"
-                src="/images/IMG_3586.webp"
-                alt="PartyShare login screen"
-                label="Create or join your event"
-            />
-            <PhoneMockup
-                className="absolute left-1/2 top-0 -translate-x-1/2 rotate-[2deg] sm:scale-[1.05] shadow-2xl z-20"
-                src="/images/IMG_3591.webp"
-                alt="PartyShare shared gallery"
-                label="Guests upload photos & videos"
-                highlight
-            />
-            <PhoneMockup
-                className="absolute left-2 top-24 -translate-x-1/2 rotate-[7deg] sm:scale-[1.05] shadow-2xl z-20"
-                src="/images/IMG_3588.webp"
-                alt="PartyShare host dashboard"
-                label="Hosts stay in control"
-            />
+                <PhoneMockup
+                  className="absolute left-1/2 top-16 -translate-x-[165%] rotate-[-12deg] sm:scale-[1.05] shadow-2xl z-10"
+                  src="/images/IMG_3586.webp"
+                  alt="PartyShare login screen"
+                  label="Create or join your event"
+                />
+
+                {/* Center phone */}
+                <PhoneMockup
+                  className="absolute left-1/2 top-0 -translate-x-1/2 rotate-[2deg] sm:scale-[1.05] shadow-2xl z-20"
+                  src="/images/IMG_3591.webp"
+                  alt="PartyShare shared gallery"
+                  label="Guests upload photos & videos"
+                  highlight
+                />
+
+                {/* Right phone */}
+                <PhoneMockup
+                  className="absolute left-1/2 top-20 translate-x-[65%] rotate-[7deg] sm:scale-[1.05] shadow-2xl z-10"
+                  src="/images/IMG_3588.webp"
+                  alt="PartyShare host dashboard"
+                  label="Hosts stay in control"
+                />
             </div>
         </div>
         </section>
