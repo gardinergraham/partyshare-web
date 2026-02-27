@@ -25,14 +25,7 @@ const PLAY_STORE_LINK =
   "https://play.google.com/store/apps/details?id=com.grahamgardiner.partyshare";
 
 export default function MarketingPage() {
-  const [activeFeature, setActiveFeature] = useState(0);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setActiveFeature((prev) => (prev + 1) % features.length);
-    }, 4000);
-    return () => clearInterval(timer);
-  }, []);
+ 
 
   return (
     <div className="min-h-screen bg-[#0f0f23] text-white overflow-hidden">
