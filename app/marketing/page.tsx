@@ -67,16 +67,25 @@ export default function MarketingPage() {
               <Star className="w-4 h-4 fill-[#ffd700] text-[#ffd700]" />
             </div>
 
-              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-                <span className="inline-block bg-gradient-to-r from-white via-white to-gray-300 bg-clip-text text-transparent">
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+                <span
+                  className="inline-block bg-gradient-to-r from-white via-white to-gray-300 bg-clip-text text-transparent"
+                  style={{ WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}
+                >
                   Every Photo.
                 </span>
                 <br />
-                <span className="inline-block bg-gradient-to-r from-[#e94560] via-[#ff6b8a] to-[#ffd700] bg-clip-text text-transparent">
+                <span
+                  className="inline-block bg-gradient-to-r from-[#e94560] via-[#ff6b8a] to-[#ffd700] bg-clip-text text-transparent"
+                  style={{ WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}
+                >
                   Every Memory.
                 </span>
                 <br />
-                <span className="inline-block bg-gradient-to-r from-white via-white to-gray-300 bg-clip-text text-transparent">
+                <span
+                  className="inline-block bg-gradient-to-r from-white via-white to-gray-300 bg-clip-text text-transparent"
+                  style={{ WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}
+                >
                   One Place.
                 </span>
               </h1>
