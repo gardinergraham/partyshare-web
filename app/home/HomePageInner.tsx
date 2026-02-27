@@ -45,61 +45,55 @@ const testimonials: Testimonial[] = [
     subtitle: "Corporate Summer Party",
   },
 ];
+      export default function HomePage() {
+        const [testimonialIndex, setTestimonialIndex] = useState(0);
 
-export default function HomePage() {
-  const [testimonialIndex, setTestimonialIndex] = useState(0);
+        const current = testimonials[testimonialIndex];
 
-  const current = testimonials[testimonialIndex];
+        const nextTestimonial = () =>
+          setTestimonialIndex((i) => (i + 1) % testimonials.length);
 
-  const nextTestimonial = () =>
-    setTestimonialIndex((i) => (i + 1) % testimonials.length);
+        const prevTestimonial = () =>
+          setTestimonialIndex((i) =>
+            i === 0 ? testimonials.length - 1 : i - 1
+          );
 
-  const prevTestimonial = () =>
-    setTestimonialIndex((i) =>
-      i === 0 ? testimonials.length - 1 : i - 1
-    );
+        return (
+          <div className="min-h-screen bg-[#0f0f23] text-white relative overflow-visible">
 
-  return (
-      <div className="min-h-screen bg-[#0f0f23] text-white relative overflow-visible">
-      <section className="relative py-18 px-6 sm:px-10 lg:px-16 flex justify-center items-center">
-
-        <div className="w-1/4 max-w-[220px]">
-          <img
-            src="/images/iconweb.webp"
-            alt="App Icon"
-            className="w-full h-auto rounded-2xl shadow-2xl mx-auto"
-          />
-        </div>
-
-      </section>
-    </div>
+            {/* LOGO HERO */}
+            <section className="relative py-18 px-6 sm:px-10 lg:px-16 flex justify-center items-center">
+              <div className="w-1/4 max-w-[220px]">
+                <img
+                  src="/images/iconweb.webp"
+                  alt="App Icon"
+                  className="w-full h-auto rounded-2xl shadow-2xl mx-auto"
+                />
+              </div>
             </section>
 
-           {/* ================= FLOATING EVENT PHOTOS ================= */}
-     <section className="relative py-24 mt-20">
-        <h2 className="text-center text-3xl sm:text-4xl font-bold text-white mb-12">
-            Your Event, Captured Beautifully
-        </h2>
+            {/* ================= FLOATING EVENT PHOTOS ================= */}
+            <section className="relative py-24 mt-20">
+              <h2 className="text-center text-3xl sm:text-4xl font-bold text-white mb-12">
+                Your Event, Captured Beautifully
+              </h2>
 
-        <FloatingCollage />
-      </section>
+              <FloatingCollage />
+            </section>
 
+            {/* Background image */}
+            <div className="absolute inset-0 -z-20">
+              <Image
+                src="/images/rosesWhite.webp"
+                alt="Soft floral background"
+                fill
+                priority
+                className="object-cover opacity-40"
+              />
+              <div className="absolute inset-0 bg-[#0f0f23]/70" />
+            </div>
 
-
-      {/* Background image */}
-      <div className="absolute inset-0 -z-20">
-        <Image
-          src="/images/rosesWhite.webp"
-          alt="Soft floral background"
-          fill
-          priority
-          className="object-cover opacity-40"
-        />
-        <div className="absolute inset-0 bg-[#0f0f23]/70" />
-      </div>
-
-
-              
+          </div>
        
 
       <main className="relative z-10 max-w-6xl mx-auto px-6 lg:px-8 py-12 lg:py-16">
