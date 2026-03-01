@@ -24,6 +24,12 @@ const APP_STORE_LINK =
 const PLAY_STORE_LINK =
   "https://play.google.com/store/apps/details?id=com.grahamgardiner.partyshare";
 
+const headlines = [
+        "Every Photo.",
+        "Every Memory.",
+        "One Place.",
+      ];
+
 export default function MarketingPage() {
 
     const clipText = {
@@ -31,7 +37,16 @@ export default function MarketingPage() {
               WebkitTextFillColor: "transparent",
             } as React.CSSProperties;
 
- 
+   
+ const [headlineIndex, setHeadlineIndex] = useState(0);
+
+useEffect(() => {
+  const interval = setInterval(() => {
+    setHeadlineIndex((i) => (i + 1) % headlines.length);
+  }, 2200);
+
+  return () => clearInterval(interval);
+}, []);
 
   return (
     <div className="min-h-screen bg-[#0f0f23] text-white overflow-hidden">
@@ -73,17 +88,18 @@ export default function MarketingPage() {
               <Star className="w-4 h-4 fill-[#ffd700] text-[#ffd700]" />
             </div>
           
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-              <span className="inline-block bg-gradient-to-r from-white via-white to-gray-300 bg-clip-text text-transparent" style={clipText}>
-                Every Photo.
-              </span>
-              <br />
-              <span className="inline-block bg-gradient-to-r from-[#e94560] via-[#ff6b8a] to-[#ffd700] bg-clip-text text-transparent" style={clipText}>
-                Every Memory.
-              </span>
-              <br />
-              <span className="inline-block bg-gradient-to-r from-white via-white to-gray-300 bg-clip-text text-transparent" style={clipText}>
-                One Place.
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 leading-tight h-[1.2em]">
+              <span
+                key={headlineIndex}
+                className="inline-block bg-gradient-to-r from-[#e94560] via-[#ff6b8a] to-[#ffd700]
+                          bg-clip-text text-transparent
+                          animate-fade"
+                style={{
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                }}
+              >
+                {headlines[headlineIndex]}
               </span>
             </h1>
           <p className="text-xl sm:text-2xl text-gray-300 max-w-2xl mx-auto mb-10">

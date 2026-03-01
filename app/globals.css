@@ -104,3 +104,14 @@ html, body {
   50%  { transform: translate(var(--xMid),   var(--yMid))   rotate(var(--rotMid)); }
   100% { transform: translate(var(--xEnd),   var(--yEnd))   rotate(var(--rotEnd)); }
 }
+
+@keyframes fade {
+  0% { opacity: 0; transform: translateY(10px); }
+  15% { opacity: 1; transform: translateY(0); }
+  85% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-10px); }
+}
+
+.animate-fade {
+  animation: fade 2.2s ease-in-out;
+}
