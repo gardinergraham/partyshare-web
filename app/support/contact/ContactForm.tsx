@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 
 export default function ContactForm() {
-  const s = getStrings();
+
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -41,10 +41,10 @@ export default function ContactForm() {
   <div className="max-w-xl w-full p-6 rounded-2xl bg-[#13263a] border border-[#1f3a52] shadow-lg">
 
     <h1 className="text-3xl font-semibold text-center text-[var(--ps-text)] mb-3">
-      {s.contactTitle}
+      {"Contact Support"}
     </h1>
         <p className="text-center text-[var(--color-text-muted)] mb-6">
-          {s.contactIntro}
+          {"If you need assistance, we're here to help"}
         </p>
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
 
