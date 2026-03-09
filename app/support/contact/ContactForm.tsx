@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-
+import { API_BASE_URL } from "@/lib/api";
 export default function ContactForm() {
 
 
@@ -49,26 +49,24 @@ export default function ContactForm() {
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
 
             {/* Name */}
-            <input
+           <input
               type="text"
-              placeholder={s.contactNamePlaceholder}
+              placeholder="Your Name"
               required
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
 
-            {/* Email */}
             <input
               type="email"
-              placeholder={s.contactEmailPlaceholder}
+              placeholder="Your Email"
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
 
-            {/* How can we help */}
             <textarea
-              placeholder={s.contactMessagePlaceholder}
+              placeholder="How can we help?"
               required
               value={message}
               onChange={(e) => setMessage(e.target.value)}
@@ -76,30 +74,25 @@ export default function ContactForm() {
             />
 
             {/* Submit */}
-            <button
-              type="submit"
-              disabled={loading}
-              className="mt-2"
-            >
-              {loading ? s.contactSending : s.contactSend}
+           <button type="submit" disabled={loading} className="mt-2">
+              {loading ? "Sending..." : "Send Message"}
             </button>
+           {status === "success" && (
+                <p className="text-center text-green-400">
+                  Message sent successfully.
+                </p>
+              )}
 
-            {status === "success" && (
-              <p className="text-center text-[var(--color-success)]">
-                {s.contactSuccess}
-              </p>
-            )}
-
-            {status === "error" && (
-              <p className="text-center text-[var(--color-error)]">
-                {s.contactError}
-              </p>
-            )}
+              {status === "error" && (
+                <p className="text-center text-red-400">
+                  Something went wrong. Please try again.
+                </p>
+              )}
 
           </form>
 
-        <div className="text-center text-sm text-[var(--color-text-muted)] mt-6">
-          {s.contactOrEmail}{" "}
+        <div className="text-center text-sm text-[var(--ps-muted)] mt-6">
+          {"email contact - "}{" "}
           <span className="font-medium">support@party-share.com</span>
         </div>
       </div>
