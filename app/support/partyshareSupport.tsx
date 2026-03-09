@@ -22,7 +22,7 @@ export default function PartyShareSupport() {
           <p className="text-gray-300 mb-3">
             If you need help or are experiencing issues, contact us at:
           </p>
-          <p className="text-gray-200 font-medium">📧 support@party-share.uk</p>
+          <p className="text-gray-200 font-medium">📧 support@party-share.com</p>
           <p className="text-gray-400 text-sm">We aim to reply within 24 hours.</p>
         </section>
 
