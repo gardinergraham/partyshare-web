@@ -5,6 +5,6 @@ export const metadata = {
   description: "Get help or contact PartyShare support.",
 };
 
-export default function ContactForm() {
+export default function ContactPage() {
   return <ContactForm />;
 }
