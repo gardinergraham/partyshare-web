@@ -247,7 +247,7 @@ useEffect(() => {
     Support
   </a>
 
-  <a href="/contact" className="text-white hover:text-[#e94560]">
+  <a href="/support/contact" className="text-white hover:text-[#e94560]">
     Contact Us
   </a>
 {/* added privacy*/}
