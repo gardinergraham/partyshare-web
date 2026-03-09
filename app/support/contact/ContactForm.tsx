@@ -17,6 +17,7 @@ export default function ContactForm() {
     setStatus(null);
 
     try {
+        console.log("API URL:", API_BASE_URL);
       const res = await fetch(`${API_BASE_URL}/api/contact/`, {
         method: "POST",
         body: JSON.stringify({ name, email, message }),
