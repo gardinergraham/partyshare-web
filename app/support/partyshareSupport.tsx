@@ -117,11 +117,31 @@ export default function PartyShareSupport() {
           </ul>
         </section>
 
-        {/* Footer */}
-        <div className="text-center text-gray-500 text-sm mt-10">
-          Need more help? Email{" "}
-          <span className="text-[#e94560]">support@party-share.com</span>
-        </div>
+       {/* --- Footer --- */}
+      <footer className="mt-8 text-sm text-white text-center flex flex-wrap justify-center gap-6">
+        <a href="/home" className="text-white hover:text-[#e94560]">
+        About Party Share
+      </a>
+        <a href="/partner" className="text-white hover:text-[#e94560]">
+        Become a Partner
+      </a>
+
+        <a href="/terms" className="text-white hover:text-[#e94560]">
+          Terms & Conditions
+        </a>
+
+        <a href="/support" className="text-white hover:text-[#e94560]">
+          Support
+        </a>
+
+        <a href="/support/contact" className="text-white hover:text-[#e94560]">
+          Contact Us
+        </a>
+      {/* added privacy*/}
+        <a href="/privacy" className="text-white hover:text-[#e94560]">
+          Privacy Policy
+        </a>
+      </footer>
       </div>
     </div>
   );

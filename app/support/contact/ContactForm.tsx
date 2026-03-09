@@ -1,11 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import { API_BASE_URL } from "@/lib/api";
-import Footer from "@/components/footer";
-import { getStrings } from "@/app/i18n/getStrings";
 
-export default function ContactForm() {
+export default function ContactPage() {
   const s = getStrings();
 
   const [name, setName] = useState("");
@@ -107,7 +104,31 @@ export default function ContactForm() {
         </div>
       </div>
 
-      <Footer />
+      {/* --- Footer --- */}
+          <footer className="mt-8 text-sm text-white text-center flex flex-wrap justify-center gap-6">
+            <a href="/home" className="text-white hover:text-[#e94560]">
+            About Party Share
+          </a>
+            <a href="/partner" className="text-white hover:text-[#e94560]">
+            Become a Partner
+          </a>
+
+            <a href="/terms" className="text-white hover:text-[#e94560]">
+              Terms & Conditions
+            </a>
+
+            <a href="/support" className="text-white hover:text-[#e94560]">
+              Support
+            </a>
+
+            <a href="/support/contact" className="text-white hover:text-[#e94560]">
+              Contact Us
+            </a>
+          {/* added privacy*/}
+            <a href="/privacy" className="text-white hover:text-[#e94560]">
+              Privacy Policy
+            </a>
+          </footer>
     </div>
   );
 }
