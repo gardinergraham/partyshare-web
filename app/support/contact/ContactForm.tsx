@@ -1,12 +1,17 @@
 "use client";
 
 import React, { useState } from "react";
+import { API_BASE_URL } from "@/lib/api";
+import Footer from "@/components/footer";
+import { getStrings } from "@/app/i18n/getStrings";
 
 export default function ContactForm() {
+  const s = getStrings();
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
-  const [status, setStatus] = useState<string | null>(null);
+  const [status, setStatus] = useState<"success" | "error" | null>(null);
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: any) => {
@@ -15,7 +20,7 @@ export default function ContactForm() {
     setStatus(null);
 
     try {
-      const res = await fetch("/api/contact", {
+      const res = await fetch(`${API_BASE_URL}/api/contact/`, {
         method: "POST",
         body: JSON.stringify({ name, email, message }),
         headers: { "Content-Type": "application/json" },
@@ -27,93 +32,82 @@ export default function ContactForm() {
       setName("");
       setEmail("");
       setMessage("");
-    } catch (err) {
+    } catch {
       setStatus("error");
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false);
   };
 
   return (
-    <div className="min-h-screen bg-[#0d1b2a] text-white flex justify-center px-6 py-16">
-      <div className="max-w-xl w-full bg-[#1b263b] p-8 rounded-2xl border border-white/10 shadow-lg">
-        <h1 className="text-3xl font-bold text-center text-[#e94560] mb-6">
-          Contact Support
-        </h1>
+   <div className="min-h-screen flex flex-col items-center px-4 py-12 bg-[var(--ps-bg)]">
+  <div className="max-w-xl w-full p-6 rounded-2xl bg-[#13263a] border border-[#1f3a52] shadow-lg">
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <input
-            type="text"
-            placeholder="Your Name"
-            required
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            className="w-full p-4 rounded-xl bg-[#1a1a2e] border border-gray-700 text-white"
-          />
+    <h1 className="text-3xl font-semibold text-center text-[var(--ps-text)] mb-3">
+      {s.contactTitle}
+    </h1>
+        <p className="text-center text-[var(--color-text-muted)] mb-6">
+          {s.contactIntro}
+        </p>
+          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
 
-          <input
-            type="email"
-            placeholder="Your Email"
-            required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full p-4 rounded-xl bg-[#1a1a2e] border border-gray-700 text-white"
-          />
+            {/* Name */}
+            <input
+              type="text"
+              placeholder={s.contactNamePlaceholder}
+              required
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
 
-          <textarea
-            placeholder="How can we help?"
-            required
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            className="w-full p-4 rounded-xl bg-[#1a1a2e] h-40 border border-gray-700 text-white"
-          />
+            {/* Email */}
+            <input
+              type="email"
+              placeholder={s.contactEmailPlaceholder}
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
 
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-[#e94560] py-4 rounded-xl font-semibold hover:bg-[#ff5b74] transition"
-          >
-            {loading ? "Sending..." : "Send Message"}
-          </button>
+            {/* How can we help */}
+            <textarea
+              placeholder={s.contactMessagePlaceholder}
+              required
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              className="h-40"
+            />
 
-          {status === "success" && (
-            <p className="text-green-400 text-center">
-              Message sent! We'll get back to you shortly.
-            </p>
-          )}
+            {/* Submit */}
+            <button
+              type="submit"
+              disabled={loading}
+              className="mt-2"
+            >
+              {loading ? s.contactSending : s.contactSend}
+            </button>
 
-          {status === "error" && (
-            <p className="text-red-400 text-center">
-              Something went wrong. Please try again.
-            </p>
-          )}
-        </form>
+            {status === "success" && (
+              <p className="text-center text-[var(--color-success)]">
+                {s.contactSuccess}
+              </p>
+            )}
+
+            {status === "error" && (
+              <p className="text-center text-[var(--color-error)]">
+                {s.contactError}
+              </p>
+            )}
+
+          </form>
+
+        <div className="text-center text-sm text-[var(--color-text-muted)] mt-6">
+          {s.contactOrEmail}{" "}
+          <span className="font-medium">support@party-share.com</span>
+        </div>
       </div>
-      {/* --- Footer --- */}
-      <footer className="mt-8 text-sm text-white text-center flex flex-wrap justify-center gap-6">
-        <a href="/home" className="text-white hover:text-[#e94560]">
-        About Party Share
-      </a>
-        <a href="/partner" className="text-white hover:text-[#e94560]">
-        Become a Partner
-      </a>
 
-        <a href="/terms" className="text-white hover:text-[#e94560]">
-          Terms & Conditions
-        </a>
-
-        <a href="/support" className="text-white hover:text-[#e94560]">
-          Support
-        </a>
-
-        <a href="/support/contact" className="text-white hover:text-[#e94560]">
-          Contact Us
-        </a>
-      {/* added privacy*/}
-        <a href="/privacy" className="text-white hover:text-[#e94560]">
-          Privacy Policy
-        </a>
-      </footer>
+      <Footer />
     </div>
   );
 }

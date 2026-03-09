@@ -43,7 +43,7 @@ export default function DeleteAccount() {
 
           <div className="bg-[#0d1b2a] border border-white/10 rounded-lg p-4 text-center">
             <p className="text-lg font-semibold text-[#e94560]">
-              📧 support@party-share.uk
+              📧 support@party-share.com
             </p>
           </div>
 

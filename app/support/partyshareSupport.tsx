@@ -120,7 +120,7 @@ export default function PartyShareSupport() {
         {/* Footer */}
         <div className="text-center text-gray-500 text-sm mt-10">
           Need more help? Email{" "}
-          <span className="text-[#e94560]">support@party-share.uk</span>
+          <span className="text-[#e94560]">support@party-share.com</span>
         </div>
       </div>
     </div>

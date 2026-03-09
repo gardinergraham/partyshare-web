@@ -24,6 +24,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <footer className="w-full bg-[#0d1b2a] border-t border-white/10 mt-16 py-6 text-center text-gray-400 text-sm">
         <div className="flex justify-center space-x-6">
             <a href="/support" className="hover:text-[#e94560] transition">Support</a>
+            <a href="/support/contact" className="hover:text-[#e94560] transition">Contact</a>
             <a href="/terms" className="hover:text-[#e94560] transition">Terms</a>
             <a href="/privacy" className="hover:text-[#e94560] transition">Privacy</a>
         </div>
