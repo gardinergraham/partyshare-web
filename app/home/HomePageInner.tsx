@@ -2,28 +2,13 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 type Testimonial = {
   quote: string;
   name: string;
   subtitle: string;
 };
-
-function useRandomPositions(count: number, width = 500, height = 350) {
-  const [positions, setPositions] = useState<{ top: number; left: number }[]>([]);
-
-  useEffect(() => {
-    const newPositions = Array.from({ length: count }).map(() => ({
-      top: Math.random() * height + 20,
-      left: Math.random() * width + 20,
-    }));
-    setPositions(newPositions);
-  }, [count, width, height]);
-
-  return positions;
-}
-
 
 const testimonials: Testimonial[] = [
   {
@@ -59,10 +44,10 @@ const testimonials: Testimonial[] = [
           );
 
      return (
-  <div className="min-h-screen bg-[#0f0f23] text-white relative overflow-visible">
+  <div className="party-home min-h-screen bg-[#0f0f23] text-white relative overflow-hidden">
     {/* LOGO HERO */}
-    <section className="relative py-18 px-6 sm:px-10 lg:px-16 flex justify-center items-center">
-      <div className="w-1/4 max-w-[220px]">
+    <section className="relative px-5 sm:px-8 lg:px-10 py-14 sm:py-16 flex justify-center items-center">
+      <div className="party-home-logo">
         <img
           src="/images/iconweb.webp"
           alt="App Icon"
@@ -72,11 +57,13 @@ const testimonials: Testimonial[] = [
     </section>
 
     {/* ================= FLOATING EVENT PHOTOS ================= */}
-    <section className="relative py-24 mt-20">
-      <h2 className="text-center text-3xl sm:text-4xl font-bold text-white mb-12">
-        Your Event, Captured Beautifully
-      </h2>
-      <FloatingCollage />
+    <section className="relative px-5 sm:px-8 lg:px-10 py-16 sm:py-20">
+      <div className="max-w-5xl mx-auto">
+        <h2 className="text-center text-3xl sm:text-4xl font-bold text-white mb-10">
+          Your Event, Captured Beautifully
+        </h2>
+        <FloatingCollage />
+      </div>
     </section>
 
     {/* Background image */}
@@ -92,7 +79,7 @@ const testimonials: Testimonial[] = [
     </div>
        
 
-      <main className="relative z-10 max-w-6xl mx-auto px-6 lg:px-8 py-12 lg:py-16">
+      <main className="party-home-main">
      {/* ================= HERO ================= */}
        <section className="relative mb-20 overflow-visible rounded-3xl">
         {/* Soft floral background */}
@@ -330,8 +317,8 @@ const testimonials: Testimonial[] = [
           
         </section>
         {/* ================= Show QR code ================= */}
-        <section className="relative py-24 px-6 sm:px-10 lg:px-16">
-             <div className="relative w-20 h-20">
+        <section className="relative py-16 sm:py-20">
+             <div className="party-home-mini-qr">
               <img
                 src="/images/IMG_3585.webp"
                 alt="Place Card Mockup"
@@ -340,7 +327,7 @@ const testimonials: Testimonial[] = [
         </div>
         </section>
         {/* ================= TABLE STATIONERY SHOWCASE ================= */}
-        <section className="relative py-24 px-6 sm:px-10 lg:px-16">
+        <section className="relative py-16 sm:py-20">
         <h2 className="text-center text-3xl sm:text-4xl font-bold text-white mb-4">
             Beautiful Table Stationery — Auto-Generated
         </h2>
@@ -348,22 +335,22 @@ const testimonials: Testimonial[] = [
             Create printable name cards, table talkers with QR codes, and full table layouts — all matched to your chosen theme.
         </p>
 
-        <div className="grid lg:grid-cols-2 gap-12 max-w-7xl mx-auto items-center">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-12 max-w-5xl mx-auto items-center">
             
             {/* Left: mockups */}
-            <div className="relative">
+            <div className="relative max-w-[460px] mx-auto w-full">
             {/* Place card */}
             <img
                 src="/images/IMG_3604.webp"
                 alt="Place Card Mockup"
-                className="w-full rounded-2xl shadow-2xl rotate-[-2deg] mb-8"
+                className="party-home-showcase-image rounded-2xl shadow-2xl rotate-[-2deg] mb-8"
             />
 
             {/* Table Talker */}
             <img
                 src="/images/IMG_3605.webp"
                 alt="Table Talker"
-                className="w-4/5 rounded-2xl shadow-2xl rotate-[3deg] mx-auto"
+                className="w-4/5 max-w-[360px] rounded-2xl shadow-2xl rotate-[3deg] mx-auto"
             />
 
             </div>
@@ -528,17 +515,15 @@ const FloatingCollage = () => {
   ];
 
   return (
-  <div className="grid grid-cols-3 gap-6 max-w-4xl mx-auto mb-[20px]">
+  <div className="party-home-collage">
       {images.map((src, i) => {
         const rotation = i % 2 === 0 ? "-7deg" : "7deg";
 
         return (
           <div
             key={i}
-            className="rounded-xl overflow-hidden shadow-2xl mx-auto"
+            className="party-home-collage-card rounded-xl shadow-2xl mx-auto"
             style={{
-              width: "140px",   // fixed small size
-              height: "180px",  // fixed height
               transform: `rotate(${rotation})`,
             }}
           >
