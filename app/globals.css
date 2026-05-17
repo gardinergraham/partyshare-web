@@ -124,6 +124,11 @@ html, body {
   max-width: 100%;
 }
 
+.party-home,
+.party-home * {
+  box-sizing: border-box;
+}
+
 .party-home-logo {
   width: min(176px, 34vw);
 }
@@ -141,6 +146,7 @@ html, body {
   max-width: 1120px;
   margin: 0 auto;
   padding: 48px 40px 64px;
+  overflow-wrap: break-word;
 }
 
 .party-home-showcase-image {
