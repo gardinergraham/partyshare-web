@@ -496,16 +496,23 @@ html, body {
 
 .ps-tool-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 16px;
 }
 
 .ps-tool-card {
-  min-height: 210px;
+  min-height: 220px;
   padding: 22px;
   border: 1px solid rgba(255, 255, 255, 0.11);
   border-radius: 8px;
   background: #19192b;
+}
+
+.ps-tool-card:first-child {
+  border-color: rgba(233, 69, 96, 0.35);
+  background:
+    radial-gradient(circle at 18% 0%, rgba(233, 69, 96, 0.24), transparent 34%),
+    #1b1728;
 }
 
 .ps-tool-card h3 {

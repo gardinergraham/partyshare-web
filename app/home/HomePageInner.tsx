@@ -12,6 +12,10 @@ const eventPhotos = [
 
 const hostTools = [
   {
+    title: "Creative AI event reels",
+    text: "Turn the best gallery moments into a tasteful highlight reel with music, styled to suit the mood of the event.",
+  },
+  {
     title: "Guest photo uploads",
     text: "Guests scan your QR code and add photos or videos straight into the shared gallery.",
   },
@@ -20,12 +24,16 @@ const hostTools = [
     text: "Everything stays organised by event, ready for viewing, sharing, and downloading.",
   },
   {
-    title: "Print-ready stationery",
-    text: "Create name cards, table talkers, invitations, and event posters with matching styles.",
+    title: "Designed event stationery",
+    text: "Create coordinated invitations, name cards, QR table talkers, event posters, and print-ready layouts.",
   },
   {
-    title: "Planning tools",
-    text: "Manage guests, tables, seating plans, checklists, and event details from one place.",
+    title: "Event planning workspace",
+    text: "Manage guest lists, seating plans, table layouts, checklists, timings, dress code, and event details.",
+  },
+  {
+    title: "Digital guestbook",
+    text: "Collect messages from guests and keep them alongside the photos, videos, stationery, and finished event memories.",
   },
 ];
 
@@ -135,6 +143,11 @@ export default function HomePage() {
           <div className="ps-section-heading">
             <p className="ps-kicker">What it includes</p>
             <h2>More than a photo gallery.</h2>
+            <p className="ps-section-copy">
+              PartyShare brings the practical parts of hosting together with
+              the memories guests create, from AI reels and private galleries to
+              planning tools and beautifully matched stationery.
+            </p>
           </div>
 
           <div className="ps-tool-grid">
