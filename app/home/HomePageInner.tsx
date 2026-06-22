@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useRef } from "react";
 
 const eventPhotos = [
   "/images/IMG_3269.webp",
@@ -45,6 +46,14 @@ const steps = [
 ];
 
 export default function HomePage() {
+  const stagHenRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    stagHenRef.current?.classList.add(
+      Math.random() > 0.5 ? "ps-stag-hen-stag" : "ps-stag-hen-hen",
+    );
+  }, []);
+
   return (
     <div className="ps-home">
       <section className="ps-hero">
@@ -160,7 +169,11 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="ps-section ps-stag-hen" id="stag-hen">
+        <section
+          ref={stagHenRef}
+          className="ps-section ps-stag-hen"
+          id="stag-hen"
+        >
           <div className="ps-stag-hen-media">
             <Image
               src="/images/stag-and-hen-download-poster-preview.png"

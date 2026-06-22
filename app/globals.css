@@ -527,6 +527,9 @@ html, body {
 }
 
 .ps-stag-hen {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   padding: clamp(22px, 4vw, 38px);
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 8px;
@@ -536,12 +539,44 @@ html, body {
     #06070b;
 }
 
+.ps-stag-hen::before,
+.ps-stag-hen::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  opacity: 0;
+  background-position: center;
+  background-size: cover;
+  transition: opacity 360ms ease;
+}
+
+.ps-stag-hen::after {
+  z-index: -1;
+  opacity: 1;
+  background:
+    linear-gradient(90deg, rgba(6, 7, 11, 0.94) 0%, rgba(6, 7, 11, 0.78) 48%, rgba(6, 7, 11, 0.9) 100%),
+    radial-gradient(circle at 18% 16%, rgba(247, 13, 146, 0.32), transparent 30%),
+    radial-gradient(circle at 82% 80%, rgba(17, 197, 204, 0.24), transparent 34%);
+}
+
+.ps-stag-hen-hen::before {
+  opacity: 1;
+  background-image: url("/images/henGirlsBack.webp");
+}
+
+.ps-stag-hen-stag::before {
+  opacity: 1;
+  background-image: url("/images/stagBoysBack.webp");
+}
+
 .ps-stag-hen-media {
   position: relative;
   min-height: 620px;
   overflow: hidden;
   border-radius: 8px;
-  background: rgba(0, 0, 0, 0.42);
+  background: rgba(0, 0, 0, 0.54);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.4);
 }
 
 .ps-stag-hen-copy p {
@@ -783,6 +818,13 @@ html, body {
 
   .ps-stag-hen {
     padding: 18px;
+  }
+
+  .ps-stag-hen::after {
+    background:
+      linear-gradient(180deg, rgba(6, 7, 11, 0.96) 0%, rgba(6, 7, 11, 0.82) 44%, rgba(6, 7, 11, 0.95) 100%),
+      radial-gradient(circle at 18% 16%, rgba(247, 13, 146, 0.3), transparent 32%),
+      radial-gradient(circle at 82% 80%, rgba(17, 197, 204, 0.22), transparent 36%);
   }
 
   .ps-stag-hen-media {
