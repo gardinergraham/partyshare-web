@@ -394,9 +394,12 @@ html, body {
   transform: translateY(28px);
 }
 
-.ps-photo-tile-image,
-.ps-stag-hen-image {
+.ps-photo-tile-image {
   object-fit: cover;
+}
+
+.ps-stag-hen-image {
+  object-fit: contain;
 }
 
 .ps-section {
@@ -520,18 +523,77 @@ html, body {
   padding: clamp(22px, 4vw, 38px);
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 8px;
-  background: #161b28;
+  background:
+    radial-gradient(circle at 18% 16%, rgba(247, 13, 146, 0.18), transparent 28%),
+    radial-gradient(circle at 82% 80%, rgba(17, 197, 204, 0.16), transparent 32%),
+    #06070b;
 }
 
 .ps-stag-hen-media {
   position: relative;
-  min-height: 420px;
+  min-height: 620px;
   overflow: hidden;
   border-radius: 8px;
+  background: rgba(0, 0, 0, 0.42);
 }
 
 .ps-stag-hen-copy p {
   margin: 18px 0 0;
+}
+
+.ps-stag-hen-logo {
+  width: 112px;
+  height: 112px;
+  border-radius: 24px;
+  margin-bottom: 22px;
+  background: #fff;
+  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.38);
+}
+
+.ps-stag-hen-list {
+  display: grid;
+  gap: 10px;
+  padding: 0;
+  margin: 24px 0 0;
+  list-style: none;
+}
+
+.ps-stag-hen-list li {
+  color: #f7f3ea;
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.ps-stag-hen-qr-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 26px;
+}
+
+.ps-stag-hen-qr-card {
+  width: 142px;
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  text-align: center;
+}
+
+.ps-stag-hen-qr-card img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+  background: #fff;
+}
+
+.ps-stag-hen-qr-card span {
+  display: block;
+  margin-top: 8px;
+  color: #d8d8e2;
+  font-size: 12px;
+  font-weight: 800;
 }
 
 .ps-process {
@@ -717,7 +779,7 @@ html, body {
   }
 
   .ps-stag-hen-media {
-    min-height: 280px;
+    min-height: 440px;
   }
 
   .ps-stationery-images {

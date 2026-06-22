@@ -150,8 +150,8 @@ export default function HomePage() {
         <section className="ps-section ps-stag-hen" id="stag-hen">
           <div className="ps-stag-hen-media">
             <Image
-              src="/images/IMG_3268.webp"
-              alt="Group celebrating at an event"
+              src="/images/stag-and-hen-download-poster-preview.png"
+              alt="The Stag and Hen app download poster"
               fill
               sizes="(max-width: 900px) 100vw, 520px"
               className="ps-stag-hen-image"
@@ -159,23 +159,54 @@ export default function HomePage() {
           </div>
 
           <div className="ps-stag-hen-copy">
-            <p className="ps-kicker">New add-on feature</p>
-            <h2>Promote the Stag & Hen app as the planning companion.</h2>
+            <Image
+              src="/images/stag-and-hen-logo.png"
+              alt="The Stag and Hen"
+              width={112}
+              height={112}
+              className="ps-stag-hen-logo"
+            />
+            <p className="ps-kicker">The Ultimate Stag & Hen Party App</p>
+            <h2>Everything your crew needs in one place.</h2>
             <p>
-              PartyShare can own the memories from the big event, while the
-              Stag & Hen app helps groups plan the weekend before it: schedules,
-              payments, guest lists, activities, and shared plans.
+              From collecting money and organising the weekend to sharing photos
+              and playing hilarious party games, The Stag & Hen app takes the
+              stress out of planning and puts the fun back into partying.
             </p>
+            <ul className="ps-stag-hen-list">
+              <li>🎯 QR Code Crew Invites</li>
+              <li>📸 Private Shared Gallery</li>
+              <li>💰 Group Kitty & Spending Tracker</li>
+              <li>🎲 Dares, Missions & Party Games</li>
+              <li>🛍️ Curated Party Shop</li>
+            </ul>
             <p>
-              This makes the website feel like a family of event tools rather
-              than a single-purpose gallery app.
+              Create memories you&apos;ll be talking about long after the
+              wedding day.
             </p>
+            <div className="ps-stag-hen-qr-row" aria-label="Stag and Hen app download QR codes">
+              <div className="ps-stag-hen-qr-card">
+                <Image
+                  src="/images/stag-and-hen-ios-app-store-qr.png"
+                  alt="The Stag and Hen iPhone and iPad App Store QR code"
+                  width={120}
+                  height={120}
+                />
+                <span>iPhone & iPad</span>
+              </div>
+              <div className="ps-stag-hen-qr-card">
+                <Image
+                  src="/images/stag-and-hen-google-play-qr.png"
+                  alt="The Stag and Hen Android Google Play QR code"
+                  width={120}
+                  height={120}
+                />
+                <span>Android</span>
+              </div>
+            </div>
             <div className="ps-inline-actions">
-              <Link href="/download" className="ps-button ps-button-primary">
-                Download PartyShare
-              </Link>
-              <a href="#app-download" className="ps-button ps-button-secondary">
-                App Store Links
+              <a href="https://stag-and-hen.com" className="ps-button ps-button-primary">
+                Download Now
               </a>
             </div>
           </div>
